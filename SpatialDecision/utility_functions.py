@@ -21,11 +21,12 @@
  ***************************************************************************/
 """
 from PyQt4 import QtGui, QtCore
-#from PyQt4.QtCore import *
-#from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.networkanalysis import *
+<<<<<<< HEAD
 
+=======
+>>>>>>> jorgegil/master
 
 from pyspatialite import dbapi2 as sqlite
 import psycopg2 as pgsql
@@ -44,7 +45,13 @@ except ImportError, e:
 # Layer functions
 #
 def getLegendLayers(iface, geom='all', provider='all'):
-    """Return list of valid QgsVectorLayer in QgsLegendInterface, with specific geometry type and/or data provider"""
+    """
+    Return list of layer objects in the legend, with specific geometry type and/or data provider
+    :param iface: QgsInterface
+    :param geom: string ('point', 'linestring', 'polygon')
+    :param provider: string
+    :return: list QgsVectorLayer
+    """
     layers_list = []
     for layer in iface.legendInterface().layers():
         add_layer = False
@@ -196,7 +203,7 @@ def fieldHasNullValues(layer, name):
         idx = getFieldIndex(layer, name)
         vals = layer.uniqueValues(idx,1)
         # depending on the provider list is empty or has NULL value in first position
-        if len(vals) == 0 or (len(vals) == 1 and vals[0] == NULL):
+        if not vals or (len(vals) == 1 and vals[0] == NULL):
             return True
         else:
             return False
@@ -225,6 +232,7 @@ def getFieldValues(layer, fieldname, null=True, selection=False):
 
 
 def addFields(layer, names, types):
+    # types can be QVariant.Int, QVariant.Double, QVariant.String
     res = False
     if layer:
         provider = layer.dataProvider()
@@ -241,6 +249,23 @@ def addFields(layer, names, types):
     return res
 
 
+def updateField(layer, name, expression):
+    res = False
+    if layer:
+        provider = layer.dataProvider()
+        caps = provider.capabilities()
+        if caps & QgsVectorDataProvider.AddAttributes:
+            #field = layer.fieldNameIndex(name)
+            calc = QgsExpression(expression)
+            layer.startEditing()
+            for feature in layer.getFeatures():
+                value = calc.evaluate(feature)
+                feature[name] = value
+                layer.updateFeature(feature)
+                #layer.changeAttributeValue(feature.id(), field, value)
+            layer.commitChanges()
+            res = True
+    return res
 #
 # Feature functions
 #
@@ -296,6 +321,19 @@ def selectFeaturesByRangeValues(layer, name, min, max):
             layer.select(features)
 
 
+<<<<<<< HEAD
+=======
+def getFeaturesByExpression(layer, expression):
+    features = {}
+    if layer:
+        request = QgsFeatureRequest().setFilterExpression(expression)
+        iterator = layer.getFeatures(request)
+        for feature in iterator:
+            features[feature.id()] = feature.attributes()
+    return features
+
+
+>>>>>>> jorgegil/master
 def selectFeaturesByExpression(layer, expression):
     features = []
     if layer:
@@ -320,7 +358,7 @@ def getAllFeatures(layer):
     allfeatures = {}
     if layer:
         features = layer.getFeatures()
-        allfeatures = {feature.id(): feature for feature in features}
+        allfeatures = {feature.id(): feature.attributes() for feature in features}
     return allfeatures
 
 
@@ -353,7 +391,7 @@ def getAllFeatureData(layer):
         renderer = layer.rendererV2()
         features = layer.getFeatures()
         for feature in features:
-            data = {feature.id(): feature}
+            data = {feature.id(): feature.attributes()}
             symb = renderer.symbolsForFeature(feature)
             if len(symb) > 0:
                 symbols = {feature.id(): symb[0].color()}
@@ -375,7 +413,11 @@ def getFeaturesByIntersection(base_layer, intersect_layer, crosses):
     # does the opposite if crosses = False
     for feat in base:
         append = not crosses
+<<<<<<< HEAD
         base_geom = QgsGeometry(feat.geometry())
+=======
+        base_geom = feat.geometry()
+>>>>>>> jorgegil/master
         for intersect in intersect_geom:
             if base_geom.intersects(intersect):
                 append = crosses
@@ -385,14 +427,20 @@ def getFeaturesByIntersection(base_layer, intersect_layer, crosses):
     return features
 
 
+<<<<<<< HEAD
 def getFeaturesIntersections(base_layer, intersect_layer):
     intersections = []
+=======
+def selectFeaturesByIntersection(base_layer, intersect_layer, crosses):
+    features = []
+>>>>>>> jorgegil/master
     # retrieve objects to be intersected (list comprehension, more pythonic)
     obstacles_geom = [QgsGeometry(feat.geometry()) for feat in intersect_layer.getFeatures()]
     # retrieve base layer objects
     base = base_layer.getFeatures()
     # loop through base features and intersecting elements
     for feat in base:
+<<<<<<< HEAD
         base_geom = QgsGeometry(feat.geometry())
         for obst in obstacles_geom:
             if base_geom.intersects(obst):
@@ -402,12 +450,7 @@ def getFeaturesIntersections(base_layer, intersect_layer):
 
 def selectFeaturesByIntersection(base_layer, intersect_layer, crosses):
     features = []
-    # retrieve objects to be intersected (list comprehension, more pythonic)
-    obstacles_geom = [QgsGeometry(feat.geometry()) for feat in intersect_layer.getFeatures()]
-    # retrieve base layer objects
-    base = base_layer.getFeatures()
-    # loop through base features and intersecting elements
-    for feat in base:
+=======
         append = not crosses
         base_geom = QgsGeometry(feat.geometry())
         for obst in obstacles_geom:
@@ -419,6 +462,34 @@ def selectFeaturesByIntersection(base_layer, intersect_layer, crosses):
     base_layer.select(features)
 
 
+def getFeaturesIntersections(base_layer, intersect_layer):
+    intersections = []
+>>>>>>> jorgegil/master
+    # retrieve objects to be intersected (list comprehension, more pythonic)
+    obstacles_geom = [QgsGeometry(feat.geometry()) for feat in intersect_layer.getFeatures()]
+    # retrieve base layer objects
+    base = base_layer.getFeatures()
+    # loop through base features and intersecting elements
+    for feat in base:
+<<<<<<< HEAD
+        append = not crosses
+        base_geom = QgsGeometry(feat.geometry())
+        for obst in obstacles_geom:
+            if base_geom.intersects(obst):
+                append = crosses
+                break
+        if append:
+            features.append(feat.id())
+    base_layer.select(features)
+=======
+        base_geom = QgsGeometry(feat.geometry())
+        for obst in obstacles_geom:
+            if base_geom.intersects(obst):
+                intersections.append(base_geom.intersection(obst))
+    return intersections
+>>>>>>> jorgegil/master
+
+
 #
 # Canvas functions
 #
@@ -427,50 +498,162 @@ def showMessage(iface, msg, type='Info', lev=1, dur=2):
     iface.messageBar().pushMessage(type,msg,level=lev,duration=dur)
 
 
-def getCanvasColour(iface):
-    colour = iface.mapCanvas().canvasColor()
-    return colour
+def updateRenderer(layer, attribute, settings):
+    """
+    Creates a renderer for the layer based on this, and applies it
+    The renderer uses GradientColourRamp to calculate the symbol colours
+
+    @param layer: the selected QgsVectorLayer object
+    """
+    geometry = layer.geometryType()
+    # create a colour ramp based on colour range type, inverting symbols if required
+    ramp = settings['ramp']
+    line_width = float(settings['line_width'])
+    # calculate ranges: EqualInterval = 0; Quantile  = 1; Jenks = 2; StdDev = 3; Pretty = 4; Custom = 5
+    intervals = int(settings['intervals'])
+    interval_type = int(settings['interval_type'])
+    renderer = None
+    # set symbol type and line width
+    symbol = QgsSymbolV2.defaultSymbol(geometry)
+    if symbol:
+        if symbol.type() == 1:  # line
+            symbol.setWidth(line_width)
+        elif symbol.type() == 2:  # line
+            symbol = QgsFillSymbolV2.createSimple({'style': 'solid', 'color': 'black', 'width_border': '%s' % line_width})
+        elif symbol.type() == 0:  # point
+            symbol.setSize(line_width)
+        renderer = QgsGraduatedSymbolRendererV2.createRenderer(layer, attribute, intervals, interval_type, symbol, ramp)
+        renderer.setMode(interval_type)
+        renderer.setSourceColorRamp(ramp)
+    return renderer
 
 
-def printCanvas(filename=''):
-    if not filename:
-        filename = 'print_map.pdf'
-
-    # image size parameters
-    imageWidth_mm = 10000
-    imageHeight_mm = 10000
-    dpi = 300
-
-    map_settings = self.iface.mapCanvas().mapSettings()
-    c = QgsComposition(map_settings)
-    c.setPaperSize(imageWidth_mm, imageHeight_mm)
-    c.setPrintResolution(dpi)
-
-    x, y = 0, 0
-    w, h = c.paperWidth(), c.paperHeight()
-    composerMap = QgsComposerMap(c, x ,y, w, h)
-    composerMap.setBackgroundEnabled(True)
-    c.addItem(composerMap)
-
-    dpmm = dpi / 25.4
-    width = int(dpmm * c.paperWidth())
-    height = int(dpmm * c.paperHeight())
-
-    # create output image and initialize it
-    image = QtGui.QImage(QtCore.QSize(width, height), QtGui.QImage.Format_ARGB32)
-    image.setDotsPerMeterX(dpmm * 1000)
-    image.setDotsPerMeterY(dpmm * 1000)
-    imagePainter = QtGui.QPainter(image)
-
-    c.setPlotStyle(QgsComposition.Print)
-    c.renderPage( imagePainter, 0 )
-    imagePainter.end()
-
-    image.save(filename, "PDF")
 
 #
 # Network functions
 #
+def makeUndirectedGraph(network_layer, points=list):
+    graph = None
+    tied_points = []
+    if network_layer:
+        director = QgsLineVectorLayerDirector(network_layer, -1, '', '', '', 3)
+        properter = QgsDistanceArcProperter()
+        director.addProperter(properter)
+        builder = QgsGraphBuilder(network_layer.crs())
+        tied_points = director.makeGraph(builder, points)
+        graph = builder.graph()
+    return graph, tied_points
+
+
+def makeDirectedGraph(network_layer, points=list, direction_field=-1, one_way='', reverse_way='', two_way='', default_direction=3):
+    graph = None
+    tied_points = []
+    if network_layer:
+        director = QgsLineVectorLayerDirector(network_layer, direction_field, one_way, reverse_way, two_way, default_direction)
+        properter = QgsDistanceArcProperter()
+        director.addProperter(properter)
+        builder = QgsGraphBuilder(network_layer.crs())
+        tied_points = director.makeGraph(builder, points)
+        graph = builder.graph()
+    return graph, tied_points
+
+
+def calculateRouteTree(graph, tied_points, origin, destination, impedance=0):
+    points = []
+    if tied_points:
+        try:
+            from_point = tied_points[origin]
+            to_point = tied_points[destination]
+        except:
+            return points
+
+        # analyse graph
+        if graph:
+            form_id = graph.findVertex(from_point)
+            tree = QgsGraphAnalyzer.shortestTree(graph, form_id, impedance)
+            form_id = tree.findVertex(from_point)
+            to_id = tree.findVertex(to_point)
+
+            # iterate to get all points in route
+            if to_id == -1:
+                pass
+            else:
+                while form_id != to_id:
+                    l = tree.vertex(to_id).inArc()
+                    if not l:
+                        break
+                    e = tree.arc(l[0])
+                    points.insert(0, tree.vertex(e.inVertex()).point())
+                    to_id = e.outVertex()
+
+                points.insert(0, from_point)
+
+    return points
+
+
+def calculateRouteDijkstra(graph, tied_points, origin, destination, impedance=0):
+    points = []
+    if tied_points:
+        try:
+            from_point = tied_points[origin]
+            to_point = tied_points[destination]
+        except:
+            return points
+
+        # analyse graph
+        if graph:
+            from_id = graph.findVertex(from_point)
+            to_id = graph.findVertex(to_point)
+
+            (tree, cost) = QgsGraphAnalyzer.dijkstra(graph, from_id, impedance)
+
+            if tree[to_id] == -1:
+                pass
+            else:
+                curPos = to_id
+                while curPos != from_id:
+                    points.append(graph.vertex(graph.arc(tree[curPos]).inVertex()).point())
+                    curPos = graph.arc(tree[curPos]).outVertex()
+
+                points.append(from_point)
+                points.reverse()
+
+<<<<<<< HEAD
+def printCanvas(filename=''):
+    if not filename:
+        filename = 'print_map.pdf'
+=======
+    return points
+>>>>>>> jorgegil/master
+
+
+def calculateServiceArea(graph, tied_points, origin, cutoff, impedance=0):
+    points = {}
+    if tied_points:
+        try:
+            from_point = tied_points[origin]
+        except:
+            return points
+
+        # analyse graph
+        if graph:
+            from_id = graph.findVertex(from_point)
+
+            (tree, cost) = QgsGraphAnalyzer.dijkstra(graph, from_id, impedance)
+
+            i = 0
+            while i < len(cost):
+                if cost[i] <= cutoff and tree[i] != -1:
+                    points[str(i)]=((graph.vertex(i).point()),cost)
+                i += 1
+
+    return points
+
+
+#
+# Network functions
+#
+<<<<<<< HEAD
 def makeUndirectedGraph(network_layer, points=list):
     graph = None
     tied_points = []
@@ -587,6 +770,8 @@ def calculateServiceArea(graph, tied_points, origin, cutoff, impedance=0):
 #
 # General functions
 #
+=======
+>>>>>>> jorgegil/master
 def getLastDir(tool_name=''):
     path = ''
     settings = QtCore.QSettings(tool_name,"")
@@ -684,6 +869,7 @@ def getDBLayerConnection(layer):
         connection_object = None
     return connection_object
 
+
 def getSpatialiteConnection(path):
     try:
         connection=sqlite.connect(path)
@@ -691,6 +877,7 @@ def getSpatialiteConnection(path):
         #pop_up_error("Unable to connect to selected database: \n %s" % error)
         connection = None
     return connection
+
 
 def getDBLayerTableName(layer):
     uri = QgsDataSourceURI(layer.dataProvider().dataSourceUri())
@@ -733,6 +920,7 @@ def loadTempLayer(layer):
     QgsMapLayerRegistry.instance().addMapLayer(layer)
 
 
+<<<<<<< HEAD
 def insertTempFeatures(layer, coordinates, attributes):
     provider = layer.dataProvider()
     geometry_type = provider.geometryType()
@@ -745,6 +933,30 @@ def insertTempFeatures(layer, coordinates, attributes):
         # in the case of polygons, instead of coordinates we insert the geometry
         elif geometry_type == 3:
             fet.setGeometry(geom)
+=======
+def insertTempFeatures(layer, geometry, attributes):
+    provider = layer.dataProvider()
+    geometry_type = provider.geometryType()
+    for i, geom in enumerate(geometry):
+        fet = QgsFeature()
+        if geometry_type in (1, 4):
+            fet.setGeometry(QgsGeometry.fromPoint(geom))
+        elif geometry_type in (2, 5):
+            fet.setGeometry(QgsGeometry.fromPolyline(geom))
+        elif geometry_type in (3, 6):
+            fet.setGeometry(QgsGeometry.fromPolygon(geom))
+        if attributes:
+            fet.setAttributes(attributes[i])
+        provider.addFeatures([fet])
+    provider.updateExtents()
+
+
+def insertTempFeaturesGeom(layer, geometry, attributes):
+    provider = layer.dataProvider()
+    for i, geom in enumerate(geometry):
+        fet = QgsFeature()
+        fet.setGeometry(geom)
+>>>>>>> jorgegil/master
         if attributes:
             fet.setAttributes(attributes[i])
         provider.addFeatures([fet])
@@ -801,30 +1013,6 @@ def createTempLayerFull(name, srid, attributes, types, values, coords):
 #---------------------------------------------
 # Shape file specific functions
 #---------------------------------------------
-def listShapeFolders():
-    # get folder name and path of open layers
-    res = dict()
-    res['idx'] = 0
-    res['name'] = []
-    res['path'] = []
-    layers = getRegistryLayers('all', 'ogr')
-    for layer in layers:
-        provider = layer.dataProvider()
-        if layer.storageType() == 'ESRI Shapefile':
-            path = os.path.dirname(layer.dataProvider().dataSourceUri())
-            try:
-                idx = res['path'].index(path)
-            except:
-                res['name'].append(os.path.basename(os.path.normpath(path))) #layer.name()
-                res['path'].append(path)
-            #for the file name: os.path.basename(uri).split('|')[0]
-    #case: no folders available
-    if len(res['name']) < 1:
-        res = None
-    #return the result even if empty
-    return res
-
-
 def testShapeFileExists(path, name):
     filename = path+"/"+name+".shp"
     exists = os.path.isfile(filename)
