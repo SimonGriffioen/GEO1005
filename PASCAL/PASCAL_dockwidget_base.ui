@@ -22,61 +22,51 @@
       </property>
       <widget class="QWidget" name="Project">
        <attribute name="title">
-        <string>Tab 1</string>
+        <string>Project</string>
        </attribute>
-       <widget class="QGroupBox" name="groupBox">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>241</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Project name</string>
-        </property>
-        <widget class="QLineEdit" name="lineEdit">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>30</y>
-           <width>221</width>
-           <height>21</height>
-          </rect>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="pushButton">
-         <property name="geometry">
-          <rect>
-           <x>140</x>
-           <y>60</y>
-           <width>91</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="text">
-          <string>Save</string>
-         </property>
-        </widget>
-       </widget>
-       <widget class="QGroupBox" name="groupBox_2">
-        <property name="geometry">
-         <rect>
-          <x>270</x>
-          <y>10</y>
-          <width>251</width>
-          <height>131</height>
-         </rect>
-        </property>
-        <property name="title">
-         <string>Input data</string>
-        </property>
-       </widget>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Project name</string>
+          </property>
+          <widget class="QLineEdit" name="lineEdit">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>30</y>
+             <width>221</width>
+             <height>21</height>
+            </rect>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton">
+           <property name="geometry">
+            <rect>
+             <x>140</x>
+             <y>60</y>
+             <width>91</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>Input data</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="Data">
        <attribute name="title">
-        <string>Tab 2</string>
+        <string>Data selection</string>
        </attribute>
        <widget class="QTreeView" name="treeView">
         <property name="geometry">
@@ -118,7 +108,7 @@
         <property name="geometry">
          <rect>
           <x>50</x>
-          <y>120</y>
+          <y>100</y>
           <width>111</width>
           <height>20</height>
          </rect>
@@ -130,7 +120,7 @@
       </widget>
       <widget class="QWidget" name="Analysis">
        <attribute name="title">
-        <string>Page</string>
+        <string>Analysis</string>
        </attribute>
        <widget class="QDoubleSpinBox" name="doubleSpinBox">
         <property name="geometry">
