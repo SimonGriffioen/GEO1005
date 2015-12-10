@@ -18,7 +18,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="Project">
        <attribute name="title">
@@ -313,6 +313,24 @@
         </property>
         <property name="text">
          <string>meters</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>Visualisation</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>20</y>
+          <width>471</width>
+          <height>80</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Gradient heatmap</string>
         </property>
        </widget>
       </widget>
