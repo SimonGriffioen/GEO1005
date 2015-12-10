@@ -23,10 +23,6 @@
 from PyQt4 import QtGui, QtCore
 from qgis.core import *
 from qgis.networkanalysis import *
-<<<<<<< HEAD
-
-=======
->>>>>>> jorgegil/master
 
 from pyspatialite import dbapi2 as sqlite
 import psycopg2 as pgsql
@@ -321,8 +317,6 @@ def selectFeaturesByRangeValues(layer, name, min, max):
             layer.select(features)
 
 
-<<<<<<< HEAD
-=======
 def getFeaturesByExpression(layer, expression):
     features = {}
     if layer:
@@ -333,7 +327,6 @@ def getFeaturesByExpression(layer, expression):
     return features
 
 
->>>>>>> jorgegil/master
 def selectFeaturesByExpression(layer, expression):
     features = []
     if layer:
@@ -413,11 +406,7 @@ def getFeaturesByIntersection(base_layer, intersect_layer, crosses):
     # does the opposite if crosses = False
     for feat in base:
         append = not crosses
-<<<<<<< HEAD
-        base_geom = QgsGeometry(feat.geometry())
-=======
         base_geom = feat.geometry()
->>>>>>> jorgegil/master
         for intersect in intersect_geom:
             if base_geom.intersects(intersect):
                 append = crosses
@@ -427,30 +416,14 @@ def getFeaturesByIntersection(base_layer, intersect_layer, crosses):
     return features
 
 
-<<<<<<< HEAD
-def getFeaturesIntersections(base_layer, intersect_layer):
-    intersections = []
-=======
 def selectFeaturesByIntersection(base_layer, intersect_layer, crosses):
     features = []
->>>>>>> jorgegil/master
     # retrieve objects to be intersected (list comprehension, more pythonic)
     obstacles_geom = [QgsGeometry(feat.geometry()) for feat in intersect_layer.getFeatures()]
     # retrieve base layer objects
     base = base_layer.getFeatures()
     # loop through base features and intersecting elements
     for feat in base:
-<<<<<<< HEAD
-        base_geom = QgsGeometry(feat.geometry())
-        for obst in obstacles_geom:
-            if base_geom.intersects(obst):
-                intersections.append(base_geom.intersection(obst))
-    return intersections
-
-
-def selectFeaturesByIntersection(base_layer, intersect_layer, crosses):
-    features = []
-=======
         append = not crosses
         base_geom = QgsGeometry(feat.geometry())
         for obst in obstacles_geom:
@@ -464,30 +437,17 @@ def selectFeaturesByIntersection(base_layer, intersect_layer, crosses):
 
 def getFeaturesIntersections(base_layer, intersect_layer):
     intersections = []
->>>>>>> jorgegil/master
     # retrieve objects to be intersected (list comprehension, more pythonic)
     obstacles_geom = [QgsGeometry(feat.geometry()) for feat in intersect_layer.getFeatures()]
     # retrieve base layer objects
     base = base_layer.getFeatures()
     # loop through base features and intersecting elements
     for feat in base:
-<<<<<<< HEAD
-        append = not crosses
-        base_geom = QgsGeometry(feat.geometry())
-        for obst in obstacles_geom:
-            if base_geom.intersects(obst):
-                append = crosses
-                break
-        if append:
-            features.append(feat.id())
-    base_layer.select(features)
-=======
         base_geom = QgsGeometry(feat.geometry())
         for obst in obstacles_geom:
             if base_geom.intersects(obst):
                 intersections.append(base_geom.intersection(obst))
     return intersections
->>>>>>> jorgegil/master
 
 
 #
@@ -618,13 +578,7 @@ def calculateRouteDijkstra(graph, tied_points, origin, destination, impedance=0)
                 points.append(from_point)
                 points.reverse()
 
-<<<<<<< HEAD
-def printCanvas(filename=''):
-    if not filename:
-        filename = 'print_map.pdf'
-=======
     return points
->>>>>>> jorgegil/master
 
 
 def calculateServiceArea(graph, tied_points, origin, cutoff, impedance=0):
@@ -651,127 +605,8 @@ def calculateServiceArea(graph, tied_points, origin, cutoff, impedance=0):
 
 
 #
-# Network functions
-#
-<<<<<<< HEAD
-def makeUndirectedGraph(network_layer, points=list):
-    graph = None
-    tied_points = []
-    if network_layer:
-        director = QgsLineVectorLayerDirector(network_layer, -1, '', '', '', 3)
-        properter = QgsDistanceArcProperter()
-        director.addProperter(properter)
-        builder = QgsGraphBuilder(network_layer.crs())
-        tied_points = director.makeGraph(builder, points)
-        graph = builder.graph()
-    return graph, tied_points
-
-
-def makeDirectedGraph(network_layer, points=list, direction_field=-1, one_way='', reverse_way='', two_way='', default_direction=3):
-    graph = None
-    tied_points = []
-    if network_layer:
-        director = QgsLineVectorLayerDirector(network_layer, direction_field, one_way, reverse_way, two_way, default_direction)
-        properter = QgsDistanceArcProperter()
-        director.addProperter(properter)
-        builder = QgsGraphBuilder(network_layer.crs())
-        tied_points = director.makeGraph(builder, points)
-        graph = builder.graph()
-    return graph, tied_points
-
-
-def calculateRouteTree(graph, tied_points, origin, destination, impedance=0):
-    points = []
-    if tied_points:
-        try:
-            from_point = tied_points[origin]
-            to_point = tied_points[destination]
-        except:
-            return points
-
-        # analyse graph
-        if graph:
-            form_id = graph.findVertex(from_point)
-            tree = QgsGraphAnalyzer.shortestTree(graph, form_id, impedance)
-            form_id = tree.findVertex(from_point)
-            to_id = tree.findVertex(to_point)
-
-            # iterate to get all points in route
-            if to_id == -1:
-                pass
-            else:
-                while form_id != to_id:
-                    l = tree.vertex(to_id).inArc()
-                    if len(l) == 0:
-                        break
-                    e = tree.arc(l[0])
-                    points.insert(0, tree.vertex(e.inVertex()).point())
-                    to_id = e.outVertex()
-
-                points.insert(0, from_point)
-
-    return points
-
-
-def calculateRouteDijkstra(graph, tied_points, origin, destination, impedance=0):
-    points = []
-    if tied_points:
-        try:
-            from_point = tied_points[origin]
-            to_point = tied_points[destination]
-        except:
-            return points
-
-        # analyse graph
-        if graph:
-            from_id = graph.findVertex(from_point)
-            to_id = graph.findVertex(to_point)
-
-            (tree, cost) = QgsGraphAnalyzer.dijkstra(graph, from_id, impedance)
-
-            if tree[to_id] == -1:
-                pass
-            else:
-                curPos = to_id
-                while curPos != from_id:
-                    points.append(graph.vertex(graph.arc(tree[curPos]).inVertex()).point())
-                    curPos = graph.arc(tree[curPos]).outVertex()
-
-                points.append(from_point)
-                points.reverse()
-
-    return points
-
-
-def calculateServiceArea(graph, tied_points, origin, cutoff, impedance=0):
-    points = {}
-    if tied_points:
-        try:
-            from_point = tied_points[origin]
-        except:
-            return points
-
-        # analyse graph
-        if graph:
-            from_id = graph.findVertex(from_point)
-
-            (tree, cost) = QgsGraphAnalyzer.dijkstra(graph, from_id, impedance)
-
-            i = 0
-            while i < len(cost):
-                if cost[i] > cutoff and tree[i] != -1:
-                    outVertexId = graph.arc(tree[i]).outVertex()
-                    if cost[outVertexId] < cutoff:
-                        points[str(i)]=((graph.vertex(i).point()),cost)
-                i += 1
-
-    return points
-
-#
 # General functions
 #
-=======
->>>>>>> jorgegil/master
 def getLastDir(tool_name=''):
     path = ''
     settings = QtCore.QSettings(tool_name,"")
@@ -841,19 +676,6 @@ def createIndex(layer):
         return None
 
 
-def drawRouteBand(canvas, points, colour='red', width=3):
-    # check QColor.colorNames() for valid colour names
-    rb = QgsRubberBand(canvas, False)
-    try:
-        rb.setColor(QtGui.QColor(colour))
-    except:
-        rb.setColor(QtCore.Qt.red)
-    rb.setWidth(width)
-    for pnt in points:
-        rb.addPoint(pnt)
-    rb.show()
-
-
 #------------------------------
 # General database functions
 #------------------------------
@@ -920,20 +742,6 @@ def loadTempLayer(layer):
     QgsMapLayerRegistry.instance().addMapLayer(layer)
 
 
-<<<<<<< HEAD
-def insertTempFeatures(layer, coordinates, attributes):
-    provider = layer.dataProvider()
-    geometry_type = provider.geometryType()
-    for i, geom in enumerate(coordinates):
-        fet = QgsFeature()
-        if geometry_type == 1:
-            fet.setGeometry(QgsGeometry.fromPoint(geom))
-        elif geometry_type == 2:
-            fet.setGeometry(QgsGeometry.fromPolyline(geom))
-        # in the case of polygons, instead of coordinates we insert the geometry
-        elif geometry_type == 3:
-            fet.setGeometry(geom)
-=======
 def insertTempFeatures(layer, geometry, attributes):
     provider = layer.dataProvider()
     geometry_type = provider.geometryType()
@@ -956,7 +764,6 @@ def insertTempFeaturesGeom(layer, geometry, attributes):
     for i, geom in enumerate(geometry):
         fet = QgsFeature()
         fet.setGeometry(geom)
->>>>>>> jorgegil/master
         if attributes:
             fet.setAttributes(attributes[i])
         provider.addFeatures([fet])
