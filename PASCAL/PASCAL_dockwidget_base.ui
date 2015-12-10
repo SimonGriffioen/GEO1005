@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>564</width>
-    <height>218</height>
+    <height>189</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="Project">
        <attribute name="title">
@@ -28,7 +28,7 @@
         <item row="0" column="0">
          <widget class="QGroupBox" name="groupBox">
           <property name="title">
-           <string>Project name</string>
+           <string>Planning project name</string>
           </property>
           <widget class="QLineEdit" name="lineEdit">
            <property name="geometry">
@@ -43,23 +43,29 @@
           <widget class="QPushButton" name="pushButton">
            <property name="geometry">
             <rect>
-             <x>140</x>
-             <y>60</y>
+             <x>240</x>
+             <y>30</y>
              <width>91</width>
              <height>21</height>
             </rect>
            </property>
            <property name="text">
-            <string>Save</string>
+            <string>Create</string>
            </property>
           </widget>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="title">
-           <string>Input data</string>
-          </property>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="geometry">
+            <rect>
+             <x>340</x>
+             <y>30</y>
+             <width>91</width>
+             <height>21</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Open...</string>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -68,67 +74,130 @@
        <attribute name="title">
         <string>Data selection</string>
        </attribute>
-       <widget class="QTreeView" name="treeView">
+       <widget class="QTabWidget" name="tabWidget_2">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
           <width>531</width>
-          <height>192</height>
+          <height>121</height>
          </rect>
         </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBox">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>20</y>
-          <width>131</width>
-          <height>20</height>
-         </rect>
+        <property name="currentIndex">
+         <number>0</number>
         </property>
-        <property name="text">
-         <string>Demographic</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBox_2">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>60</y>
-          <width>111</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Location</string>
-        </property>
-       </widget>
-       <widget class="QCheckBox" name="checkBox_3">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>100</y>
-          <width>111</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Transport</string>
-        </property>
-       </widget>
-       <widget class="QScrollBar" name="verticalScrollBar">
-        <property name="geometry">
-         <rect>
-          <x>511</x>
-          <y>0</y>
-          <width>20</width>
-          <height>151</height>
-         </rect>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
+        <widget class="QWidget" name="tab_3">
+         <attribute name="title">
+          <string>Transport</string>
+         </attribute>
+         <widget class="QTreeView" name="treeView">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>10</y>
+            <width>256</width>
+            <height>192</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QScrollBar" name="verticalScrollBar_3">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>21</width>
+            <height>160</height>
+           </rect>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab">
+         <attribute name="title">
+          <string>Demographic</string>
+         </attribute>
+         <widget class="QScrollBar" name="verticalScrollBar_2">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>21</width>
+            <height>160</height>
+           </rect>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+         <widget class="QTreeView" name="treeView_2">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>10</y>
+            <width>256</width>
+            <height>192</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>Roads</string>
+         </attribute>
+         <widget class="QScrollBar" name="verticalScrollBar_4">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>21</width>
+            <height>160</height>
+           </rect>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+         <widget class="QTreeView" name="treeView_3">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>10</y>
+            <width>256</width>
+            <height>192</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_4">
+         <attribute name="title">
+          <string>Buildings</string>
+         </attribute>
+         <widget class="QScrollBar" name="verticalScrollBar_5">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>21</width>
+            <height>160</height>
+           </rect>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+         <widget class="QTreeView" name="treeView_4">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>10</y>
+            <width>256</width>
+            <height>192</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
        </widget>
       </widget>
       <widget class="QWidget" name="Analysis">
@@ -138,19 +207,22 @@
        <widget class="QDoubleSpinBox" name="doubleSpinBox">
         <property name="geometry">
          <rect>
-          <x>10</x>
+          <x>260</x>
           <y>10</y>
-          <width>66</width>
+          <width>81</width>
           <height>24</height>
          </rect>
+        </property>
+        <property name="suffix">
+         <string extracomment="Check"/>
         </property>
        </widget>
        <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
         <property name="geometry">
          <rect>
-          <x>10</x>
+          <x>260</x>
           <y>50</y>
-          <width>66</width>
+          <width>81</width>
           <height>24</height>
          </rect>
         </property>
@@ -158,41 +230,89 @@
        <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
         <property name="geometry">
          <rect>
-          <x>10</x>
+          <x>260</x>
           <y>90</y>
-          <width>66</width>
+          <width>81</width>
           <height>24</height>
          </rect>
         </property>
        </widget>
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+       <widget class="QLabel" name="label">
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>30</x>
           <y>10</y>
-          <width>66</width>
-          <height>24</height>
+          <width>201</width>
+          <height>21</height>
          </rect>
         </property>
+        <property name="text">
+         <string>Service area in general</string>
+        </property>
        </widget>
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+       <widget class="QLabel" name="label_2">
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>30</x>
           <y>50</y>
-          <width>66</width>
-          <height>24</height>
+          <width>201</width>
+          <height>21</height>
          </rect>
         </property>
+        <property name="text">
+         <string>Service area for [mode1]</string>
+        </property>
        </widget>
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+       <widget class="QLabel" name="label_3">
         <property name="geometry">
          <rect>
-          <x>280</x>
-          <y>90</y>
-          <width>66</width>
-          <height>24</height>
+          <x>30</x>
+          <y>86</y>
+          <width>181</width>
+          <height>20</height>
          </rect>
+        </property>
+        <property name="text">
+         <string>Service area for [mode2]</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_4">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>10</y>
+          <width>59</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>meters</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_5">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>50</y>
+          <width>59</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>meters</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_6">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>90</y>
+          <width>59</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>meters</string>
         </property>
        </widget>
       </widget>
