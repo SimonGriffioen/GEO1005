@@ -72,9 +72,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.selectAttributeCombo.activated.connect(self.setSelectedAttribute)
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
 
-        # our data
-        self.selectNetworkCombo.activated.connect(self.setSelectedLayer)
-        self.selectNodeCombo.activated.connect(self.setSelectedLayer)
+        # our buttons
+        self.setNetworkButton2.clicked.connect(self.buildNetwork2)
+        self.selectNetworkCombo.activated.connect(self.setNetworkLayer)
+        self.selectNodeCombo.activated.connect(self.setNodeLayer)
+        self.serviceAreaButton2.clicked.connect(self.calculateServiceArea2)
 
         # analysis
         self.graph = QgsGraph()
@@ -157,9 +159,13 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         print 'updatelayers..................'
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
         self.selectLayerCombo.clear()
+        self.selectNetworkCombo.clear()
+        self.selectNodeCombo.clear()
         if layers:
             layer_names = uf.getLayersListNames(layers)
             self.selectLayerCombo.addItems(layer_names)
+            self.selectNetworkCombo.addItems(layer_names)
+            self.selectNodeCombo.addItems(layer_names)
             self.setSelectedLayer()
         else:
             self.selectAttributeCombo.clear()
@@ -170,9 +176,29 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         layer = uf.getLegendLayerByName(self.iface,layer_name)
         self.updateAttributes(layer)
 
+    def setNetworkLayer(self):
+        layer_name = self.selectNetworkCombo.currentText()
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+        self.updateAttributes(layer)
+
+    def setNodeLayer(self):
+        layer_name = self.selectNodeCombo.currentText()
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+        self.updateAttributes(layer)
+
     def getSelectedLayer(self):
         print 'getselectedlayer...............'
         layer_name = self.selectLayerCombo.currentText()
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+        return layer
+
+    def getNetworkLayer(self):
+        layer_name = self.selectNetworkCombo.currentText()
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+        return layer
+
+    def getNodeLayer(self):
+        layer_name = self.selectNodeCombo.currentText()
         layer = uf.getLegendLayerByName(self.iface,layer_name)
         return layer
 
@@ -198,7 +224,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def loadDataAmsterdamNoord(self):
 
-        data_path = 'C:\PluginDevelopment\pascal\sample_data\Layers QGIS - pascal\LayersPASCAL2.qgs'
+        data_path = 'C:\PluginDevelopment\pascal\sample_data\Layers QGIS - pascal\LayersPASCAL.qgs'
 
         '''layer = QgsVectorLayer(data_path + '\Lines.shp', "Lines", "ogr")
         if not layer.isValid():
@@ -259,17 +285,23 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         return
 
     def buildNetwork2(self):
-        self.network_layer = self.getNetwork()
+        self.network_layer = self.getNetworkLayer()
 
         if self.network_layer:
             # get the points to be used as origin and destination
             # in this case gets the centroid of the selected features
 
+            nodeLayer = self.getNodeLayer()
+            nodes = nodeLayer.getFeatures()
+            source_points = []
+            for node in nodes:
+                source_points.append(node.geometry().asPoint())
 
+            print 'source_points'
+            print source_points
+            print len(source_points)
+            print 'source_points_end'
 
-
-            selected_sources = self.getSelectedLayer().selectedFeatures()
-            source_points = [feature.geometry().centroid().asPoint() for feature in selected_sources]
             # build the graph including these points
             if len(source_points) > 1:
                 self.graph, self.tied_points = uf.makeUndirectedGraph(self.network_layer, source_points)
@@ -345,6 +377,34 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 geoms.append(point[0])
                 # in the case of values, it expects a list of multiple values in each item - list of lists
                 values.append([cutoff_distance])
+            uf.insertTempFeatures(area_layer, geoms, values)
+            self.refreshCanvas(area_layer)
+
+    def calculateServiceArea2(self):
+        options = len(self.tied_points)
+        if options > 0:
+            # origin is given as an index in the tied_points list
+            origin = random.randint(1,options-1)
+            cutoff_distance = self.getServiceAreaCutoff()
+            if cutoff_distance == 0:
+                return
+            service_area = uf.calculateServiceArea(self.graph, self.tied_points, origin, cutoff_distance)
+            # store the service area results in temporary layer called "Service_Area"
+            area_layer = uf.getLegendLayerByName(self.iface, "Service_Area")
+            # create one if it doesn't exist
+            if not area_layer:
+                attribs = ['cost']
+                types = [QtCore.QVariant.Double]
+                area_layer = uf.createTempLayer('Service_Area','POINT',self.network_layer.crs().postgisSrid(), attribs, types)
+                uf.loadTempLayer(area_layer)
+            # insert service area points
+            geoms = []
+            values = []
+            for point in service_area.itervalues():
+                # each point is a tuple with geometry and cost
+                geoms.append(point[0])
+                # in the case of values, it expects a list of multiple values in each item - list of lists
+                values.append([point[1]])
             uf.insertTempFeatures(area_layer, geoms, values)
             self.refreshCanvas(area_layer)
 

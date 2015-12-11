@@ -600,7 +600,8 @@ def calculateServiceArea(graph, tied_points, origin, cutoff, impedance=0):
             i = 0
             while i < len(cost):
                 if cost[i] <= cutoff and tree[i] != -1:
-                    points[str(i)]=((graph.vertex(i).point()),cost)
+                    points[str(i)]=((graph.vertex(i).point()),cost[i])
+                    print points[str(i)]
                 i += 1
 
     return points
