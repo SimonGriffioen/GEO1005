@@ -24,9 +24,8 @@
 from PyQt4 import QtGui, QtCore, uic
 from qgis.core import *
 from qgis.networkanalysis import *
-<<<<<<< HEAD
-=======
 import processing
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> jorgegil/master
 =======
@@ -35,16 +34,15 @@ from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 >>>>>>> jorgegil/master
+=======
+>>>>>>> origin/master
 # Initialize Qt resources from file resources.py
 import resources
 
 import os
 import os.path
 import random
-<<<<<<< HEAD
-=======
 import csv
->>>>>>> jorgegil/master
 
 from . import utility_functions as uf
 
@@ -108,11 +106,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.saveMapButton.clicked.connect(self.saveMap)
         self.saveMapPathButton.clicked.connect(self.selectFile)
         self.updateAttribute.connect(self.extractAttributeSummary)
-<<<<<<< HEAD
-
-        # set current UI restrictions
-        self.makeIntersectionButton.hide()
-=======
         self.saveStatisticsButton.clicked.connect(self.saveTable)
 
         # set current UI restrictions
@@ -121,6 +114,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.medicButton.setIcon(QtGui.QIcon(':icons/medic_box.png'))
         self.ambulanceButton.setIcon(QtGui.QIcon(':icons/ambulance.png'))
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> jorgegil/master
 =======
@@ -134,6 +128,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.chart_canvas = FigureCanvas(self.chart_figure)
         self.chartLayout.addWidget(self.chart_canvas)
 >>>>>>> jorgegil/master
+=======
+>>>>>>> origin/master
 
         # initialisation
         self.updateLayers()
@@ -182,16 +178,17 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             layer_names = uf.getLayersListNames(layers)
             self.selectLayerCombo.addItems(layer_names)
             self.setSelectedLayer()
-<<<<<<< HEAD
-=======
         else:
             self.selectAttributeCombo.clear()
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> jorgegil/master
 =======
             self.clearChart()
 
 >>>>>>> jorgegil/master
+=======
+>>>>>>> origin/master
 
     def setSelectedLayer(self):
         layer_name = self.selectLayerCombo.currentText()
@@ -342,11 +339,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             buffers = {}
             for point in origins:
                 geom = point.geometry()
-<<<<<<< HEAD
-                buffers[point.id()] = geom.buffer(cutoff_distance,12)
-=======
                 buffers[point.id()] = geom.buffer(cutoff_distance,12).asPolygon()
->>>>>>> jorgegil/master
             # store the buffer results in temporary layer called "Buffers"
             buffer_layer = uf.getLegendLayerByName(self.iface, "Buffers")
             # create one if it doesn't exist
@@ -373,30 +366,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         layer = self.getSelectedLayer()
         if cutter.featureCount() > 0:
             # get the intersections between the two layers
-<<<<<<< HEAD
-            intersections = uf.getFeaturesIntersections(layer,cutter)
-            if intersections:
-                # store the intersection geometries results in temporary layer called "Intersections"
-                intersection_layer = uf.getLegendLayerByName(self.iface, "Intersections")
-                # create one if it doesn't exist
-                if not intersection_layer:
-                    geom_type = intersections[0].type()
-                    if geom_type == 1:
-                        intersection_layer = uf.createTempLayer('Intersections','POINT',layer.crs().postgisSrid(), [], [])
-                    elif geom_type == 2:
-                        intersection_layer = uf.createTempLayer('Intersections','LINESTRING',layer.crs().postgisSrid(), [], [])
-                    elif geom_type == 3:
-                        intersection_layer = uf.createTempLayer('Intersections','POLYGON',layer.crs().postgisSrid(), [], [])
-                    uf.loadTempLayer(intersection_layer)
-                # insert buffer polygons
-                geoms = []
-                values = []
-                for intersect in intersections:
-                    # each buffer has an id and a geometry
-                    geoms.append(intersect)
-                uf.insertTempFeatures(intersection_layer, geoms, values)
-                self.refreshCanvas(intersection_layer)
-=======
             intersection = processing.runandload('qgis:intersection',layer,cutter,None)
             intersection_layer = uf.getLegendLayerByName(self.iface, "Intersection")
             # prepare results layer
@@ -411,7 +380,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # functiona can add more than one filed, therefore names and types are lists
             uf.addFields(dissolved_layer, ["area"], [QtCore.QVariant.Double])
             uf.updateField(dissolved_layer, "area","$area")
->>>>>>> jorgegil/master
 
     # after adding features to layers needs a refresh (sometimes)
     def refreshCanvas(self, layer):
@@ -579,17 +547,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def extractAttributeSummary(self, attribute):
         # get summary of the attribute
-<<<<<<< HEAD
-        summary = []
-        layer = self.getSelectedLayer()
-
-=======
         layer = self.getSelectedLayer()
         summary = []
         # only use the first attribute in the list
         for feature in layer.getFeatures():
             summary.append((feature.id(), feature.attribute(attribute)))
->>>>>>> jorgegil/master
         # send this to the table
         self.clearTable()
         self.updateTable(summary)
@@ -608,17 +570,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     # table window functions
     def updateTable(self, values):
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
-<<<<<<< HEAD
-        self.statisticsTable.setHorizontalHeaderLabels(["Item","Value"])
-        self.statisticsTable.setRowCount(len(values))
-        for i, item in enumerate(values):
-=======
         self.statisticsTable.setColumnCount(2)
         self.statisticsTable.setHorizontalHeaderLabels(["Item","Value"])
         self.statisticsTable.setRowCount(len(values))
         for i, item in enumerate(values):
             # i is the table row, items mus tbe added as QTableWidgetItems
->>>>>>> jorgegil/master
             self.statisticsTable.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
             self.statisticsTable.setItem(i,1,QtGui.QTableWidgetItem(str(item[1])))
         self.statisticsTable.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
@@ -627,8 +583,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def clearTable(self):
         self.statisticsTable.clear()
-<<<<<<< HEAD
-=======
 
     def saveTable(self):
         path = QtGui.QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV(*.csv)')
@@ -653,4 +607,3 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                         else:
                             rowdata.append('')
                     writer.writerow(rowdata)
->>>>>>> jorgegil/master

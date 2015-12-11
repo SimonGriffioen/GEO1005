@@ -63,13 +63,6 @@
             <property name="text">
              <string/>
             </property>
-<<<<<<< HEAD
-            <property name="icon">
-             <iconset>
-              <normaloff>icons/ambulance.png</normaloff>icons/ambulance.png</iconset>
-            </property>
-=======
->>>>>>> jorgegil/master
             <property name="iconSize">
              <size>
               <width>64</width>
@@ -92,13 +85,6 @@
             <property name="text">
              <string/>
             </property>
-<<<<<<< HEAD
-            <property name="icon">
-             <iconset>
-              <normaloff>icons/medic_box.png</normaloff>icons/medic_box.png</iconset>
-            </property>
-=======
->>>>>>> jorgegil/master
             <property name="iconSize">
              <size>
               <width>64</width>
@@ -407,6 +393,7 @@
         <item row="7" column="0" colspan="2">
          <widget class="QLineEdit" name="expressionEdit">
 <<<<<<< HEAD
+<<<<<<< HEAD
           <property name="text">
            <string>id &lt; 3</string>
           </property>
@@ -420,6 +407,8 @@
         <item row="0" column="0">
          <widget class="QPushButton" name="displayStyleButton">
 >>>>>>> jorgegil/master
+=======
+>>>>>>> origin/master
           <property name="text">
            <string>Load Style</string>
           </property>
@@ -429,7 +418,10 @@
          <widget class="QPushButton" name="displayRangeButton">
           <property name="text">
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> jorgegil/master
+=======
+>>>>>>> origin/master
            <string>Filter</string>
 =======
            <string>Apply Style</string>
@@ -510,11 +502,7 @@
        <attribute name="title">
         <string>reporting</string>
        </attribute>
-<<<<<<< HEAD
-       <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0">
-=======
        <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,0,0,0,0">
->>>>>>> jorgegil/master
         <item>
          <layout class="QGridLayout" name="gridLayout_2" rowstretch="0,1,1" rowminimumheight="0,1,1">
           <item row="0" column="0">
@@ -551,21 +539,6 @@
             </property>
            </widget>
           </item>
-<<<<<<< HEAD
-          <item row="1" column="0" colspan="2">
-           <widget class="QLineEdit" name="saveMapPathEdit"/>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="featureCounterEdit"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QListWidget" name="reportList"/>
-        </item>
-        <item>
-         <widget class="QTableWidget" name="statisticsTable"/>
-=======
          </layout>
         </item>
         <item>
@@ -598,7 +571,6 @@
            <string>Save Map</string>
           </property>
          </widget>
->>>>>>> jorgegil/master
         </item>
        </layout>
       </item>
