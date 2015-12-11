@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- SpatialDecision
+ PASCALDockWidget
                                  A QGIS plugin
- This is a SDSS template for the GEO1005 course
-                              -------------------
-        begin                : 2015-11-02
+ Place A Station Connect A Location
+                             -------------------
+        begin                : 2015-12-04
         git sha              : $Format:%H$
         copyright            : (C) 2015 by Jorge Gil, TU Delft
         email                : j.a.lopesgil@tudelft.nl

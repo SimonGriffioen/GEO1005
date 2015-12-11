@@ -68,7 +68,7 @@ class PASCALDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface.legendInterface().itemRemoved.connect(self.updateLayers)
         self.iface.legendInterface().itemAdded.connect(self.updateLayers)
 
-        #open and create buttons
+        #open and create buttons tab 1
         self.OpenButton.clicked.connect(self.openScenario)
         self.CreateButton.clicked.connect(self.createScenario)
 
@@ -81,7 +81,7 @@ class PASCALDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def openScenario(self,filename=""):
         scenario_open = False
-        scenario_file = os.path.join('/Users/jorge/github/GEO1005','sample_data','time_test.qgs')
+        scenario_file = os.path.abspath(os.path.join(os.path.dirname( __file__ ), 'sample_data', 'Layers QGIS - pascal', 'LayersPASCAL.qgs'))
         # check if file exists
         if os.path.isfile(scenario_file):
             self.iface.addProject(scenario_file)
@@ -98,7 +98,7 @@ class PASCALDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def createScenario(self, filename):
         scenario_open = False
-        scenario_file = os.path.join('/Users/jorge/github/GEO1005','sample_data','time_test.qgs')
+        scenario_file = os.path.join('/','sample_data','time_test.qgs')
         # check if file exists
         if os.path.isfile(scenario_file):
             self.iface.addProject(scenario_file)
@@ -115,7 +115,7 @@ class PASCALDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def saveScenario(self):
         self.iface.actionSaveProject()
 
-     def updateLayers(self):
+    def updateLayers(self):
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
         self.selectLayerCombo.clear()
         if layers:
