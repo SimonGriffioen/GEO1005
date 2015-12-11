@@ -18,7 +18,7 @@
     <item row="1" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Project">
        <attribute name="title">
@@ -30,7 +30,7 @@
           <property name="title">
            <string>Planning project name</string>
           </property>
-          <widget class="QLineEdit" name="lineEdit">
+          <widget class="QLineEdit" name="ProjectName">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -40,7 +40,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="CreateButton">
            <property name="geometry">
             <rect>
              <x>240</x>
@@ -53,7 +53,7 @@
             <string>Create</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="OpenButton">
            <property name="geometry">
             <rect>
              <x>340</x>
@@ -90,7 +90,7 @@
          <attribute name="title">
           <string>Transport</string>
          </attribute>
-         <widget class="QTreeView" name="treeView">
+         <widget class="QTreeView" name="TransportTreeView">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -131,7 +131,7 @@
            <enum>Qt::Vertical</enum>
           </property>
          </widget>
-         <widget class="QTreeView" name="treeView_2">
+         <widget class="QTreeView" name="DemographicTreeView">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -159,7 +159,7 @@
            <enum>Qt::Vertical</enum>
           </property>
          </widget>
-         <widget class="QTreeView" name="treeView_3">
+         <widget class="QTreeView" name="RoadsTreeView">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -187,7 +187,7 @@
            <enum>Qt::Vertical</enum>
           </property>
          </widget>
-         <widget class="QTreeView" name="treeView_4">
+         <widget class="QTreeView" name="BuildingsTreeView">
           <property name="geometry">
            <rect>
             <x>30</x>
@@ -204,7 +204,7 @@
        <attribute name="title">
         <string>Analysis</string>
        </attribute>
-       <widget class="QDoubleSpinBox" name="doubleSpinBox">
+       <widget class="QDoubleSpinBox" name="ServiceAreaGeneralValue">
         <property name="geometry">
          <rect>
           <x>260</x>
@@ -313,6 +313,19 @@
         </property>
         <property name="text">
          <string>meters</string>
+        </property>
+       </widget>
+       <widget class="QScrollBar" name="verticalScrollBar_6">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>10</y>
+          <width>21</width>
+          <height>160</height>
+         </rect>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
         </property>
        </widget>
       </widget>
