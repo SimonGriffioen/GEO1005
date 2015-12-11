@@ -18,13 +18,13 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="sampleWidgets">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="dataTab">
        <attribute name="title">
         <string>data</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0">
         <item>
          <layout class="QFormLayout" name="formLayout">
           <item row="0" column="0">
@@ -104,6 +104,13 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="loadAmsterdamNoordButton">
+          <property name="text">
+           <string>Load data Amsterdam Noord</string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="verticalSpacer">
@@ -225,6 +232,36 @@
            <string>Intersection</string>
           </property>
          </widget>
+        </item>
+        <item row="10" column="0" colspan="2">
+         <widget class="QPushButton" name="setNetworkButton2">
+          <property name="text">
+           <string>Build Network2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="1">
+         <widget class="QComboBox" name="selectNetworkCombo"/>
+        </item>
+        <item row="14" column="1">
+         <widget class="QComboBox" name="selectNodeCombo"/>
+        </item>
+        <item row="13" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Select Network Layer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Select Node Layer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="15" column="1">
+         <widget class="QComboBox" name="comboBox_3"/>
         </item>
        </layout>
       </widget>

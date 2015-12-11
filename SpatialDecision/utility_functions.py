@@ -48,6 +48,7 @@ def getLegendLayers(iface, geom='all', provider='all'):
     :param provider: string
     :return: list QgsVectorLayer
     """
+    print 'getlegendlayers.........'
     layers_list = []
     for layer in iface.legendInterface().layers():
         add_layer = False
@@ -57,6 +58,7 @@ def getLegendLayers(iface, geom='all', provider='all'):
                     add_layer = True
         if add_layer:
             layers_list.append(layer)
+    print 'getlegendlayersfinished.........'
     return layers_list
 
 

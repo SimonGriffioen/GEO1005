@@ -70,6 +70,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.saveScenarioButton.clicked.connect(self.saveScenario)
         self.selectLayerCombo.activated.connect(self.setSelectedLayer)
         self.selectAttributeCombo.activated.connect(self.setSelectedAttribute)
+        self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
+
+        # our data
+        self.selectNetworkCombo.activated.connect(self.setSelectedLayer)
+        self.selectNodeCombo.activated.connect(self.setSelectedLayer)
 
         # analysis
         self.graph = QgsGraph()
@@ -109,7 +114,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         #run simple tests
 
+
     def closeEvent(self, event):
+        print 'closeevent........'
         # disconnect interface signals
         try:
             self.iface.projectRead.disconnect(self.updateLayers)
@@ -126,6 +133,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #   Data functions
 #######
     def openScenario(self,filename=""):
+        print 'openScenario.....'
         scenario_open = False
         scenario_file = os.path.join('/Users/jorge/github/GEO1005','sample_data','time_test.qgs')
         # check if file exists
@@ -142,9 +150,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.updateLayers()
 
     def saveScenario(self):
+        print 'saveScenario.....'
         self.iface.actionSaveProject()
 
     def updateLayers(self):
+        print 'updatelayers..................'
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
         self.selectLayerCombo.clear()
         if layers:
@@ -155,16 +165,19 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.selectAttributeCombo.clear()
 
     def setSelectedLayer(self):
+        print 'setselectedlayer...........'
         layer_name = self.selectLayerCombo.currentText()
         layer = uf.getLegendLayerByName(self.iface,layer_name)
         self.updateAttributes(layer)
 
     def getSelectedLayer(self):
+        print 'getselectedlayer...............'
         layer_name = self.selectLayerCombo.currentText()
         layer = uf.getLegendLayerByName(self.iface,layer_name)
         return layer
 
     def updateAttributes(self, layer):
+        print 'updateattributes.........'
         self.selectAttributeCombo.clear()
         if layer:
             fields = uf.getFieldNames(layer)
@@ -174,19 +187,41 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.updateReport(fields)
 
     def setSelectedAttribute(self):
+        print 'setSelectedAttribute.............'
         field_name = self.selectAttributeCombo.currentText()
         self.updateAttribute.emit(field_name)
 
     def getSelectedAttribute(self):
+        print 'getSelectedAttribute.............'
         field_name = self.selectAttributeCombo.currentText()
         return field_name
+
+    def loadDataAmsterdamNoord(self):
+
+        data_path = 'C:\PluginDevelopment\pascal\sample_data\Layers QGIS - pascal\LayersPASCAL2.qgs'
+
+        '''layer = QgsVectorLayer(data_path + '\Lines.shp', "Lines", "ogr")
+        if not layer.isValid():
+            print "Layer failed to load!"
+        uf.loadTempLayer(layer)'''
+
+        '''layer = self.iface.addVectorLayer(data_path + '\\Lines.shp', "Lines", "ogr")
+        if not layer:
+            print "Layer failed to load!"'''
+
+        self.iface.addProject(data_path)
 
 #######
 #    Analysis functions
 #######
     # route functions
     def getNetwork(self):
+
         roads_layer = self.getSelectedLayer()
+
+        print 'roads_layer'
+        print roads_layer
+
         if roads_layer:
             # see if there is an obstacles layer to subtract roads from the network
             obstacles_layer = uf.getLegendLayerByName(self.iface, "Obstacles")
@@ -204,6 +239,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def buildNetwork(self):
         self.network_layer = self.getNetwork()
+
         if self.network_layer:
             # get the points to be used as origin and destination
             # in this case gets the centroid of the selected features
@@ -212,6 +248,35 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # build the graph including these points
             if len(source_points) > 1:
                 self.graph, self.tied_points = uf.makeUndirectedGraph(self.network_layer, source_points)
+                print 'graph'
+                print self.graph
+                print 'tied_points'
+                print self.tied_points
+                # the tied points are the new source_points on the graph
+                if self.graph and self.tied_points:
+                    text = "network is built for %s points" % len(self.tied_points)
+                    self.insertReport(text)
+        return
+
+    def buildNetwork2(self):
+        self.network_layer = self.getNetwork()
+
+        if self.network_layer:
+            # get the points to be used as origin and destination
+            # in this case gets the centroid of the selected features
+
+
+
+
+            selected_sources = self.getSelectedLayer().selectedFeatures()
+            source_points = [feature.geometry().centroid().asPoint() for feature in selected_sources]
+            # build the graph including these points
+            if len(source_points) > 1:
+                self.graph, self.tied_points = uf.makeUndirectedGraph(self.network_layer, source_points)
+                print 'graph'
+                print self.graph
+                print 'tied_points'
+                print self.tied_points
                 # the tied points are the new source_points on the graph
                 if self.graph and self.tied_points:
                     text = "network is built for %s points" % len(self.tied_points)
