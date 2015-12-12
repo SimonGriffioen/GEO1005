@@ -388,7 +388,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             cutoff_distance = self.getServiceAreaCutoff()
             if cutoff_distance == 0:
                 return
-            service_area = uf.calculateServiceArea(self.graph, self.tied_points, origin, cutoff_distance)
+            service_area = uf.calculateServiceAreaAll(self.graph, self.tied_points, cutoff_distance)
             # store the service area results in temporary layer called "Service_Area"
             area_layer = uf.getLegendLayerByName(self.iface, "Service_Area")
             # create one if it doesn't exist
@@ -400,7 +400,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # insert service area points
             geoms = []
             values = []
-            for point in service_area.itervalues():
+            for point in service_area:
                 # each point is a tuple with geometry and cost
                 geoms.append(point[0])
                 # in the case of values, it expects a list of multiple values in each item - list of lists
