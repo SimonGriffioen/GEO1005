@@ -24,9 +24,11 @@
 from PyQt4 import QtGui, QtCore, uic
 from qgis.core import *
 from qgis.networkanalysis import *
+from qgis.gui import *
 import processing
 # Initialize Qt resources from file resources.py
 import resources
+
 
 import os
 import os.path
@@ -60,6 +62,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface = iface
         self.canvas = self.iface.mapCanvas()
 
+
+        # mouse click
+        self.clickTool = QgsMapToolEmitPoint(self.canvas)
+        #self.dlg = vector_selectbypointDialog()
+
         # set up GUI operation signals
         # data
         self.iface.projectRead.connect(self.updateLayers)
@@ -77,6 +84,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.selectNetworkCombo.activated.connect(self.setNetworkLayer)
         self.selectNodeCombo.activated.connect(self.setNodeLayer)
         self.serviceAreaButton2.clicked.connect(self.calculateServiceArea2)
+        self.addNodesButton.clicked.connect(self.addNode)
+        self.clickTool.canvasClicked.connect(self.addElement)
 
         # analysis
         self.graph = QgsGraph()
@@ -143,13 +152,15 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.iface.addProject(scenario_file)
             scenario_open = True
         else:
-            last_dir = uf.getLastDir("SDSS")
+            last_dir = uf.getLastDir("pascal")
             new_file = QtGui.QFileDialog.getOpenFileName(self, "", last_dir, "(*.qgs)")
             if new_file:
                 self.iface.addProject(new_file)
                 scenario_open = True
         if scenario_open:
             self.updateLayers()
+
+
 
     def saveScenario(self):
         print 'saveScenario.....'
@@ -236,6 +247,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             print "Layer failed to load!"'''
 
         self.iface.addProject(data_path)
+
+    def run_mouse(self):
+        self.canvas.setMapTool(self.clickTool)
 
 #######
 #    Analysis functions
@@ -407,6 +421,48 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 values.append([point[1]])
             uf.insertTempFeatures(area_layer, geoms, values)
             self.refreshCanvas(area_layer)
+
+    def addElement(self):
+        self.iface.actionAddFeature().trigger()
+
+
+    def addNode(self):
+        #nodeLayer = self.getNodeLayer()
+        #pr = nodeLayer.dataProvider()
+        #iface = qgis.utils.iface
+        vl = self.getNodeLayer()
+        cl = self.iface.addVectorLayer( vl.source(), vl.name() + "_scenario", vl.providerType() )
+
+        cl.startEditing()
+
+        self.run_mouse()
+
+        """
+        fet = QgsFeature()
+        fet.setGeometry(QgsGeometry.fromPoint())
+        #pr.addFeatures()
+
+        fet.setGeometry(QgsGeometry.fromPoint(QgsPoint(123871,488974)))
+        pr.addFeatures([fet])
+
+
+        print 'test1'
+        nodeLayer.commitChanges()
+        nodeLayer.updateExtents()
+        print 'test2'
+        QgsMapLayerRegistry.instance().addMapLayer(nodeLayer)
+
+        nodes = nodeLayer.getFeatures()
+        source_points = []
+        for node in nodes:
+            source_points.append(node.geometry().asPoint())
+        # create a temporary layer
+        node_layer = uf.getLegendLayerByName(self.iface, "Added_Nodes")
+        if not node_layer:
+        """
+
+
+
 
     # buffer functions
     def getBufferCutoff(self):
