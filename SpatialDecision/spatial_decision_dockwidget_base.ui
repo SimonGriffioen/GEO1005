@@ -25,13 +25,13 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="sampleWidgets">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="dataTab">
        <attribute name="title">
         <string>data</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0">
         <item>
          <layout class="QFormLayout" name="formLayout">
           <item row="0" column="0">
@@ -113,6 +113,13 @@
          </layout>
         </item>
         <item>
+         <widget class="QPushButton" name="loadAmsterdamNoordButton">
+          <property name="text">
+           <string>Load data Amsterdam Noord</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -181,6 +188,7 @@
           </property>
          </widget>
         </item>
+<<<<<<< HEAD
        </layout>
       </item>
       <item>
@@ -193,6 +201,10 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+=======
+        <item row="2" column="0">
+         <widget class="QPushButton" name="shortestRouteButton">
+>>>>>>> origin/master
           <property name="text">
            <string/>
           </property>
@@ -451,6 +463,53 @@
          </widget>
         </item>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        <item row="10" column="0" colspan="2">
+         <widget class="QPushButton" name="setNetworkButton2">
+          <property name="text">
+           <string>Build Network2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="1">
+         <widget class="QComboBox" name="selectNetworkCombo"/>
+        </item>
+        <item row="14" column="1">
+         <widget class="QComboBox" name="selectNodeCombo"/>
+        </item>
+        <item row="13" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Select Network Layer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Select Node Layer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="15" column="1">
+         <widget class="QComboBox" name="comboBox_3"/>
+        </item>
+        <item row="9" column="0">
+         <widget class="QPushButton" name="serviceAreaButton2">
+          <property name="text">
+           <string>ServiceArea2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QLineEdit" name="serviceAreaCutoffEdit">
+          <property name="text">
+           <string>1500</string>
+          </property>
+         </widget>
+        </item>
+>>>>>>> origin/master
        </layout>
       </widget>
       <widget class="QWidget" name="tab">

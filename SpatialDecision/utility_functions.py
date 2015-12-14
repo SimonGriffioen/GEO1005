@@ -48,6 +48,7 @@ def getLegendLayers(iface, geom='all', provider='all'):
     :param provider: string
     :return: list QgsVectorLayer
     """
+    print 'getlegendlayers.........'
     layers_list = []
     for layer in iface.legendInterface().layers():
         add_layer = False
@@ -57,6 +58,7 @@ def getLegendLayers(iface, geom='all', provider='all'):
                     add_layer = True
         if add_layer:
             layers_list.append(layer)
+    print 'getlegendlayersfinished.........'
     return layers_list
 
 
@@ -620,12 +622,45 @@ def calculateServiceArea(graph, tied_points, origin, cutoff, impedance=0):
             i = 0
             while i < len(cost):
                 if cost[i] <= cutoff and tree[i] != -1:
-                    points[str(i)]=((graph.vertex(i).point()),cost)
+                    points[str(i)]=((graph.vertex(i).point()),cost[i])
+                    print points[str(i)]
                 i += 1
 
     return points
 
+def calculateServiceAreaAll(graph, tied_points, cutoff, impedance=0):
+    points = []
+    for from_point in tied_points:
+        print "volgende node"
+        # analyse graph
+        if graph:
+            from_id = graph.findVertex(from_point)
 
+            (tree, cost) = QgsGraphAnalyzer.dijkstra(graph, from_id, impedance)
+
+            i = 0
+            while i < len(cost):
+                if cost[i] <= cutoff and tree[i] != -1:
+                    points.append((graph.vertex(i).point(),cost[i]))
+                i += 1
+
+    print 'startsort'
+    print len(points)
+    for i in range(0,10):
+        print points[i]
+    sorted(points,0)
+    print 'endsort'
+    print len(points)
+    for i in range(0,10):
+        print points[i]
+    return
+    points2 = []
+    points2.append(points[0])
+    for i in range(1,len(points)-1):
+        if not points[i][0] == points[i-1][0]:
+            points2.append(points[i])
+    print 'finished'
+    return points2
 #
 # General functions
 #
