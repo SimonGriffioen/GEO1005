@@ -860,6 +860,7 @@ def copyLayerToShapeFile(layer, path, name):
     #Get layer provider
     provider = layer.dataProvider()
     filename = path+"/"+name+".shp"
+    print filename
     fields = provider.fields()
     if layer.hasGeometryType():
         geometry = layer.wkbType()
@@ -881,7 +882,9 @@ def copyLayerToShapeFile(layer, path, name):
     if not vlayer.isValid():
         print "Layer failed to load!"
         return None
+    print "succes"
     return vlayer
+
 
 
 def createShapeFileLayer(path, name, srid, attributes, types, geometrytype):

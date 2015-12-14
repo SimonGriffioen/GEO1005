@@ -86,6 +86,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.serviceAreaButton2.clicked.connect(self.calculateServiceArea2)
         self.addNodesButton.clicked.connect(self.addNode)
         self.clickTool.canvasClicked.connect(self.addElement)
+        self.createScenarioButton.clicked.connect(self.createScenario)
 
         # analysis
         self.graph = QgsGraph()
@@ -159,6 +160,24 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 scenario_open = True
         if scenario_open:
             self.updateLayers()
+
+    def createScenario(self):
+        # select the node layer
+        vl = self.getNodeLayer()
+        #cl = self.iface.addVectorLayer( vl.source(), vl.name() + "_scenario", vl.providerType() )
+
+        # create a path and filename for the new file
+        path = QtGui.QFileDialog(self).getSaveFileName()
+        list_path = path.split("/")[:-1]
+        real_path =  '/'.join(list_path)
+        filename = path.split("/")[-1]
+
+        # save the layer as shapefile
+        if path:
+            vlayer = uf.copyLayerToShapeFile(vl,real_path,filename)
+            # add scenario to the project
+            QgsMapLayerRegistry.instance().addMapLayer(vlayer)
+
 
 
 
@@ -250,6 +269,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def run_mouse(self):
         self.canvas.setMapTool(self.clickTool)
+
 
 #######
 #    Analysis functions
@@ -418,16 +438,23 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface.actionAddFeature().trigger()
 
 
+
     def addNode(self):
-        #nodeLayer = self.getNodeLayer()
-        #pr = nodeLayer.dataProvider()
-        #iface = qgis.utils.iface
+        # select scenario node layer
         vl = self.getNodeLayer()
-        cl = self.iface.addVectorLayer( vl.source(), vl.name() + "_scenario", vl.providerType() )
+        # edit the selected node layer
+        vl.startEditing()
+        # enable mouse on canvas
+        node_added = self.run_mouse()
+        print node_added
 
-        cl.startEditing()
+        if node_added:
+            vl.commitChanges()
+            vl.updateExtents()
+            QgsMapLayerRegistry.instance().addMapLayer(vl)
 
-        self.run_mouse()
+
+
 
         """
         fet = QgsFeature()

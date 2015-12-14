@@ -18,13 +18,13 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="sampleWidgets">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="dataTab">
        <attribute name="title">
         <string>data</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0">
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0">
         <item>
          <layout class="QFormLayout" name="formLayout">
           <item row="0" column="0">
@@ -109,6 +109,13 @@
          <widget class="QPushButton" name="loadAmsterdamNoordButton">
           <property name="text">
            <string>Load data Amsterdam Noord</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="createScenarioButton">
+          <property name="text">
+           <string>createScenario</string>
           </property>
          </widget>
         </item>
