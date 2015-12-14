@@ -310,19 +310,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             source_points = []
             for node in nodes:
                 source_points.append(node.geometry().asPoint())
-
-            print 'source_points'
-            print source_points
-            print len(source_points)
-            print 'source_points_end'
-
             # build the graph including these points
             if len(source_points) > 1:
                 self.graph, self.tied_points = uf.makeUndirectedGraph(self.network_layer, source_points)
                 print 'graph'
                 print self.graph
-                print 'tied_points'
-                print self.tied_points
                 # the tied points are the new source_points on the graph
                 if self.graph and self.tied_points:
                     text = "network is built for %s points" % len(self.tied_points)
