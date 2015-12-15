@@ -635,32 +635,27 @@ def calculateServiceAreaAll(graph, tied_points, cutoff, impedance=0):
         # analyse graph
         if graph:
             from_id = graph.findVertex(from_point)
-
             (tree, cost) = QgsGraphAnalyzer.dijkstra(graph, from_id, impedance)
-
             i = 0
             while i < len(cost):
                 if cost[i] <= cutoff and tree[i] != -1:
                     points.append((graph.vertex(i).point(),cost[i]))
                 i += 1
 
-    print 'startsort'
-    print len(points)
-    for i in range(0,10):
-        print points[i]
-    sorted(points,0)
-    print 'endsort'
-    print len(points)
-    for i in range(0,10):
-        print points[i]
-    return
-    points2 = []
-    points2.append(points[0])
+    # sort the points
+    for point in tied_points:
+        points.append((point,0.0))
+    points = sorted(points, key = lambda x : (x[0][0],x[0][1],x[1]))
+
+    # filter out unique points with lowest cost
+    unique_points = []
+    unique_points.append(points[0])
     for i in range(1,len(points)-1):
         if not points[i][0] == points[i-1][0]:
-            points2.append(points[i])
-    print 'finished'
-    return points2
+            unique_points.append(points[i])
+
+    return unique_points
+
 #
 # General functions
 #
@@ -887,6 +882,7 @@ def copyLayerToShapeFile(layer, path, name):
     #Get layer provider
     provider = layer.dataProvider()
     filename = path+"/"+name+".shp"
+    print filename
     fields = provider.fields()
     if layer.hasGeometryType():
         geometry = layer.wkbType()
@@ -908,7 +904,9 @@ def copyLayerToShapeFile(layer, path, name):
     if not vlayer.isValid():
         print "Layer failed to load!"
         return None
+    print "succes"
     return vlayer
+
 
 
 def createShapeFileLayer(path, name, srid, attributes, types, geometrytype):

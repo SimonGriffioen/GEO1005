@@ -24,6 +24,7 @@
 from PyQt4 import QtGui, QtCore, uic
 from qgis.core import *
 from qgis.networkanalysis import *
+from qgis.gui import *
 import processing
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -38,6 +39,7 @@ from matplotlib.figure import Figure
 >>>>>>> origin/master
 # Initialize Qt resources from file resources.py
 import resources
+
 
 import os
 import os.path
@@ -71,6 +73,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface = iface
         self.canvas = self.iface.mapCanvas()
 
+
+        # mouse click
+        self.clickTool = QgsMapToolEmitPoint(self.canvas)
+        #self.dlg = vector_selectbypointDialog()
+
         # set up GUI operation signals
         # data
         self.iface.projectRead.connect(self.updateLayers)
@@ -88,6 +95,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.selectNetworkCombo.activated.connect(self.setNetworkLayer)
         self.selectNodeCombo.activated.connect(self.setNodeLayer)
         self.serviceAreaButton2.clicked.connect(self.calculateServiceArea2)
+        self.addNodesButton.clicked.connect(self.addNode)
+        self.clickTool.canvasClicked.connect(self.addElement)
+        self.createScenarioButton.clicked.connect(self.createScenario)
 
         # analysis
         self.graph = QgsGraph()
@@ -170,13 +180,33 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.iface.addProject(scenario_file)
             scenario_open = True
         else:
-            last_dir = uf.getLastDir("SDSS")
+            last_dir = uf.getLastDir("pascal")
             new_file = QtGui.QFileDialog.getOpenFileName(self, "", last_dir, "(*.qgs)")
             if new_file:
                 self.iface.addProject(new_file)
                 scenario_open = True
         if scenario_open:
             self.updateLayers()
+
+    def createScenario(self):
+        # select the node layer
+        vl = self.getNodeLayer()
+        #cl = self.iface.addVectorLayer( vl.source(), vl.name() + "_scenario", vl.providerType() )
+
+        # create a path and filename for the new file
+        path = QtGui.QFileDialog(self).getSaveFileName()
+        list_path = path.split("/")[:-1]
+        real_path =  '/'.join(list_path)
+        filename = path.split("/")[-1]
+
+        # save the layer as shapefile
+        if path:
+            vlayer = uf.copyLayerToShapeFile(vl,real_path,filename)
+            # add scenario to the project
+            QgsMapLayerRegistry.instance().addMapLayer(vlayer)
+
+
+
 
     def saveScenario(self):
         print 'saveScenario.....'
@@ -277,6 +307,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         self.iface.addProject(data_path)
 
+    def run_mouse(self):
+        self.canvas.setMapTool(self.clickTool)
+
+
 #######
 #    Analysis functions
 #######
@@ -336,19 +370,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             source_points = []
             for node in nodes:
                 source_points.append(node.geometry().asPoint())
-
-            print 'source_points'
-            print source_points
-            print len(source_points)
-            print 'source_points_end'
-
             # build the graph including these points
             if len(source_points) > 1:
                 self.graph, self.tied_points = uf.makeUndirectedGraph(self.network_layer, source_points)
                 print 'graph'
                 print self.graph
-                print 'tied_points'
-                print self.tied_points
                 # the tied points are the new source_points on the graph
                 if self.graph and self.tied_points:
                     text = "network is built for %s points" % len(self.tied_points)
@@ -447,6 +473,55 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 values.append([point[1]])
             uf.insertTempFeatures(area_layer, geoms, values)
             self.refreshCanvas(area_layer)
+
+    def addElement(self):
+        self.iface.actionAddFeature().trigger()
+
+
+
+    def addNode(self):
+        # select scenario node layer
+        vl = self.getNodeLayer()
+        # edit the selected node layer
+        vl.startEditing()
+        # enable mouse on canvas
+        node_added = self.run_mouse()
+        print node_added
+
+        if node_added:
+            vl.commitChanges()
+            vl.updateExtents()
+            QgsMapLayerRegistry.instance().addMapLayer(vl)
+
+
+
+
+        """
+        fet = QgsFeature()
+        fet.setGeometry(QgsGeometry.fromPoint())
+        #pr.addFeatures()
+
+        fet.setGeometry(QgsGeometry.fromPoint(QgsPoint(123871,488974)))
+        pr.addFeatures([fet])
+
+
+        print 'test1'
+        nodeLayer.commitChanges()
+        nodeLayer.updateExtents()
+        print 'test2'
+        QgsMapLayerRegistry.instance().addMapLayer(nodeLayer)
+
+        nodes = nodeLayer.getFeatures()
+        source_points = []
+        for node in nodes:
+            source_points.append(node.geometry().asPoint())
+        # create a temporary layer
+        node_layer = uf.getLegendLayerByName(self.iface, "Added_Nodes")
+        if not node_layer:
+        """
+
+
+
 
     # buffer functions
     def getBufferCutoff(self):
