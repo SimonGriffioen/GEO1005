@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="/">
+    <file>icons/ambulance.png</file>
+    <file>icons/icon.png</file>
+    <file>icons/medic_box.png</file>
+  </qresource>
+</RCC>

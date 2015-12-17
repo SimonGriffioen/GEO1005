@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SpatialDecisionDockWidgetBase</class>
+ <widget class="QDockWidget" name="SpatialDecisionDockWidgetBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>424</width>
+    <height>726</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SDSS Template</string>
+  </property>
+  <widget class="QWidget" name="dockWidgetContents">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <widget class="QTabWidget" name="sampleWidgets">
+      <property name="currentIndex">
+       <number>3</number>
+      </property>
+      <widget class="QWidget" name="dataTab">
+       <attribute name="title">
+        <string>data</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
+        <item>
+         <widget class="QPushButton" name="loadAmsterdamNoordButton">
+          <property name="text">
+           <string>Load data Amsterdam Noord</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="analysisTab">
+       <attribute name="title">
+        <string>analysis</string>
+       </attribute>
+       <layout class="QFormLayout" name="formLayout_4">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Select Network Layer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="selectNetworkCombo"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Select Node Layer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="selectNodeCombo"/>
+        </item>
+        <item row="6" column="1">
+         <widget class="QLineEdit" name="serviceAreaCutoffEdit">
+          <property name="text">
+           <string>1500</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QPushButton" name="serviceAreaButton2">
+          <property name="text">
+           <string>ServiceArea2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPushButton" name="setNetworkButton2">
+          <property name="text">
+           <string>Build Network2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="0">
+         <widget class="QPushButton" name="addNodesButton">
+          <property name="text">
+           <string>Add Nodes</string>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="0">
+         <widget class="QPushButton" name="createScenarioButton">
+          <property name="text">
+           <string>Create Scenario</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>visualisation</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="visualisationTab">
+       <attribute name="title">
+        <string>reporting</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout" stretch=""/>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
