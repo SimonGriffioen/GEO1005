@@ -76,7 +76,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
 
         # selection
-        self.iface.selectionTree.connect(self.select_from_tree)
+        self.selectionTree.clicked.connect(self.select_from_tree)
 
         # analysis
         self.setNetworkButton2.clicked.connect(self.buildNetwork2)
