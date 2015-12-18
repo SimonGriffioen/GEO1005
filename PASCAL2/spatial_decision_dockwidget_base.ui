@@ -15,10 +15,10 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="sampleWidgets">
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="dataTab">
        <attribute name="title">
@@ -33,6 +33,26 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="selectionTab">
+       <attribute name="title">
+        <string>selection</string>
+       </attribute>
+       <widget class="QTreeWidget" name="selectionTree">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>371</width>
+          <height>291</height>
+         </rect>
+        </property>
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
+       </widget>
       </widget>
       <widget class="QWidget" name="analysisTab">
        <attribute name="title">
@@ -62,10 +82,10 @@
         <item row="2" column="1">
          <widget class="QComboBox" name="selectNodeCombo"/>
         </item>
-        <item row="6" column="1">
-         <widget class="QLineEdit" name="serviceAreaCutoffEdit">
+        <item row="4" column="1">
+         <widget class="QPushButton" name="setNetworkButton2">
           <property name="text">
-           <string>1500</string>
+           <string>Build Network2</string>
           </property>
          </widget>
         </item>
@@ -76,17 +96,10 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
-         <widget class="QPushButton" name="setNetworkButton2">
+        <item row="6" column="1">
+         <widget class="QLineEdit" name="serviceAreaCutoffEdit">
           <property name="text">
-           <string>Build Network2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="0">
-         <widget class="QPushButton" name="addNodesButton">
-          <property name="text">
-           <string>Add Nodes</string>
+           <string>1500</string>
           </property>
          </widget>
         </item>
@@ -97,18 +110,25 @@
           </property>
          </widget>
         </item>
+        <item row="12" column="0">
+         <widget class="QPushButton" name="addNodesButton">
+          <property name="text">
+           <string>Add Nodes</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="visualisationTab">
        <attribute name="title">
         <string>visualisation</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="visualisationTab">
+      <widget class="QWidget" name="reportingTab">
        <attribute name="title">
         <string>reporting</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout" stretch=""/>
+       <layout class="QVBoxLayout" name="verticalLayout"/>
       </widget>
      </widget>
     </item>

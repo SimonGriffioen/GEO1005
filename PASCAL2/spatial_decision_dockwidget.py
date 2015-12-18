@@ -75,6 +75,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface.legendInterface().itemAdded.connect(self.updateLayers)
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
 
+        # selection
+        self.iface.selectionTree.connect(self.select_from_tree)
+
         # analysis
         self.setNetworkButton2.clicked.connect(self.buildNetwork2)
         self.selectNetworkCombo.activated.connect(self.setNetworkLayer)
@@ -145,10 +148,13 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
         self.selectNetworkCombo.clear()
         self.selectNodeCombo.clear()
+        self.selectionTree.clear()
+        self.selectionTree.setColumnCount(2)
         if layers:
             layer_names = uf.getLayersListNames(layers)
             self.selectNetworkCombo.addItems(layer_names)
             self.selectNodeCombo.addItems(layer_names)
+            self.selectionTree.addTopLevelItems(layer_names)
 
     def setNetworkLayer(self):
         pass
@@ -186,6 +192,12 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def run_mouse(self):
         self.canvas.setMapTool(self.clickTool)
+
+#######
+#    Data selection functions
+#######
+    def select_from_tree(self):
+        self.updateLayers()
 
 #######
 #    Analysis functions
