@@ -168,8 +168,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
     def loadDataAmsterdamNoord(self):
-
-        data_path = 'C:\PluginDevelopment\pascal\sample_data\Layers QGIS - pascal\LayersPASCAL.qgs'
+        try:
+            data_path = 'C:\PluginDevelopment\pascal\sample_data\Layers QGIS - pascal\LayersPASCAL.qgs'
+        except:
+            data_path = '/Users/mj/Documents/Studie/GEO1005/pascal/sample_data/Layers QGIS - pascal/LayersPASCAL.qgs'
 
         '''layer = QgsVectorLayer(data_path + '\Lines.shp', "Lines", "ogr")
         if not layer.isValid():
