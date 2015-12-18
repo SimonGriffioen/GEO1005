@@ -38,21 +38,6 @@
        <attribute name="title">
         <string>selection</string>
        </attribute>
-       <widget class="QTreeWidget" name="selectionTree">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>371</width>
-          <height>291</height>
-         </rect>
-        </property>
-        <column>
-         <property name="text">
-          <string notr="true">1</string>
-         </property>
-        </column>
-       </widget>
       </widget>
       <widget class="QWidget" name="analysisTab">
        <attribute name="title">
