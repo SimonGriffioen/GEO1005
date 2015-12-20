@@ -60,11 +60,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # define globals
         self.iface = iface
         self.canvas = self.iface.mapCanvas()
+        self.clickTool = QgsMapToolEmitPoint(self.canvas)
 
         # set up GUI operation signals
 
         # canvas
-        self.clickTool = QgsMapToolEmitPoint(self.canvas)
         self.clickTool.canvasClicked.connect(self.addElement)
         #self.dlg = vector_selectbypointDialog()
 
@@ -272,7 +272,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 attribs = ['cost']
                 types = [QtCore.QVariant.Double]
                 area_layer = uf.createTempLayer('Service_Area','POINT',self.network_layer.crs().postgisSrid(), attribs, types)
-                uf.loadTempLayer(area_layer)
+                #uf.loadTempLayer(area_layer)
             # insert service area points
             geoms = []
             values = []
@@ -283,6 +283,13 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 values.append([point[1]])
             uf.insertTempFeatures(area_layer, geoms, values)
             self.refreshCanvas(area_layer)
+
+            path = QtGui.QFileDialog.getSaveFileName(self)
+            QgsVectorFileWriter.writeAsVectorFormat(area_layer,path+'.shp',str(area_layer.crs().postgisSrid()), None, "ESRI Shapefile")
+            filename = path.split("/")[-1]
+            service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
+            # interpolation
+            processing.runandload('gdalogr:gridaverage',service_area_layer,'cost',200,200,0,0,0,5,path+'.tif')
 
     def addElement(self):
         self.iface.actionAddFeature().trigger()
