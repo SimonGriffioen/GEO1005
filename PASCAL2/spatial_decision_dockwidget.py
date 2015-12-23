@@ -60,11 +60,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # define globals
         self.iface = iface
         self.canvas = self.iface.mapCanvas()
+        self.clickTool = QgsMapToolEmitPoint(self.canvas)
 
         # set up GUI operation signals
 
         # canvas
-        self.clickTool = QgsMapToolEmitPoint(self.canvas)
         self.clickTool.canvasClicked.connect(self.addElement)
         #self.dlg = vector_selectbypointDialog()
 
@@ -74,6 +74,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface.legendInterface().itemRemoved.connect(self.updateLayers)
         self.iface.legendInterface().itemAdded.connect(self.updateLayers)
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
+
+        # selection
+        #self.selectionTree.clicked.connect(self.select_from_tree)
 
         # analysis
         self.setNetworkButton2.clicked.connect(self.buildNetwork2)
@@ -145,10 +148,13 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
         self.selectNetworkCombo.clear()
         self.selectNodeCombo.clear()
+        #self.selectionTree.clear()
+        #self.selectionTree.setColumnCount(2)
         if layers:
             layer_names = uf.getLayersListNames(layers)
             self.selectNetworkCombo.addItems(layer_names)
             self.selectNodeCombo.addItems(layer_names)
+            #self.selectionTree.addTopLevelItems(layer_names)
 
     def setNetworkLayer(self):
         pass
@@ -168,8 +174,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
     def loadDataAmsterdamNoord(self):
-
-        data_path = 'C:\PluginDevelopment\pascal\sample_data\Layers QGIS - pascal\LayersPASCAL.qgs'
+        try:
+            data_path = 'C:\PluginDevelopment\pascal\sample_data\Layers QGIS - pascal\LayersPASCAL.qgs'
+        except:
+            data_path = '/Users/mj/Documents/Studie/GEO1005/pascal/sample_data/Layers QGIS - pascal/LayersPASCAL.qgs'
 
         '''layer = QgsVectorLayer(data_path + '\Lines.shp', "Lines", "ogr")
         if not layer.isValid():
@@ -184,6 +192,12 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def run_mouse(self):
         self.canvas.setMapTool(self.clickTool)
+
+#######
+#    Data selection functions
+#######
+    def select_from_tree(self):
+        self.updateLayers()
 
 #######
 #    Analysis functions
@@ -258,7 +272,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 attribs = ['cost']
                 types = [QtCore.QVariant.Double]
                 area_layer = uf.createTempLayer('Service_Area','POINT',self.network_layer.crs().postgisSrid(), attribs, types)
-                uf.loadTempLayer(area_layer)
+                #uf.loadTempLayer(area_layer)
             # insert service area points
             geoms = []
             values = []
@@ -269,6 +283,13 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 values.append([point[1]])
             uf.insertTempFeatures(area_layer, geoms, values)
             self.refreshCanvas(area_layer)
+
+            path = QtGui.QFileDialog.getSaveFileName(self)
+            QgsVectorFileWriter.writeAsVectorFormat(area_layer,path+'.shp',str(area_layer.crs().postgisSrid()), None, "ESRI Shapefile")
+            filename = path.split("/")[-1]
+            service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
+            # interpolation
+            processing.runandload('gdalogr:gridaverage',service_area_layer,'cost',200,200,0,0,0,5,path+'.tif')
 
     def addElement(self):
         self.iface.actionAddFeature().trigger()

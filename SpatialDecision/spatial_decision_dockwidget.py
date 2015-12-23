@@ -26,6 +26,13 @@ from qgis.core import *
 from qgis.networkanalysis import *
 from qgis.gui import *
 import processing
+<<<<<<< Updated upstream
+=======
+
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.figure import Figure
+
+>>>>>>> Stashed changes
 # Initialize Qt resources from file resources.py
 import resources
 
@@ -119,6 +126,18 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.medicButton.setIcon(QtGui.QIcon(':icons/medic_box.png'))
         self.ambulanceButton.setIcon(QtGui.QIcon(':icons/ambulance.png'))
 
+<<<<<<< Updated upstream
+=======
+        # add matplotlib Figure to chartFrame
+        self.chart_figure = Figure()
+        self.chart_subplot_hist = self.chart_figure.add_subplot(221)
+        self.chart_subplot_line = self.chart_figure.add_subplot(222)
+        self.chart_subplot_bar = self.chart_figure.add_subplot(223)
+        self.chart_subplot_pie = self.chart_figure.add_subplot(224)
+        self.chart_figure.tight_layout()
+        self.chart_canvas = FigureCanvas(self.chart_figure)
+        self.chartLayout.addWidget(self.chart_canvas)
+>>>>>>> Stashed changes
 
         # initialisation
         self.updateLayers()
@@ -180,6 +199,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.setSelectedLayer()
         else:
             self.selectAttributeCombo.clear()
+<<<<<<< Updated upstream
+=======
+
+            self.clearChart()
+>>>>>>> Stashed changes
 
     def setSelectedLayer(self):
         print 'setselectedlayer...........'
