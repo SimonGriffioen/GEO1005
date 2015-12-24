@@ -65,7 +65,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # set up GUI operation signals
 
         # canvas
-        self.clickTool.canvasClicked.connect(self.addElement)
+        self.clickTool.canvasClicked.connect(self.handleMouseDown)
+
         #self.dlg = vector_selectbypointDialog()
 
         # data
@@ -82,6 +83,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.setNetworkButton2.clicked.connect(self.buildNetwork2)
         self.selectNetworkCombo.activated.connect(self.setNetworkLayer)
         self.selectNodeCombo.activated.connect(self.setNodeLayer)
+        self.selectTransportCombo.activated.connect(self.setTransportMode)
         self.serviceAreaButton2.clicked.connect(self.calculateServiceArea2)
         self.addNodesButton.clicked.connect(self.addNode)
         self.createScenarioButton.clicked.connect(self.createScenario)
@@ -130,12 +132,39 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         list_path = path.split("/")[:-1]
         real_path =  '/'.join(list_path)
         filename = path.split("/")[-1]
+        pathStyle = "%s/styles/" % QgsProject.instance().homePath()
+        print pathStyle
+        print filename
 
         # save the layer as shapefile
         if path:
             vlayer = uf.copyLayerToShapeFile(vl,real_path,filename)
             # add scenario to the project
             QgsMapLayerRegistry.instance().addMapLayer(vlayer)
+            layer = uf.getLegendLayerByName(self.iface, filename)
+            print layer
+            layer.loadNamedStyle("%styleNodes.qml" % pathStyle)
+            layer.triggerRepaint()
+            self.iface.legendInterface().refreshLayerSymbology(layer)
+
+
+    def displayBenchmarkStyle(self):
+        # loads a predefined style on a layer.
+        # Best for simple, rule based styles, and categorical variables
+        # attributes and values classes are hard coded in the style
+        layer = uf.getLegendLayerByName(self.iface, "Obstacles")
+        path = "%s/styles/" % QgsProject.instance().homePath()
+        # load a categorical style
+        layer.loadNamedStyle("%sobstacle_danger.qml" % path)
+        layer.triggerRepaint()
+        self.iface.legendInterface().refreshLayerSymbology(layer)
+
+        # load a simple style
+        layer = uf.getLegendLayerByName(self.iface, "Buffers")
+        layer.loadNamedStyle("%sbuffer.qml" % path)
+        layer.triggerRepaint()
+        self.iface.legendInterface().refreshLayerSymbology(layer)
+        self.canvas.refresh()
 
 
     def updateLayers(self):
@@ -155,6 +184,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.selectNetworkCombo.addItems(layer_names)
             self.selectNodeCombo.addItems(layer_names)
             #self.selectionTree.addTopLevelItems(layer_names)
+
+    def setTransportMode(self):
+        mode = self.selectTransportCombo.currentText()
+        print mode
 
     def setNetworkLayer(self):
         pass
@@ -291,17 +324,62 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # interpolation
             processing.runandload('gdalogr:gridaverage',service_area_layer,'cost',200,200,0,0,0,5,path+'.tif')
 
-    def addElement(self):
-        self.iface.actionAddFeature().trigger()
+
+    def handleMouseDown(self, point, button):
+
+        #print str(point.x()) + " , " +str(point.y()) )
+        x_coor = point.x()
+        y_coor = point.y()
+        print x_coor, y_coor
+        vl = self.getNodeLayer()
+        pr = vl.dataProvider()
+        vl.startEditing()
+
+        fet = QgsFeature()
+        fet.setGeometry( QgsGeometry.fromPoint(QgsPoint(x_coor,y_coor)) )
+        fet.setAttributes(["test", "test2"])
+        pr.addFeatures([fet])
+
+        vl.commitChanges()
+        vl.updateExtents()
+        QgsMapLayerRegistry.instance().addMapLayer(vl)
+
+
+
+    """
+    def addElement(self, point, ):
+        vl = self.getNodeLayer()
+        vl.startEditing()
+
+        fet = QgsFeature()
+        fet.setGeometry( QgsGeometry.fromPoint(QgsPoint(10,10)) )
+        fet.setAttributes(["Johny", 2, 0.3])
+        pr.addFeatures([fet])
+        """
+
+
+
+        #self.iface.actionAddFeature().trigger()
+
+        #pnt = self.toMapCoordinates(mouseEvent.pos())
+        #print pnt
+        #self.canvasClicked.emit(pnt, mouseEvent.button())
+
+        #self.setAttributes("test", "hallo")
+
+
+
 
     def addNode(self):
         # select scenario node layer
-        vl = self.getNodeLayer()
+        #vl = self.getNodeLayer()
         # edit the selected node layer
-        vl.startEditing()
+        #vl.startEditing()
         # enable mouse on canvas
         node_added = self.run_mouse()
-        print node_added
+
+
+
 
         if node_added:
             vl.commitChanges()
