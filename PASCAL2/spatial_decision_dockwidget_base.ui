@@ -21,11 +21,7 @@
        <string/>
       </property>
       <property name="pixmap">
-<<<<<<< HEAD
-       <pixmap>icons/pascal.png</pixmap>
-=======
        <pixmap>../../../Development/pascal/PASCAL2/icons/pascal.png</pixmap>
->>>>>>> origin/master
       </property>
      </widget>
     </item>
@@ -103,10 +99,6 @@
           </property>
          </spacer>
         </item>
-<<<<<<< HEAD
-        <item row="8" column="1">
-         <widget class="QPushButton" name="createScenarioButton">
-=======
         <item row="9" column="0" colspan="2">
          <widget class="QLabel" name="label_9">
           <property name="maximumSize">
@@ -123,7 +115,6 @@
             <bold>true</bold>
            </font>
           </property>
->>>>>>> origin/master
           <property name="text">
            <string>Here you can place new nodes</string>
           </property>
@@ -132,60 +123,6 @@
           </property>
          </widget>
         </item>
-<<<<<<< HEAD
-        <item row="15" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>3.</string>
-          </property>
-         </widget>
-        </item>
-        <item row="15" column="1">
-         <widget class="QPushButton" name="addNodesButton">
-          <property name="text">
-           <string>Add Node</string>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="1">
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="10" column="0" colspan="2">
-         <widget class="QLabel" name="label_9">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Myriad Pro</family>
-            <pointsize>10</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Here you can place new nodes</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="1">
-=======
         <item row="11" column="0">
          <widget class="QLabel" name="label_6">
           <property name="text">
@@ -194,7 +131,6 @@
          </widget>
         </item>
         <item row="11" column="1">
->>>>>>> origin/master
          <widget class="QComboBox" name="selectTransportCombo">
           <item>
            <property name="text">
@@ -228,12 +164,6 @@
           </item>
          </widget>
         </item>
-<<<<<<< HEAD
-        <item row="12" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>1.</string>
-=======
         <item row="12" column="1">
          <widget class="QCheckBox" name="VisibilityCheckBox">
           <property name="text">
@@ -259,34 +189,13 @@
          <widget class="QLabel" name="label_8">
           <property name="text">
            <string>3.</string>
->>>>>>> origin/master
           </property>
          </widget>
         </item>
         <item row="14" column="1">
-<<<<<<< HEAD
-         <widget class="QLineEdit" name="stopNameEdit">
-          <property name="text">
-           <string>&lt;Enter name of node&gt;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="14" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>2.</string>
-          </property>
-         </widget>
-        </item>
-        <item row="13" column="1">
-         <widget class="QCheckBox" name="VisibilityCheckBox">
-          <property name="text">
-           <string>Show me all nodes and road types</string>
-=======
          <widget class="QPushButton" name="addNodesButton">
           <property name="text">
            <string>Add Node</string>
->>>>>>> origin/master
           </property>
          </widget>
         </item>
