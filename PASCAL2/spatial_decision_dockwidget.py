@@ -132,39 +132,16 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         list_path = path.split("/")[:-1]
         real_path =  '/'.join(list_path)
         filename = path.split("/")[-1]
-        pathStyle = "%s/styles/" % QgsProject.instance().homePath()
-        print pathStyle
-        print filename
-
+        pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
         # save the layer as shapefile
         if path:
             vlayer = uf.copyLayerToShapeFile(vl,real_path,filename)
             # add scenario to the project
             QgsMapLayerRegistry.instance().addMapLayer(vlayer)
             layer = uf.getLegendLayerByName(self.iface, filename)
-            print layer
-            layer.loadNamedStyle("%styleNodes.qml" % pathStyle)
+            layer.loadNamedStyle("{}styleNodes.qml".format(pathStyle))
             layer.triggerRepaint()
             self.iface.legendInterface().refreshLayerSymbology(layer)
-
-
-    def displayBenchmarkStyle(self):
-        # loads a predefined style on a layer.
-        # Best for simple, rule based styles, and categorical variables
-        # attributes and values classes are hard coded in the style
-        layer = uf.getLegendLayerByName(self.iface, "Obstacles")
-        path = "%s/styles/" % QgsProject.instance().homePath()
-        # load a categorical style
-        layer.loadNamedStyle("%sobstacle_danger.qml" % path)
-        layer.triggerRepaint()
-        self.iface.legendInterface().refreshLayerSymbology(layer)
-
-        # load a simple style
-        layer = uf.getLegendLayerByName(self.iface, "Buffers")
-        layer.loadNamedStyle("%sbuffer.qml" % path)
-        layer.triggerRepaint()
-        self.iface.legendInterface().refreshLayerSymbology(layer)
-        self.canvas.refresh()
 
 
     def updateLayers(self):
@@ -188,6 +165,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def setTransportMode(self):
         mode = self.selectTransportCombo.currentText()
         print mode
+        vl = self.getNodeLayer()
+
+        legend = self.iface.legendInterface()  # access the legend
+        legend.setLayerVisible(vl, False)
+        self.canvas.refresh()
 
     def setNetworkLayer(self):
         pass
@@ -325,6 +307,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             processing.runandload('gdalogr:gridaverage',service_area_layer,'cost',200,200,0,0,0,5,path+'.tif')
 
 
+
+
     def handleMouseDown(self, point, button):
 
         #print str(point.x()) + " , " +str(point.y()) )
@@ -335,39 +319,23 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         pr = vl.dataProvider()
         vl.startEditing()
 
-        fet = QgsFeature()
-        fet.setGeometry( QgsGeometry.fromPoint(QgsPoint(x_coor,y_coor)) )
-        fet.setAttributes(["test", "test2"])
-        pr.addFeatures([fet])
+        # set new attributes
+        stopname = self.stopNameEdit.text()
+        mode = self.selectTransportCombo.currentText()
 
+        # create new point for node
+        fet = QgsFeature()
+        fet.setGeometry( QgsGeometry.fromPoint(QgsPoint(x_coor,y_coor)))
+
+        # add new attributes
+        fet.setAttributes([stopname, mode])
+        pr.addFeatures([fet])
+        self.stopNameEdit.clear()
+
+        # save changes
         vl.commitChanges()
         vl.updateExtents()
         QgsMapLayerRegistry.instance().addMapLayer(vl)
-
-
-
-    """
-    def addElement(self, point, ):
-        vl = self.getNodeLayer()
-        vl.startEditing()
-
-        fet = QgsFeature()
-        fet.setGeometry( QgsGeometry.fromPoint(QgsPoint(10,10)) )
-        fet.setAttributes(["Johny", 2, 0.3])
-        pr.addFeatures([fet])
-        """
-
-
-
-        #self.iface.actionAddFeature().trigger()
-
-        #pnt = self.toMapCoordinates(mouseEvent.pos())
-        #print pnt
-        #self.canvasClicked.emit(pnt, mouseEvent.button())
-
-        #self.setAttributes("test", "hallo")
-
-
 
 
     def addNode(self):
@@ -380,35 +348,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
 
-
-        if node_added:
-            vl.commitChanges()
-            vl.updateExtents()
-            QgsMapLayerRegistry.instance().addMapLayer(vl)
-
-        """
-        fet = QgsFeature()
-        fet.setGeometry(QgsGeometry.fromPoint())
-        #pr.addFeatures()
-
-        fet.setGeometry(QgsGeometry.fromPoint(QgsPoint(123871,488974)))
-        pr.addFeatures([fet])
-
-
-        print 'test1'
-        nodeLayer.commitChanges()
-        nodeLayer.updateExtents()
-        print 'test2'
-        QgsMapLayerRegistry.instance().addMapLayer(nodeLayer)
-
-        nodes = nodeLayer.getFeatures()
-        source_points = []
-        for node in nodes:
-            source_points.append(node.geometry().asPoint())
-        # create a temporary layer
-        node_layer = uf.getLegendLayerByName(self.iface, "Added_Nodes")
-        if not node_layer:
-        """
 
     # after adding features to layers needs a refresh (sometimes)
     def refreshCanvas(self, layer):
