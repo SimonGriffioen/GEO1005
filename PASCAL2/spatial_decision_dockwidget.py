@@ -297,7 +297,23 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
             # interpolation
             processing.runalg('gdalogr:gridinvdist',service_area_layer,'cost',2,0,200,200,0,0,0,0,5,path+'.tif')
-            self.iface.addRasterLayer(path+'.tif', filename)
+
+
+            fileName = path+'.tif'
+            fileInfo = QtCore.QFileInfo(fileName)
+            print 'baseName'
+            baseName = fileInfo.baseName()
+            print baseName
+            rasterLayer = QgsRasterLayer(fileName, baseName)
+            QgsMapLayerRegistry.instance().addMapLayer(rasterLayer, False)
+            root = QgsProject.instance().layerTreeRoot()
+            root.insertLayer(5, rasterLayer)
+
+
+            #self.iface.addRasterLayer(path+'.tif', filename)
+
+            # close dist2station intermediary layer
+            QgsMapLayerRegistry.instance().removeMapLayer(service_area_layer.id())
 
 
 
