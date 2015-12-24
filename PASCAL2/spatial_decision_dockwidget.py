@@ -84,6 +84,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.selectNetworkCombo.activated.connect(self.setNetworkLayer)
         self.selectNodeCombo.activated.connect(self.setNodeLayer)
         self.selectTransportCombo.activated.connect(self.setTransportMode)
+        self.visibilityCheckBox.stateChanged.connect(self.showAll)
         self.addNodesButton.clicked.connect(self.addNode)
         self.createScenarioButton.clicked.connect(self.createScenario)
         self.graph = QgsGraph()
@@ -167,14 +168,83 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.selectNodeCombo.addItems(layer_names)
             #self.selectionTree.addTopLevelItems(layer_names)
 
-    def setTransportMode(self):
-        mode = self.selectTransportCombo.currentText()
-        print mode
-        vl = self.getNodeLayer()
+    def showAll(self):
+        checked = self.visibilityCheckBox.isChecked()
+        if checked is True:
+            vl = self.getNodeLayer()
+            pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
+            vl.loadNamedStyle("{}styleNodes.qml".format(pathStyle))
+            vl.triggerRepaint()
+            self.iface.legendInterface().refreshLayerSymbology(vl)
 
-        legend = self.iface.legendInterface()  # access the legend
-        legend.setLayerVisible(vl, False)
-        self.canvas.refresh()
+            vl = self.getNetworkLayer()
+            vl.loadNamedStyle("{}styleRoads.qml".format(pathStyle))
+            vl.triggerRepaint()
+            self.iface.legendInterface().refreshLayerSymbology(vl)
+        elif checked is False:
+            self.setTransportMode()
+
+
+    def setTransportMode(self):
+        if self.visibilityCheckBox.isChecked() is True:
+            self.showAll()
+        else:
+            mode = self.selectTransportCombo.currentText()
+            print mode
+            vl = self.getNodeLayer()
+
+            #root = QgsProject.instance().layerTreeRoot()
+            pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
+            if mode == 'bus':
+                # load only bus nodes
+                vl.loadNamedStyle("{}styleBus.qml".format(pathStyle))
+                vl.triggerRepaint()
+                self.iface.legendInterface().refreshLayerSymbology(vl)
+            elif mode == 'metro':
+                # load nodes for specific transport mode
+                vl.loadNamedStyle("{}styleMetro.qml".format(pathStyle))
+                vl.triggerRepaint()
+                self.iface.legendInterface().refreshLayerSymbology(vl)
+            elif mode == 'ferry':
+                # load nodes for specific transport mode
+                vl.loadNamedStyle("{}styleFerry.qml".format(pathStyle))
+                vl.triggerRepaint()
+                self.iface.legendInterface().refreshLayerSymbology(vl)
+            elif mode == 'tram':
+                # load nodes for specific transport mode
+                vl.loadNamedStyle("{}styleTram.qml".format(pathStyle))
+                vl.triggerRepaint()
+                self.iface.legendInterface().refreshLayerSymbology(vl)
+            elif mode == 'rail':
+                # load nodes for specific transport mode
+                vl.loadNamedStyle("{}styleRail.qml".format(pathStyle))
+                vl.triggerRepaint()
+                self.iface.legendInterface().refreshLayerSymbology(vl)
+            else:
+                vl.loadNamedStyle("{}styleNodes.qml".format(pathStyle))
+                vl.triggerRepaint()
+                self.iface.legendInterface().refreshLayerSymbology(vl)
+
+            # update road layer visibility
+            vl = self.getNetworkLayer()
+            if mode == 'bus':
+                # load style roads for bus
+                vl = self.getNetworkLayer()
+                vl.loadNamedStyle("{}styleRoadBus.qml".format(pathStyle))
+                vl.triggerRepaint()
+                self.iface.legendInterface().refreshLayerSymbology(vl)
+            elif mode == 'tram' or mode == 'metro' or mode == 'rail':
+                # load style roads for specific transport mode
+                vl = self.getNetworkLayer()
+                vl.loadNamedStyle("{}styleRoadRails.qml".format(pathStyle))
+                vl.triggerRepaint()
+                self.iface.legendInterface().refreshLayerSymbology(vl)
+            else:
+                vl.loadNamedStyle("{}styleRoads.qml".format(pathStyle))
+                vl.triggerRepaint()
+                self.iface.legendInterface().refreshLayerSymbology(vl)
+
+
 
     def setNetworkLayer(self):
         pass
@@ -346,6 +416,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         vl.commitChanges()
         vl.updateExtents()
         QgsMapLayerRegistry.instance().addMapLayer(vl)
+
+        # set back to default settings
+        self.selectTransportCombo.setCurrentIndex(0)
+        self.setTransportMode()
+
 
 
     def addNode(self):
