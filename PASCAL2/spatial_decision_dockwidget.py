@@ -80,15 +80,17 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         #self.selectionTree.clicked.connect(self.select_from_tree)
 
         # analysis
-        self.setNetworkButton2.clicked.connect(self.buildNetwork2)
+        self.stationDistanceButton.clicked.connect(self.buildNetwork)
         self.selectNetworkCombo.activated.connect(self.setNetworkLayer)
         self.selectNodeCombo.activated.connect(self.setNodeLayer)
         self.selectTransportCombo.activated.connect(self.setTransportMode)
-        self.serviceAreaButton2.clicked.connect(self.calculateServiceArea2)
         self.addNodesButton.clicked.connect(self.addNode)
         self.createScenarioButton.clicked.connect(self.createScenario)
         self.graph = QgsGraph()
         self.tied_points = []
+
+        self.scenarioPath = QgsProject.instance().homePath()
+        self.scenarioName = 'ScenarioBase'
 
         # visualisation
 
@@ -241,7 +243,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             return
 
 
-    def buildNetwork2(self):
+    def buildNetwork(self):
         self.network_layer = self.getNetworkLayer()
 
         if self.network_layer:
@@ -256,29 +258,15 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # build the graph including these points
             if len(source_points) > 1:
                 self.graph, self.tied_points = uf.makeUndirectedGraph(self.network_layer, source_points)
-                print 'graph'
-                print self.graph
-                '''# the tied points are the new source_points on the graph
-                if self.graph and self.tied_points:
-                    text = "network is built for %s points" % len(self.tied_points)
-                    self.insertReport(text)'''
+            self.calculateServiceArea()
         return
 
-    def getServiceAreaCutoff(self):
-        cutoff = self.serviceAreaCutoffEdit.text()
-        if uf.isNumeric(cutoff):
-            return uf.convertNumeric(cutoff)
-        else:
-            return 0
-
-    def calculateServiceArea2(self):
+    def calculateServiceArea(self):
         options = len(self.tied_points)
         if options > 0:
             # origin is given as an index in the tied_points list
             origin = random.randint(1,options-1)
-            cutoff_distance = self.getServiceAreaCutoff()
-            if cutoff_distance == 0:
-                return
+            cutoff_distance = 100000
             service_area = uf.calculateServiceAreaAll(self.graph, self.tied_points, cutoff_distance)
             # store the service area results in temporary layer called "Service_Area"
             area_layer = uf.getLegendLayerByName(self.iface, "Service_Area")
@@ -304,7 +292,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             filename = path.split("/")[-1]
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
             # interpolation
-            processing.runandload('gdalogr:gridaverage',service_area_layer,'cost',200,200,0,0,0,5,path+'.tif')
+            processing.runalg('gdalogr:gridinvdist',service_area_layer,'cost',2,0,200,200,0,0,0,0,5,path+'.tif')
+            self.iface.addRasterLayer(path+'.tif', filename)
+
 
 
 
