@@ -133,7 +133,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         path = QtGui.QFileDialog(self).getSaveFileName()
         list_path = path.split("/")[:-1]
         real_path =  '/'.join(list_path)
+        self.scenarioPath = real_path
         filename = path.split("/")[-1]
+        self.scenarioName = filename
+        filename = filename + '_nodes'
         pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
         # save the layer as shapefile
         if path:
@@ -287,7 +290,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             uf.insertTempFeatures(area_layer, geoms, values)
             self.refreshCanvas(area_layer)
 
-            path = QtGui.QFileDialog.getSaveFileName(self)
+            #path = QtGui.QFileDialog.getSaveFileName(self)
+            path = self.scenarioPath + '/' + self.scenarioName + '_dist2station'
             QgsVectorFileWriter.writeAsVectorFormat(area_layer,path+'.shp',str(area_layer.crs().postgisSrid()), None, "ESRI Shapefile")
             filename = path.split("/")[-1]
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
