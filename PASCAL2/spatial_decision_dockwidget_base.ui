@@ -62,42 +62,28 @@
         <item row="2" column="1">
          <widget class="QComboBox" name="selectNodeCombo"/>
         </item>
-        <item row="4" column="1">
-         <widget class="QPushButton" name="setNetworkButton2">
+        <item row="3" column="1">
+         <widget class="QPushButton" name="stationDistanceButton">
           <property name="text">
-           <string>Build Network2</string>
+           <string>Station Distance</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QPushButton" name="serviceAreaButton2">
-          <property name="text">
-           <string>ServiceArea2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="QLineEdit" name="serviceAreaCutoffEdit">
-          <property name="text">
-           <string>1500</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="0">
+        <item row="9" column="0">
          <widget class="QPushButton" name="createScenarioButton">
           <property name="text">
            <string>Create Scenario</string>
           </property>
          </widget>
         </item>
-        <item row="12" column="1">
+        <item row="10" column="1">
          <widget class="QLabel" name="label_2">
           <property name="text">
            <string>Mode of transport for new node:</string>
           </property>
          </widget>
         </item>
-        <item row="13" column="1">
+        <item row="11" column="1">
          <widget class="QComboBox" name="selectTransportCombo">
           <item>
            <property name="text">
@@ -126,20 +112,20 @@
           </item>
          </widget>
         </item>
-        <item row="15" column="1">
-         <widget class="QLineEdit" name="stopNameEdit"/>
-        </item>
-        <item row="16" column="1">
-         <widget class="QPushButton" name="addNodesButton">
-          <property name="text">
-           <string>Add Node</string>
-          </property>
-         </widget>
-        </item>
-        <item row="14" column="1">
+        <item row="12" column="1">
          <widget class="QLabel" name="label_5">
           <property name="text">
            <string>Enter name of node:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="1">
+         <widget class="QLineEdit" name="stopNameEdit"/>
+        </item>
+        <item row="14" column="1">
+         <widget class="QPushButton" name="addNodesButton">
+          <property name="text">
+           <string>Add Node</string>
           </property>
          </widget>
         </item>
