@@ -360,35 +360,28 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 # in the case of values, it expects a list of multiple values in each item - list of lists
                 values.append([point[1]])
             uf.insertTempFeatures(area_layer, geoms, values)
-            self.refreshCanvas(area_layer)
 
-            #path = QtGui.QFileDialog.getSaveFileName(self)
             path = self.scenarioPath + '/' + self.scenarioName + '_dist2station'
             QgsVectorFileWriter.writeAsVectorFormat(area_layer,path+'.shp',str(area_layer.crs().postgisSrid()), None, "ESRI Shapefile")
             filename = path.split("/")[-1]
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
-            # interpolation
-            processing.runalg('gdalogr:gridinvdist',service_area_layer,'cost',2,0,200,200,0,0,0,0,5,path+'.tif')
 
+            # interpolation
+            processing.runalg('gdalogr:gridinvdist',service_area_layer,'cost',2,0,400,400,0,0,0,0,5,path+'.tif')
 
             fileName = path+'.tif'
             fileInfo = QtCore.QFileInfo(fileName)
-            print 'baseName'
             baseName = fileInfo.baseName()
-            print baseName
             rasterLayer = QgsRasterLayer(fileName, baseName)
             QgsMapLayerRegistry.instance().addMapLayer(rasterLayer, False)
             root = QgsProject.instance().layerTreeRoot()
             root.insertLayer(5, rasterLayer)
 
-
-            #self.iface.addRasterLayer(path+'.tif', filename)
-
-            # close dist2station intermediary layer
+            # close intermediary layer
             QgsMapLayerRegistry.instance().removeMapLayer(service_area_layer.id())
 
-
-
+            # style raster layer
+            self.styleStationDistance(rasterLayer)
 
 
     def handleMouseDown(self, point, button):
@@ -434,8 +427,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         node_added = self.run_mouse()
 
 
-
-
     # after adding features to layers needs a refresh (sometimes)
     def refreshCanvas(self, layer):
         if self.canvas.isCachingEnabled():
@@ -446,6 +437,22 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 #    Visualisation functions
 #######
+
+    def styleStationDistance(self,layer):
+        fcn = QgsColorRampShader()
+        fcn.setColorRampType(QgsColorRampShader.DISCRETE)
+        lst = [ QgsColorRampShader.ColorRampItem(0, QtGui.QColor(255,255,255),'0'), \
+                QgsColorRampShader.ColorRampItem(300, QtGui.QColor(255,200,200),'<300'), \
+                QgsColorRampShader.ColorRampItem(600, QtGui.QColor(202,110,110),'300-600'), \
+                QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(150,20,20),'>600') ]
+        fcn.setColorRampItemList(lst)
+        shader = QgsRasterShader()
+        shader.setRasterShaderFunction(fcn)
+
+        renderer = QgsSingleBandPseudoColorRenderer(layer.dataProvider(), 1, shader)
+        layer.setRenderer(renderer)
+
+        self.refreshCanvas(layer)
 
 #######
 #    Reporting functions
