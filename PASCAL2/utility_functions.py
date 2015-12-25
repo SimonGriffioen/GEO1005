@@ -606,7 +606,7 @@ def calculateServiceArea(graph, tied_points, origin, cutoff, impedance=0):
 
     return points
 
-def calculateServiceAreaAll(graph, tied_points, cutoff, impedance=0):
+def calculateStationDistance(graph, tied_points, cutoff, impedance=0):
     points = []
     for from_point in tied_points:
         print "volgende node"

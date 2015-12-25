@@ -93,7 +93,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.tied_points = []
 
         self.scenarioPath = QgsProject.instance().homePath()
-        self.scenarioName = 'ScenarioBase'
+        self.scenarioName = 'baseScenario'
 
         # visualisation
 
@@ -299,9 +299,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         roads_layer = self.getSelectedLayer()
 
-        print 'roads_layer'
-        print roads_layer
-
         if roads_layer:
             # see if there is an obstacles layer to subtract roads from the network
             obstacles_layer = uf.getLegendLayerByName(self.iface, "Obstacles")
@@ -326,6 +323,13 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # in this case gets the centroid of the selected features
 
             nodeLayer = self.getNodeLayer()
+
+            name = nodeLayer.name()
+            if name.endswith('_nodes'):
+                self.scenarioName = name[0:-6]
+            else:
+                self.scenarioName = 'baseScenario'
+
             nodes = nodeLayer.getFeatures()
             source_points = []
             for node in nodes:
@@ -333,17 +337,17 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # build the graph including these points
             if len(source_points) > 1:
                 self.graph, self.tied_points = uf.makeUndirectedGraph(self.network_layer, source_points)
-            self.calculateServiceArea()
+            self.stationDistance()
         return
 
-    def calculateServiceArea(self):
+    def stationDistance(self):
         options = len(self.tied_points)
         if options > 0:
             # origin is given as an index in the tied_points list
             origin = random.randint(1,options-1)
             cutoff_distance = 100000
-            service_area = uf.calculateServiceAreaAll(self.graph, self.tied_points, cutoff_distance)
-            # store the service area results in temporary layer called "Service_Area"
+            service_area = uf.calculateStationDistance(self.graph, self.tied_points, cutoff_distance)
+            # store the station distance results in temporary layer called "Service_Area"
             area_layer = uf.getLegendLayerByName(self.iface, "Service_Area")
             # create one if it doesn't exist
             if not area_layer:
@@ -441,7 +445,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def styleStationDistance(self,layer):
         fcn = QgsColorRampShader()
         fcn.setColorRampType(QgsColorRampShader.DISCRETE)
-        lst = [ QgsColorRampShader.ColorRampItem(0, QtGui.QColor(255,255,255),'0'), \
+        lst = [ QgsColorRampShader.ColorRampItem(0, QtGui.QColor(255,255,255,0),'no data'), \
                 QgsColorRampShader.ColorRampItem(300, QtGui.QColor(255,200,200),'<300'), \
                 QgsColorRampShader.ColorRampItem(600, QtGui.QColor(202,110,110),'300-600'), \
                 QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(150,20,20),'>600') ]
