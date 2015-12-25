@@ -61,6 +61,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface = iface
         self.canvas = self.iface.mapCanvas()
         self.clickTool = QgsMapToolEmitPoint(self.canvas)
+        self.panTool = QgsMapToolPan(self.canvas)
+        self.touchTool = QgsMapToolTouch(self.canvas)
 
         # set up GUI operation signals
 
@@ -417,11 +419,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         vl.updateExtents()
         QgsMapLayerRegistry.instance().addMapLayer(vl)
 
+
         # set back to default settings
         self.selectTransportCombo.setCurrentIndex(0)
         self.setTransportMode()
-
-
+        self.canvas.setMapTool(self.panTool)
 
     def addNode(self):
         # select scenario node layer
