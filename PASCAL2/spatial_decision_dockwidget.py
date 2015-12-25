@@ -145,7 +145,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         if path:
             vlayer = uf.copyLayerToShapeFile(vl,real_path,filename)
             # add scenario to the project
-            QgsMapLayerRegistry.instance().addMapLayer(vlayer)
+            QgsMapLayerRegistry.instance().addMapLayer(vlayer, False)
+
+            root = QgsProject.instance().layerTreeRoot()
+            root.insertLayer(1, vlayer)
+
             layer = uf.getLegendLayerByName(self.iface, filename)
             layer.loadNamedStyle("{}styleNodes.qml".format(pathStyle))
             layer.triggerRepaint()
