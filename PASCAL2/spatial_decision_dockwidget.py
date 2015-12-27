@@ -98,6 +98,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # visualisation
 
         # reporting
+        self.statisticsButton.clicked.connect(self.rasterStatistics)
 
         # set current UI restrictions
 
@@ -427,11 +428,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.canvas.setMapTool(self.panTool)
 
     def addNode(self):
-        # select scenario node layer
-        #vl = self.getNodeLayer()
-        # edit the selected node layer
-        #vl.startEditing()
-        # enable mouse on canvas
         node_added = self.run_mouse()
 
 
@@ -465,3 +461,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 #    Reporting functions
 #######
+
+    def rasterStatistics(self):
+        pathGrid = self.scenarioPath + '/' + self.scenarioName + '_dist2station.tif'
+        pathPolygon = 'C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp'
+        pathStat = 'C:/Development/pascal/sample_data/Data QGIS - pascal/gridStatistics.shp'
+
+        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, pathPolygon, True, True, True, True, True, True, False, False, 0, pathStat)
+
+
+
+
