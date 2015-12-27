@@ -100,6 +100,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # reporting
         self.statisticsButton.clicked.connect(self.rasterStatistics)
 
+
+
         # set current UI restrictions
 
         # add button icons
@@ -466,9 +468,43 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         pathGrid = self.scenarioPath + '/' + self.scenarioName + '_dist2station.tif'
         pathPolygon = 'C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp'
         pathStat = 'C:/Development/pascal/sample_data/Data QGIS - pascal/gridStatistics.shp'
-
-        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, pathPolygon, True, True, True, True, True, True, False, False, 0, pathStat)
-
+        filename = pathStat.split("/")[-1]
 
 
+        #processing.runalg("saga:gridstatisticsforpolygons",pathGrid, pathPolygon, True, True, True, True, True, True, False, False, 0, pathStat)
+        PolyStat = QgsVectorLayer(filename, "statistics", 'ogr')
 
+        self.extractAttributeSummary(filename[:-4])
+
+
+    def extractAttributeSummary(self, attribute):
+        # get summary of the attribute
+        layer_name = attribute
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+
+        summary = []
+        # only use the first attribute in the list
+        for feature in layer.getFeatures():
+            summary.append(feature)#, feature.attribute(attribute)))
+        # send this to the table
+        self.clearTable()
+        self.updateTable(summary)
+
+
+    # table window functions
+    def updateTable(self, values):
+        # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
+        self.statisticsTable.setColumnCount(3)
+        self.statisticsTable.setHorizontalHeaderLabels(["Neighborhood","Min", "Max"])
+        self.statisticsTable.setRowCount(len(values))
+        for i, item in enumerate(values):
+            # i is the table row, items mus tbe added as QTableWidgetItems
+            self.statisticsTable.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
+            self.statisticsTable.setItem(i,1,QtGui.QTableWidgetItem(str(item[15])))
+            self.statisticsTable.setItem(i,2,QtGui.QTableWidgetItem(str(item[16])))
+        self.statisticsTable.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
+        self.statisticsTable.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
+        self.statisticsTable.resizeRowsToContents()
+
+    def clearTable(self):
+        self.statisticsTable.clear()

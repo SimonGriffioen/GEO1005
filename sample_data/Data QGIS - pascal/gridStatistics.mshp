@@ -17,7 +17,7 @@
       <DATA>
         <MODULE>GDAL: Import Raster</MODULE>
         <OPTION type="file" id="FILES" name="Files">"C:/Development/pascal/sample_data/Layers QGIS - pascal/baseScenario_dist2station.tif"</OPTION>
-        <OPTION type="boolean" id="TRANSFORM" name="Transformation">TRUE</OPTION>
+        <OPTION type="boolean" id="TRANSFORM" name="Transformation">C:\Users\Simon\AppData\Local\Temp\processing\619eedf16aef4bdd89ff816887e64866\C:DevelopmentpascalsampledataLayersQGISpascalbaseScenariodist2stationtif.sgrd</OPTION>
         <OPTION type="choice" id="INTERPOL" name="Interpolation">0</OPTION>
       </DATA>
     </DATA_LIST>

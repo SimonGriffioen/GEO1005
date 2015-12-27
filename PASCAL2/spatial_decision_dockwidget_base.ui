@@ -225,6 +225,9 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
+         <widget class="QTableWidget" name="statisticsTable"/>
+        </item>
+        <item>
          <widget class="QPushButton" name="statisticsButton">
           <property name="text">
            <string>Statistics</string>
