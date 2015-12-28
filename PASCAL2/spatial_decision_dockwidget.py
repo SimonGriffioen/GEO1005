@@ -527,7 +527,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics1Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics1Table.resizeRowsToContents()
 
-    def updateTable2(selfs):
+    def updateTable2(self):
         # Table 2 shows the mean distance to a node for every neighborhood (index16)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
         headerLabels = ["Neigborhoods"]
