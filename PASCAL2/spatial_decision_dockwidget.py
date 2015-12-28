@@ -293,6 +293,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         filename = scenarioName + '_dist2station'
         raster_layer = uf.getLegendLayerByName(self.iface, filename)
         if raster_layer:
+            print raster_layer
             self.styleStationDistance(raster_layer)
 
     def getNetwork(self):
@@ -537,19 +538,19 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         for scen in self.scenarios:
             if scen in self.scenarioAttributes:
                 headerLabels.append(scen)
-        self.statistics1Table.setColumnCount(len(headerLabels))
-        self.statistics1Table.setHorizontalHeaderLabels(headerLabels)
-        self.statistics1Table.setRowCount(len(self.scenarioAttributes[headerLabels[1]]))
+        self.statistics2Table.setColumnCount(len(headerLabels))
+        self.statistics2Table.setHorizontalHeaderLabels(headerLabels)
+        self.statistics2Table.setRowCount(len(self.scenarioAttributes[headerLabels[1]]))
 
         # write neighborhoods in table
         for i, item in enumerate(self.scenarioAttributes['base']):
-            self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
+            self.statistics2Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
 
         # write mean distance in table
         for n, scen in enumerate(headerLabels[1:]):
             value = self.scenarioAttributes[scen]
             for i, item in enumerate(value):
-                self.statistics1Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(int(item[15]))))
+                self.statistics2Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(int(item[15]))))
         self.statistics2Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
         self.statistics2Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics2Table.resizeRowsToContents()
