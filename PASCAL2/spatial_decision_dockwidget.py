@@ -492,6 +492,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics1Table.setColumnCount(len(headerLabels))
         self.statistics1Table.setHorizontalHeaderLabels(headerLabels)
         self.statistics1Table.setRowCount(len(self.scenarioAttributes[headerLabels[1]]))
+
+        # write neighborhoods in table
         for i, item in enumerate(self.scenarioAttributes['base']):
             self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
 
@@ -499,7 +501,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         for n, scen in enumerate(headerLabels[1:]):
             value = self.scenarioAttributes[scen]
             for i, item in enumerate(value):
-                self.statistics1Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(item[15])))
+                self.statistics1Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(int(item[14]))))
 
 
 
@@ -518,14 +520,23 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def updateTable2(selfs):
         # Table 2 shows the mean distance to a node for every neighborhood (index16)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
-        self.statistics2Table.setColumnCount(len(self.scenarios))
-        self.statistics2Table.setHorizontalHeaderLabels(self.scenarios)
-        self.statistics2Table.setRowCount(len(values))
-        for i, item in enumerate(values):
-            # i is the table row, items mus tbe added as QTableWidgetItems
-            self.statistics2Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
-            self.statistics2Table.setItem(i,1,QtGui.QTableWidgetItem(str(item[15])))
-            self.statistics2Table.setItem(i,2,QtGui.QTableWidgetItem(str(item[16])))
+        headerLabels = ["Neigborhoods"]
+        for scen in self.scenarios:
+            if scen in self.scenarioAttributes:
+                headerLabels.append(scen)
+        self.statistics1Table.setColumnCount(len(headerLabels))
+        self.statistics1Table.setHorizontalHeaderLabels(headerLabels)
+        self.statistics1Table.setRowCount(len(self.scenarioAttributes[headerLabels[1]]))
+
+        # write neighborhoods in table
+        for i, item in enumerate(self.scenarioAttributes['base']):
+            self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
+
+        # write mean distance in table
+        for n, scen in enumerate(headerLabels[1:]):
+            value = self.scenarioAttributes[scen]
+            for i, item in enumerate(value):
+                self.statistics1Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(int(item[15]))))
         self.statistics2Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
         self.statistics2Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics2Table.resizeRowsToContents()
