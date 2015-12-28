@@ -474,16 +474,19 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def updateTable1(self, values):
         # Table 1 shows the maximum distance to a node for every neighborhood (index15)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
-        self.statistics1Table.setColumnCount(len(self.scenarios))
-        self.statistics1Table.setHorizontalHeaderLabels(self.scenarios)
+        headerLabels = ["Neigborhoods"]
+        for scen in self.scenarios:
+            headerLabels.append(scen)
+        self.statistics1Table.setColumnCount(len(headerLabels))
+        self.statistics1Table.setHorizontalHeaderLabels(headerLabels)
         self.statistics1Table.setRowCount(len(values[0]))
+
         for n,list in enumerate(values):
             for i, item in enumerate(list):
                 # i is the table row, items mus tbe added as QTableWidgetItems
-                
                 self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
-                self.statistics1Table.setItem(i,1,QtGui.QTableWidgetItem(str(item[15])))
-                self.statistics1Table.setItem(i,2,QtGui.QTableWidgetItem(str(item[16])))
+                self.statistics1Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(item[15])))
+
         self.statistics1Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
         self.statistics1Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics1Table.resizeRowsToContents()
