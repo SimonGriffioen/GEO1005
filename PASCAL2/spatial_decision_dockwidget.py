@@ -129,6 +129,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.scenarios.append(scenarioName)
         self.scenarioCombo.clear()
         self.scenarioCombo.addItems(self.scenarios)
+        
+        index = len(self.scenarios)-1
+        self.scenarioCombo.setCurrentIndex(index)
 
         filename = scenarioName + '_nodes'
 
