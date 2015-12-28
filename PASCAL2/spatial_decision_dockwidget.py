@@ -72,19 +72,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         #self.dlg = vector_selectbypointDialog()
 
         # data
-        self.iface.projectRead.connect(self.updateLayers)
-        self.iface.newProjectCreated.connect(self.updateLayers)
-        self.iface.legendInterface().itemRemoved.connect(self.updateLayers)
-        self.iface.legendInterface().itemAdded.connect(self.updateLayers)
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
-
-        # selection
-        #self.selectionTree.clicked.connect(self.select_from_tree)
 
         # analysis
         self.stationDistanceButton.clicked.connect(self.buildNetwork)
-        self.selectNetworkCombo.activated.connect(self.setNetworkLayer)
-        self.selectNodeCombo.activated.connect(self.setNodeLayer)
         self.selectTransportCombo.activated.connect(self.setTransportMode)
         self.visibilityCheckBox.stateChanged.connect(self.showAll)
         self.addNodesButton.clicked.connect(self.addNode)
@@ -93,9 +84,12 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.tied_points = []
 
         self.scenarioPath = QgsProject.instance().homePath()
-        self.scenarioName = 'baseScenario'
         self.scenarios = ['base']
+<<<<<<< HEAD
         self.scenarioAttributes = []
+=======
+        self.scenarioCombo.addItems(self.scenarios)
+>>>>>>> origin/master
 
 
         # visualisation
@@ -111,24 +105,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         #self.medicButton.setIcon(QtGui.QIcon(':icons/medic_box.png'))
 
         # initialisation
-        self.updateLayers()
+        self.setNodeAndNetwork()
 
         #run simple tests
 
 
-    def closeEvent(self, event):
-        print 'closeevent........'
-        # disconnect interface signals
-        try:
-            self.iface.projectRead.disconnect(self.updateLayers)
-            self.iface.newProjectCreated.disconnect(self.updateLayers)
-            self.iface.legendInterface().itemRemoved.disconnect(self.updateLayers)
-            self.iface.legendInterface().itemAdded.disconnect(self.updateLayers)
-        except:
-            pass
-
-        self.closingPlugin.emit()
-        event.accept()
 
 #######
 #   Data functions
@@ -143,10 +124,13 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         list_path = path.split("/")[:-1]
         real_path =  '/'.join(list_path)
         self.scenarioPath = real_path
-        filename = path.split("/")[-1]
-        self.scenarioName = filename
-        filename = filename + '_nodes'
-        self.scenarios.append(filename)
+        scenarioName = path.split("/")[-1]
+        self.scenarios.append(scenarioName)
+        self.scenarioCombo.clear()
+        self.scenarioCombo.addItems(self.scenarios)
+
+        filename = scenarioName + '_nodes'
+
         pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
         # save the layer as shapefile
         if path:
@@ -163,23 +147,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.iface.legendInterface().refreshLayerSymbology(layer)
 
 
-    def updateLayers(self):
-
-        print uf
-        print 'updatelayers..................'
-        print type(uf)
-
-        #if type(uf) == None:
+    def setNodeAndNetwork(self):
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
         self.selectNetworkCombo.clear()
         self.selectNodeCombo.clear()
-        #self.selectionTree.clear()
-        #self.selectionTree.setColumnCount(2)
         if layers:
             layer_names = uf.getLayersListNames(layers)
             self.selectNetworkCombo.addItems(layer_names)
             self.selectNodeCombo.addItems(layer_names)
-            #self.selectionTree.addTopLevelItems(layer_names)
 
     def showAll(self):
         checked = self.visibilityCheckBox.isChecked()
@@ -259,20 +234,19 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
 
-    def setNetworkLayer(self):
-        pass
-
-    def setNodeLayer(self):
-        pass
-
     def getNetworkLayer(self):
         layer_name = self.selectNetworkCombo.currentText()
         layer = uf.getLegendLayerByName(self.iface,layer_name)
         return layer
 
     def getNodeLayer(self):
-        layer_name = self.selectNodeCombo.currentText()
+        layer_name = self.scenarioCombo.currentText() + '_nodes'
         layer = uf.getLegendLayerByName(self.iface,layer_name)
+
+        if layer == None:
+            layer_name = 'Nodes'
+            layer = uf.getLegendLayerByName(self.iface,layer_name)
+        
         return layer
 
 
@@ -295,12 +269,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def run_mouse(self):
         self.canvas.setMapTool(self.clickTool)
-
-#######
-#    Data selection functions
-#######
-    def select_from_tree(self):
-        self.updateLayers()
 
 #######
 #    Analysis functions
@@ -334,13 +302,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # in this case gets the centroid of the selected features
 
             nodeLayer = self.getNodeLayer()
-
-            name = nodeLayer.name()
-            if name.endswith('_nodes'):
-                self.scenarioName = name[0:-6]
-            else:
-                self.scenarioName = 'baseScenario'
-
             nodes = nodeLayer.getFeatures()
             source_points = []
             for node in nodes:
@@ -376,7 +337,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 values.append([point[1]])
             uf.insertTempFeatures(area_layer, geoms, values)
 
-            path = self.scenarioPath + '/' + self.scenarioName + '_dist2station'
+            scenarioName = self.scenarioCombo.currentText()
+            path = self.scenarioPath + '/' + scenarioName + '_dist2station'
             QgsVectorFileWriter.writeAsVectorFormat(area_layer,path+'.shp',str(area_layer.crs().postgisSrid()), None, "ESRI Shapefile")
             filename = path.split("/")[-1]
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
