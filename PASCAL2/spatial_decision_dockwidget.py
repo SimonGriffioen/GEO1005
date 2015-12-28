@@ -75,6 +75,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
 
         # analysis
+        self.sliderValue.textChanged.connect(self.sliderValueChanged)
         self.stationDistanceSlider.sliderMoved.connect(self.sliderMoved)
         self.stationDistanceSlider.sliderReleased.connect(self.sliderReleased)
         self.stationDistanceButton.clicked.connect(self.buildNetwork)
@@ -273,6 +274,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 #    Analysis functions
 #######
+    def sliderValueChanged(self):
+        value = self.sliderValue.text()
+        try:
+            value = int(value)
+            self.stationDistanceSlider.setValue(int(value))
+        except:
+            print 'fill in a number'
+
     def sliderMoved(self, value):
         self.sliderValue.setText(str(value))
 

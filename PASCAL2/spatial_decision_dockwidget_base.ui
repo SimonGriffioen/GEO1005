@@ -234,7 +234,11 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QLineEdit" name="sliderValue"/>
+         <widget class="QLineEdit" name="sliderValue">
+          <property name="text">
+           <string>500</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
