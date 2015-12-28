@@ -75,6 +75,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
 
         # analysis
+        self.stationDistanceSlider.sliderMoved.connect(self.sliderMoved)
+        self.stationDistanceSlider.sliderReleased.connect(self.sliderReleased)
         self.stationDistanceButton.clicked.connect(self.buildNetwork)
         self.selectTransportCombo.activated.connect(self.setTransportMode)
         self.visibilityCheckBox.stateChanged.connect(self.showAll)
@@ -271,6 +273,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 #    Analysis functions
 #######
+    def sliderMoved(self, value):
+        self.sliderValue.setText(str(value))
+
+    def sliderReleased(self):
+        scenarioName = self.scenarioCombo.currentText()
+        filename = scenarioName + '_dist2station'
+        raster_layer = uf.getLegendLayerByName(self.iface, filename)
+        self.styleStationDistance(raster_layer)
 
     def getNetwork(self):
 
@@ -411,13 +421,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #    Visualisation functions
 #######
 
-    def styleStationDistance(self,layer):
+    def styleStationDistance(self, layer):
+        break_value = self.sliderValue.text()
+
         fcn = QgsColorRampShader()
         fcn.setColorRampType(QgsColorRampShader.DISCRETE)
         lst = [ QgsColorRampShader.ColorRampItem(0, QtGui.QColor(255,255,255,0),'no data'), \
-                QgsColorRampShader.ColorRampItem(300, QtGui.QColor(255,200,200),'<300'), \
-                QgsColorRampShader.ColorRampItem(600, QtGui.QColor(202,110,110),'300-600'), \
-                QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(150,20,20),'>600') ]
+                QgsColorRampShader.ColorRampItem(int(break_value), QtGui.QColor(255,200,200),'<'+break_value), \
+                QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(150,20,20),'>'+break_value) ]
         fcn.setColorRampItemList(lst)
         shader = QgsRasterShader()
         shader.setRasterShaderFunction(fcn)
