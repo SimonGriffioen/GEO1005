@@ -394,6 +394,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # style raster layer
             self.styleStationDistance(rasterLayer)
 
+            # Grid statistics
+            self.rasterStatistics()
+
 
     def handleMouseDown(self, point, button):
 
@@ -465,23 +468,30 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 
     def rasterStatistics(self):
+        # Get the layers that are needed (dist2station and neigborhoods)
         pathGrid = self.scenarioPath + '/' + self.scenarioName + '_dist2station.tif'
         pathPolygon = 'C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp'
-        pathStat = self.scenarioPath + '/' + self.scenarioName + '_gridStatistics.shp'
+        # new layer for statistics
+        layer_name = self.scenarioName + '_gridStatistics'
+        pathStat = self.scenarioPath + '/' + layer_name +'.shp'
         filename = pathStat.split("/")[-1]
 
+        # run SAGA processing algorithm
+        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, pathPolygon, False, False, True, False, False, True, False, False, 0, pathStat)
+        polyStat = QgsVectorLayer(pathStat, layer_name , 'ogr')
+        QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
+        root = QgsProject.instance().layerTreeRoot()
+        root.insertLayer(5, polyStat)
+        layer = QgsMapCanvasLayer(polyStat)
+        layer.setVisible(False)
 
-        #processing.runalg("saga:gridstatisticsforpolygons",pathGrid, pathPolygon, False, False, True, False, False, True, False, False, 0, pathStat)
-        polyStat = QgsVectorLayer(filename, self.scenarioName+"_statistics", 'ogr')
-        QgsMapLayerRegistry.instance().addMapLayer(polyStat)
-
-        self.extractAttributeSummary(polyStat)
+        # get statistics in table
+        self.extractAttributeSummary(layer_name)
 
 
-    def extractAttributeSummary(self, attribute):
+
+    def extractAttributeSummary(self, layer_name):
         # get summary of the attribute
-        #layer = QgsVectorLayer(attribute, "statistics", 'ogr')
-        layer_name = 'gridStatistics'
         layer = uf.getLegendLayerByName(self.iface,layer_name)
         #layer = attribute
         print layer
@@ -493,23 +503,39 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # send this to the table
         print summary
         self.clearTable()
-        self.updateTable(summary)
+        self.updateTable1(summary)
+        self.updateTable2(summary)
 
 
     # table window functions
-    def updateTable(self, values):
+    def updateTable1(self, values, tableNum):
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
-        self.statisticsTable.setColumnCount(3)
-        self.statisticsTable.setHorizontalHeaderLabels(["Neighborhood","Min", "Max"])
-        self.statisticsTable.setRowCount(len(values))
+        self.statistics1Table.setColumnCount(3)
+        self.statistics1Table.setHorizontalHeaderLabels(["Neighborhood","Min", "Max"])
+        self.statistics1Table.setRowCount(len(values))
         for i, item in enumerate(values):
             # i is the table row, items mus tbe added as QTableWidgetItems
-            self.statisticsTable.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
-            self.statisticsTable.setItem(i,1,QtGui.QTableWidgetItem(str(item[15])))
-            self.statisticsTable.setItem(i,2,QtGui.QTableWidgetItem(str(item[16])))
-        self.statisticsTable.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
-        self.statisticsTable.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
-        self.statisticsTable.resizeRowsToContents()
+            self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
+            self.statistics1Table.setItem(i,1,QtGui.QTableWidgetItem(str(item[15])))
+            self.statistics1Table.setItem(i,2,QtGui.QTableWidgetItem(str(item[16])))
+        self.statistics1Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
+        self.statistics1Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
+        self.statistics1Table.resizeRowsToContents()
+
+    def updateTable2(self, values, tableNum):
+        # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
+        self.statistics2Table.setColumnCount(3)
+        self.statistics2Table.setHorizontalHeaderLabels(["Neighborhood","Min", "Max"])
+        self.statistics2Table.setRowCount(len(values))
+        for i, item in enumerate(values):
+            # i is the table row, items mus tbe added as QTableWidgetItems
+            self.statistics2Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
+            self.statistics2Table.setItem(i,1,QtGui.QTableWidgetItem(str(item[15])))
+            self.statistics2Table.setItem(i,2,QtGui.QTableWidgetItem(str(item[16])))
+        self.statistics2Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
+        self.statistics2Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
+        self.statistics2Table.resizeRowsToContents()
 
     def clearTable(self):
-        self.statisticsTable.clear()
+        self.statistics1Table.clear()
+        self.statistics2Table.clear()
