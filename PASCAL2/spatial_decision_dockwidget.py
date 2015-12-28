@@ -94,6 +94,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         self.scenarioPath = QgsProject.instance().homePath()
         self.scenarioName = 'baseScenario'
+        self.scenarios = ['base']
+
 
         # visualisation
 
@@ -143,6 +145,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         filename = path.split("/")[-1]
         self.scenarioName = filename
         filename = filename + '_nodes'
+        self.scenarios.append(filename)
         pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
         # save the layer as shapefile
         if path:
