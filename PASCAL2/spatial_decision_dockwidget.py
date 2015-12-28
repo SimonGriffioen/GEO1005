@@ -95,6 +95,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.scenarioPath = QgsProject.instance().homePath()
         self.scenarioName = 'baseScenario'
         self.scenarios = ['base']
+        self.scenarioAttributes = []
 
 
         # visualisation
@@ -472,10 +473,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def rasterStatistics(self):
         # Get the layers that are needed (dist2station and neigborhoods)
-        pathGrid = self.scenarioPath + '/' + self.scenarioName + '_dist2station.tif'
+        scenarioName = self.scenarioCombo.currenText()
+        pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station.tif'
         pathPolygon = 'C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp'
         # new layer for statistics
-        layer_name = self.scenarioName + '_gridStatistics'
+        layer_name = scenarioName + '_gridStatistics'
         pathStat = self.scenarioPath + '/' + layer_name +'.shp'
         filename = pathStat.split("/")[-1]
 
@@ -496,39 +498,41 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def extractAttributeSummary(self, layer_name):
         # get summary of the attribute
         layer = uf.getLegendLayerByName(self.iface,layer_name)
-        #layer = attribute
-        print layer
-
         summary = []
         # only use the first attribute in the list
         for feature in layer.getFeatures():
             summary.append(feature)#, feature.attribute(attribute)))
+
+        self.scenarioAttributes.append(summary)
         # send this to the table
-        print summary
         self.clearTable()
-        self.updateTable1(summary)
-        self.updateTable2(summary)
+        self.updateTable1(self.scenarioAttributes)
+        self.updateTable2(self.scenarioAttributes)
 
 
     # table window functions
-    def updateTable1(self, values, tableNum):
+    def updateTable1(self, values):
+        # Table 1 shows the maximum distance to a node for every neighborhood (index15)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
-        self.statistics1Table.setColumnCount(3)
-        self.statistics1Table.setHorizontalHeaderLabels(["Neighborhood","Min", "Max"])
-        self.statistics1Table.setRowCount(len(values))
-        for i, item in enumerate(values):
-            # i is the table row, items mus tbe added as QTableWidgetItems
-            self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
-            self.statistics1Table.setItem(i,1,QtGui.QTableWidgetItem(str(item[15])))
-            self.statistics1Table.setItem(i,2,QtGui.QTableWidgetItem(str(item[16])))
+        self.statistics1Table.setColumnCount(len(self.scenarios))
+        self.statistics1Table.setHorizontalHeaderLabels(self.scenarios)
+        self.statistics1Table.setRowCount(len(values[0]))
+        for n,list in enumerate(values):
+            for i, item in enumerate(list):
+                # i is the table row, items mus tbe added as QTableWidgetItems
+                
+                self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
+                self.statistics1Table.setItem(i,1,QtGui.QTableWidgetItem(str(item[15])))
+                self.statistics1Table.setItem(i,2,QtGui.QTableWidgetItem(str(item[16])))
         self.statistics1Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
         self.statistics1Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics1Table.resizeRowsToContents()
 
-    def updateTable2(self, values, tableNum):
+    def updateTable2(self, values):
+        # Table 2 shows the mean distance to a node for every neighborhood (index16)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
-        self.statistics2Table.setColumnCount(3)
-        self.statistics2Table.setHorizontalHeaderLabels(["Neighborhood","Min", "Max"])
+        self.statistics2Table.setColumnCount(len(self.scenarios))
+        self.statistics2Table.setHorizontalHeaderLabels(self.scenarios)
         self.statistics2Table.setRowCount(len(values))
         for i, item in enumerate(values):
             # i is the table row, items mus tbe added as QTableWidgetItems
