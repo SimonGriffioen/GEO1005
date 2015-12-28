@@ -85,11 +85,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         self.scenarioPath = QgsProject.instance().homePath()
         self.scenarios = ['base']
-<<<<<<< HEAD
-        self.scenarioAttributes = []
-=======
         self.scenarioCombo.addItems(self.scenarios)
->>>>>>> origin/master
+        self.scenarioAttributes = []
+
 
 
         # visualisation
@@ -435,7 +433,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def rasterStatistics(self):
         # Get the layers that are needed (dist2station and neigborhoods)
-        scenarioName = self.scenarioCombo.currenText()
+        scenarioName = self.scenarioCombo.currentText()
         pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station.tif'
         pathPolygon = 'C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp'
         # new layer for statistics
