@@ -225,7 +225,16 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QTableWidget" name="statisticsTable"/>
+         <widget class="QTableWidget" name="statistics1Table"/>
+        </item>
+        <item>
+         <widget class="QComboBox" name="scenario1Box"/>
+        </item>
+        <item>
+         <widget class="QTableWidget" name="statistics2Table"/>
+        </item>
+        <item>
+         <widget class="QComboBox" name="scenario2Box"/>
         </item>
         <item>
          <widget class="QPushButton" name="statisticsButton">

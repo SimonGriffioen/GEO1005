@@ -467,26 +467,31 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def rasterStatistics(self):
         pathGrid = self.scenarioPath + '/' + self.scenarioName + '_dist2station.tif'
         pathPolygon = 'C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp'
-        pathStat = 'C:/Development/pascal/sample_data/Data QGIS - pascal/gridStatistics.shp'
+        pathStat = self.scenarioPath + '/' + self.scenarioName + '_gridStatistics.shp'
         filename = pathStat.split("/")[-1]
 
 
-        #processing.runalg("saga:gridstatisticsforpolygons",pathGrid, pathPolygon, True, True, True, True, True, True, False, False, 0, pathStat)
-        PolyStat = QgsVectorLayer(filename, "statistics", 'ogr')
+        #processing.runalg("saga:gridstatisticsforpolygons",pathGrid, pathPolygon, False, False, True, False, False, True, False, False, 0, pathStat)
+        polyStat = QgsVectorLayer(filename, self.scenarioName+"_statistics", 'ogr')
+        QgsMapLayerRegistry.instance().addMapLayer(polyStat)
 
-        self.extractAttributeSummary(filename[:-4])
+        self.extractAttributeSummary(polyStat)
 
 
     def extractAttributeSummary(self, attribute):
         # get summary of the attribute
-        layer_name = attribute
+        #layer = QgsVectorLayer(attribute, "statistics", 'ogr')
+        layer_name = 'gridStatistics'
         layer = uf.getLegendLayerByName(self.iface,layer_name)
+        #layer = attribute
+        print layer
 
         summary = []
         # only use the first attribute in the list
         for feature in layer.getFeatures():
             summary.append(feature)#, feature.attribute(attribute)))
         # send this to the table
+        print summary
         self.clearTable()
         self.updateTable(summary)
 
