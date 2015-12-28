@@ -289,7 +289,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         scenarioName = self.scenarioCombo.currentText()
         filename = scenarioName + '_dist2station'
         raster_layer = uf.getLegendLayerByName(self.iface, filename)
-        self.styleStationDistance(raster_layer)
+        if raster_layer:
+            self.styleStationDistance(raster_layer)
 
     def getNetwork(self):
 
