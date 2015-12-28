@@ -88,7 +88,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.scenarioPath = QgsProject.instance().homePath()
         self.scenarios = ['base']
         self.scenarioCombo.addItems(self.scenarios)
-        self.scenarioAttributes = []
+        self.scenarioAttributes = {}
 
 
 
@@ -462,11 +462,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         layer.setVisible(False)
 
         # get statistics in table
-        self.extractAttributeSummary(layer_name)
+        self.extractAttributeSummary(layer_name, scenarioName)
 
 
 
-    def extractAttributeSummary(self, layer_name):
+    def extractAttributeSummary(self, layer_name, scenario):
         # get summary of the attribute
         layer = uf.getLegendLayerByName(self.iface,layer_name)
         summary = []
@@ -474,35 +474,48 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         for feature in layer.getFeatures():
             summary.append(feature)#, feature.attribute(attribute)))
 
-        self.scenarioAttributes.append(summary)
+        self.scenarioAttributes[scenario] = summary
         # send this to the table
         self.clearTable()
-        self.updateTable1(self.scenarioAttributes)
-        self.updateTable2(self.scenarioAttributes)
+        self.updateTable1()
+        self.updateTable2()
 
 
     # table window functions
-    def updateTable1(self, values):
+    def updateTable1(self):
         # Table 1 shows the maximum distance to a node for every neighborhood (index15)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
         headerLabels = ["Neigborhoods"]
         for scen in self.scenarios:
-            headerLabels.append(scen)
+            if scen in self.scenarioAttributes:
+                headerLabels.append(scen)
         self.statistics1Table.setColumnCount(len(headerLabels))
         self.statistics1Table.setHorizontalHeaderLabels(headerLabels)
-        self.statistics1Table.setRowCount(len(values[0]))
+        self.statistics1Table.setRowCount(len(self.scenarioAttributes[headerLabels[1]]))
+        for i, item in enumerate(self.scenarioAttributes['base']):
+            self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
 
+        # write maximum distance in table
+        for n, scen in enumerate(headerLabels[1:]):
+            value = self.scenarioAttributes[scen]
+            for i, item in enumerate(value):
+                self.statistics1Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(item[15])))
+
+
+
+
+        """
         for n,list in enumerate(values):
             for i, item in enumerate(list):
                 # i is the table row, items mus tbe added as QTableWidgetItems
                 self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
                 self.statistics1Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(item[15])))
-
+        """
         self.statistics1Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
         self.statistics1Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics1Table.resizeRowsToContents()
 
-    def updateTable2(self, values):
+    def updateTable2(selfs):
         # Table 2 shows the mean distance to a node for every neighborhood (index16)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
         self.statistics2Table.setColumnCount(len(self.scenarios))
