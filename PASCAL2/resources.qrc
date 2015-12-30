@@ -3,5 +3,87 @@
     <file>icons/ambulance.png</file>
     <file>icons/icon.png</file>
     <file>icons/medic_box.png</file>
+    <file>sample_data/LayersPASCAL.qgs</file>
+    <file>sample_data/LayersPASCAL2.qgs</file>
+    <file>/sample_data/Data/'t ij.dbf</file>
+    <file>/sample_data/Data/Noord_Zuidlijn.shx</file>
+    <file>/sample_data/Data/'t ij.prj</file>
+    <file>/sample_data/Data/Public_transp_lines.dbf</file>
+    <file>/sample_data/Data/'t ij.qpj</file>
+    <file>/sample_data/Data/Public_transp_lines.prj</file>
+    <file>/sample_data/Data/'t ij.shp</file>
+    <file>/sample_data/Data/Public_transp_lines.qpj</file>
+    <file>/sample_data/Data/'t ij.shx</file>
+    <file>/sample_data/Data/Public_transp_lines.shp</file>
+    <file>/sample_data/Data/BuurtenStadsdeelNoord.dbf</file>
+    <file>/sample_data/Data/Public_transp_lines.shx</file>
+    <file>/sample_data/Data/BuurtenStadsdeelNoord.prj</file>
+    <file>/sample_data/Data/RoadsAmsNorthOSM.dbf</file>
+    <file>/sample_data/Data/BuurtenStadsdeelNoord.qpj</file>
+    <file>/sample_data/Data/RoadsAmsNorthOSM.prj</file>
+    <file>/sample_data/Data/BuurtenStadsdeelNoord.shp</file>
+    <file>/sample_data/Data/RoadsAmsNorthOSM.qpj</file>
+    <file>/sample_data/Data/BuurtenStadsdeelNoord.shx</file>
+    <file>/sample_data/Data/RoadsAmsNorthOSM.shp</file>
+    <file>/sample_data/Data/Lines.dbf</file>
+    <file>/sample_data/Data/RoadsAmsNorthOSM.shx</file>
+    <file>/sample_data/Data/Lines.prj</file>
+    <file>/sample_data/Data/TransitLines.dbf</file>
+    <file>/sample_data/Data/Lines.qpj</file>
+    <file>/sample_data/Data/TransitLines.prj</file>
+    <file>/sample_data/Data/Lines.shp</file>
+    <file>/sample_data/Data/TransitLines.qpj</file>
+    <file>/sample_data/Data/Lines.shx</file>
+    <file>/sample_data/Data/TransitLines.shp</file>
+    <file>/sample_data/Data/Nodes.dbf</file>
+    <file>/sample_data/Data/TransitLines.shx</file>
+    <file>/sample_data/Data/Nodes.prj</file>
+    <file>/sample_data/Data/buildings_noord.dbf</file>
+    <file>/sample_data/Data/Nodes.qpj</file>
+    <file>/sample_data/Data/buildings_noord.prj</file>
+    <file>/sample_data/Data/Nodes.shp</file>
+    <file>/sample_data/Data/buildings_noord.qpj</file>
+    <file>/sample_data/Data/Nodes.shx</file>
+    <file>/sample_data/Data/buildings_noord.shp</file>
+    <file>/sample_data/Data/Nodes_noordzuidlijn.dbf</file>
+    <file>/sample_data/Data/buildings_noord.shx</file>
+    <file>/sample_data/Data/Nodes_noordzuidlijn.prj</file>
+    <file>/sample_data/Data/pandPolygon.cst</file>
+    <file>/sample_data/Data/Nodes_noordzuidlijn.qpj</file>
+    <file>/sample_data/Data/pandPolygon.dbf</file>
+    <file>/sample_data/Data/Nodes_noordzuidlijn.shp</file>
+    <file>/sample_data/Data/pandPolygon.prj</file>
+    <file>/sample_data/Data/Nodes_noordzuidlijn.shx</file>
+    <file>/sample_data/Data/pandPolygon.shp</file>
+    <file>/sample_data/Data/NoordAMSlines.dbf</file>
+    <file>/sample_data/Data/pandPolygon.shx</file>
+    <file>/sample_data/Data/NoordAMSlines.prj</file>
+    <file>/sample_data/Data/selection_nodes.dbf</file>
+    <file>/sample_data/Data/NoordAMSlines.qpj</file>
+    <file>/sample_data/Data/selection_nodes.prj</file>
+    <file>/sample_data/Data/NoordAMSlines.shp</file>
+    <file>/sample_data/Data/selection_nodes.qpj</file>
+    <file>/sample_data/Data/NoordAMSlines.shx</file>
+    <file>/sample_data/Data/selection_nodes.shp</file>
+    <file>/sample_data/Data/NoordZuidlijn.dbf</file>
+    <file>/sample_data/Data/selection_nodes.shx</file>
+    <file>/sample_data/Data/NoordZuidlijn.prj</file>
+    <file>/sample_data/Data/water.dbf</file>
+    <file>/sample_data/Data/NoordZuidlijn.qpj</file>
+    <file>/sample_data/Data/water.shp</file>
+    <file>/sample_data/Data/NoordZuidlijn.shp</file>
+    <file>/sample_data/Data/water.shx</file>
+    <file>/sample_data/Data/NoordZuidlijn.shx</file>
+    <file>/sample_data/Data/wfsrequest.txt</file>
+    <file>/sample_data/Data/NoordZuidlijn.txt</file>
+    <file>/sample_data/Styles/LayerStyleRoadsOSM.qml</file>
+    <file>/sample_data/Data/Noord_Zuidlijn.dbf</file>
+    <file>/sample_data/Styles/NoordAMSLines.qml</file>
+    <file>/sample_data/Data/Noord_Zuidlijn.prj</file>
+    <file>/sample_data/Styles/Style_Roads_OSM_grey.qml</file>
+    <file>/sample_data/Data/Noord_Zuidlijn.qpj</file>
+    <file>/sample_data/Styles/TransitNodeStyle.qml</file>
+    <file>/sample_data/Data/Noord_Zuidlijn.shp</file>
+    <file>/sample_data/Styles/labelledTextStyle.qml</file>
   </qresource>
 </RCC>
