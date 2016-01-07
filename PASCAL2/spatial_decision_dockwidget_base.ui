@@ -13,7 +13,7 @@
   <property name="minimumSize">
    <size>
     <width>586</width>
-    <height>455</height>
+    <height>503</height>
    </size>
   </property>
   <property name="acceptDrops">
@@ -24,7 +24,30 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="11" column="1">
+    <item row="3" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;
+</string>
+      </property>
+      <property name="text">
+       <string>Current Scenario:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QComboBox" name="scenarioCombo"/>
+    </item>
+    <item row="10" column="1">
      <widget class="QTabWidget" name="sampleWidgets">
       <property name="currentIndex">
        <number>0</number>
@@ -299,7 +322,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
@@ -317,7 +340,7 @@
            </attribute>
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="0">
-             <widget class="QTableView" name="statistics2Table"/>
+             <widget class="QTableWidget" name="statistics2Table"/>
             </item>
            </layout>
           </widget>
@@ -327,46 +350,7 @@
       </widget>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QLabel" name="label_2">
-      <property name="font">
-       <font>
-        <family>MS Shell Dlg 2</family>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;
-</string>
-      </property>
-      <property name="text">
-       <string>Current Scenario:</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="1">
-     <widget class="QLabel" name="label">
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>C:/Development/pascal/PASCAL2/icons/pascal.png</pixmap>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="1">
-     <widget class="QComboBox" name="scenarioCombo"/>
-    </item>
-    <item row="2" column="1">
      <widget class="QToolButton" name="bigiconButton">
       <property name="text">
        <string>...</string>
@@ -395,9 +379,7 @@
   <tabstop>stationDistanceSlider</tabstop>
   <tabstop>sliderValue</tabstop>
   <tabstop>scenarioCombo</tabstop>
-  <tabstop>statistics2Table</tabstop>
   <tabstop>bigiconButton</tabstop>
-  <tabstop>statistics1Table</tabstop>
   <tabstop>sampleWidgets</tabstop>
   <tabstop>tabWidget</tabstop>
  </tabstops>
