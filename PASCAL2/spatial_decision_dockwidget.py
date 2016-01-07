@@ -77,6 +77,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface.legendInterface().itemRemoved.connect(self.setNodeAndNetwork)
         self.iface.legendInterface().itemAdded.connect(self.setNodeAndNetwork)
 
+        self.iconButton.setIcon(QtGui.QIcon(':icons/pascal.png'))
+
         # data
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>483</width>
-    <height>530</height>
+    <height>574</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -19,13 +19,9 @@
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
     <item row="3" column="1">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Current Scenario:</string>
-      </property>
-     </widget>
+     <widget class="QComboBox" name="scenarioCombo"/>
     </item>
-    <item row="10" column="1">
+    <item row="9" column="1">
      <widget class="QTabWidget" name="sampleWidgets">
       <property name="currentIndex">
        <number>1</number>
@@ -275,18 +271,25 @@
       </widget>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="label">
+    <item row="2" column="1">
+     <widget class="QLabel" name="label_2">
       <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>icons/pascal.png</pixmap>
+       <string>Current Scenario:</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QComboBox" name="scenarioCombo"/>
+    <item row="0" column="1">
+     <widget class="QToolButton" name="iconButton">
+      <property name="text">
+       <string>...</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>150</width>
+        <height>76</height>
+       </size>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
