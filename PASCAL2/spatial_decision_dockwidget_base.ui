@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>619</width>
+    <width>586</width>
     <height>721</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>586</width>
+    <height>455</height>
+   </size>
   </property>
   <property name="acceptDrops">
    <bool>false</bool>
@@ -18,44 +24,7 @@
   </property>
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="1">
-     <widget class="QLabel" name="label_2">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;
-</string>
-      </property>
-      <property name="text">
-       <string>Current Scenario:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLabel" name="label">
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>C:/Development/pascal/PASCAL2/icons/pascal.png</pixmap>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <widget class="QComboBox" name="scenarioCombo"/>
-    </item>
-    <item row="10" column="1">
+    <item row="11" column="1">
      <widget class="QTabWidget" name="sampleWidgets">
       <property name="currentIndex">
        <number>1</number>
@@ -203,6 +172,9 @@
         </item>
         <item row="8" column="1">
          <widget class="QComboBox" name="selectTransportCombo">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
           <item>
            <property name="text">
             <string>Select mode of transport</string>
@@ -353,6 +325,58 @@
         </item>
        </layout>
       </widget>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <family>MS Shell Dlg 2</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;
+</string>
+      </property>
+      <property name="text">
+       <string>Current Scenario:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>C:/Development/pascal/PASCAL2/icons/pascal.png</pixmap>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1">
+     <widget class="QComboBox" name="scenarioCombo"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QToolButton" name="iconButton">
+      <property name="text">
+       <string>...</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>150</width>
+        <height>76</height>
+       </size>
+      </property>
      </widget>
     </item>
    </layout>

@@ -77,12 +77,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface.legendInterface().itemRemoved.connect(self.setNodeAndNetwork)
         self.iface.legendInterface().itemAdded.connect(self.setNodeAndNetwork)
 
-        self.iconButton.setIcon(QtGui.QIcon(':icons/pascal.png'))
-
         # data
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
 
         # analysis
+        self.scenarioCombo.currentIndexChanged.connect(self.greyout)
+        self.scenarioCombo.editTextChanged.connect(self.greyout)
+        self.scenarioCombo.activated.connect(self.greyout)
+
         self.sliderValue.textChanged.connect(self.sliderValueChanged)
         self.stationDistanceSlider.sliderMoved.connect(self.sliderMoved)
         self.stationDistanceSlider.sliderReleased.connect(self.sliderReleased)
@@ -102,12 +104,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # visualisation
 
         # reporting
-        self.statisticsButton.clicked.connect(self.rasterStatistics)
 
         # set current UI restrictions
 
         # add button icons
-        #self.medicButton.setIcon(QtGui.QIcon(':icons/medic_box.png'))
+        self.iconButton.setIcon(QtGui.QIcon(':icons/pascal.png'))
 
         # initialisation
         self.setNodeAndNetwork()
@@ -169,6 +170,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
     def setNodeAndNetwork(self):
+        print 'hallo hier ben ik'
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
         network_text = self.selectNetworkCombo.currentText()
         if network_text == '':
@@ -307,6 +309,18 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 #    Analysis functions
 #######
+    def greyout(self):
+        if self.scenarioCombo.currentText() == 'base':
+            self.selectTransportCombo.setEnabled(False)
+            self.addNodesButton.setEnabled(False)
+            self.stopNameEdit.setEnabled(False)
+            self.visibilityCheckBox.setEnabled(False)
+        else:
+            self.selectTransportCombo.setEnabled(True)
+            self.addNodesButton.setEnabled(True)
+            self.stopNameEdit.setEnabled(True)
+            self.visibilityCheckBox.setEnabled(True)
+
     def sliderValueChanged(self):
         value = self.sliderValue.text()
         try:
@@ -323,13 +337,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         filename = scenarioName + '_dist2station'
         raster_layer = uf.getLegendLayerByName(self.iface, filename)
         if raster_layer:
-            print raster_layer
             self.styleStationDistance(raster_layer)
 
     def getNetwork(self):
-
         roads_layer = self.getSelectedLayer()
-
         if roads_layer:
             # see if there is an obstacles layer to subtract roads from the network
             obstacles_layer = uf.getLegendLayerByName(self.iface, "Obstacles")
