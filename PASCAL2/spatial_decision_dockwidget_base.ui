@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>483</width>
-    <height>574</height>
+    <width>619</width>
+    <height>721</height>
    </rect>
   </property>
   <property name="acceptDrops">
@@ -19,19 +19,70 @@
   <widget class="QWidget" name="dockWidgetContents">
    <layout class="QGridLayout" name="gridLayout">
     <item row="3" column="1">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;
+</string>
+      </property>
+      <property name="text">
+       <string>Current Scenario:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLabel" name="label">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>C:/Development/pascal/PASCAL2/icons/pascal.png</pixmap>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
      <widget class="QComboBox" name="scenarioCombo"/>
     </item>
-    <item row="9" column="1">
+    <item row="10" column="1">
      <widget class="QTabWidget" name="sampleWidgets">
       <property name="currentIndex">
        <number>1</number>
       </property>
       <widget class="QWidget" name="dataTab">
        <attribute name="title">
-        <string>data</string>
+        <string>Data</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0">
-        <item>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>This plugin includes the public transport data of Amsterdam Noord</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QPushButton" name="loadAmsterdamNoordButton">
+          <property name="text">
+           <string>Load sample data</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QComboBox" name="selectNodeCombo"/>
+        </item>
+        <item row="2" column="1">
          <widget class="QComboBox" name="selectNetworkCombo">
           <property name="mouseTracking">
            <bool>false</bool>
@@ -44,13 +95,24 @@
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QComboBox" name="selectNodeCombo"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="loadAmsterdamNoordButton">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>Load data Amsterdam Noord</string>
+           <string>Select your road network for analysis</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Select your nodes layer (transport stations)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QPushButton" name="createScenarioButton">
+          <property name="text">
+           <string>Create new Scenario</string>
           </property>
          </widget>
         </item>
@@ -58,52 +120,27 @@
       </widget>
       <widget class="QWidget" name="analysisTab">
        <attribute name="title">
-        <string>analysis</string>
+        <string>Analysis</string>
        </attribute>
        <layout class="QFormLayout" name="formLayout_4">
         <property name="fieldGrowthPolicy">
          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
         </property>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Calculate the walking distance to all transport stations:</string>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="1">
          <widget class="QPushButton" name="stationDistanceButton">
           <property name="text">
-           <string>Station Distance</string>
+           <string>Distance to node</string>
           </property>
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QSlider" name="stationDistanceSlider">
-          <property name="maximum">
-           <number>2000</number>
-          </property>
-          <property name="value">
-           <number>500</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="invertedControls">
-           <bool>false</bool>
-          </property>
-          <property name="tickPosition">
-           <enum>QSlider::TicksBelow</enum>
-          </property>
-          <property name="tickInterval">
-           <number>100</number>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLineEdit" name="sliderValue">
-          <property name="text">
-           <string>500</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
          <spacer name="verticalSpacer_2">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -116,14 +153,7 @@
           </property>
          </spacer>
         </item>
-        <item row="6" column="1">
-         <widget class="QPushButton" name="createScenarioButton">
-          <property name="text">
-           <string>Create Scenario</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
+        <item row="5" column="1">
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -136,7 +166,7 @@
           </property>
          </spacer>
         </item>
-        <item row="9" column="0" colspan="2">
+        <item row="6" column="0" colspan="2">
          <widget class="QLabel" name="label_9">
           <property name="maximumSize">
            <size>
@@ -146,11 +176,15 @@
           </property>
           <property name="font">
            <font>
-            <family>Myriad Pro</family>
+            <family>MS Shell Dlg 2</family>
             <pointsize>10</pointsize>
             <weight>75</weight>
+            <italic>false</italic>
             <bold>true</bold>
            </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
           </property>
           <property name="text">
            <string>Here you can place new nodes</string>
@@ -160,14 +194,14 @@
           </property>
          </widget>
         </item>
-        <item row="11" column="0">
+        <item row="8" column="0">
          <widget class="QLabel" name="label_6">
           <property name="text">
            <string>1.</string>
           </property>
          </widget>
         </item>
-        <item row="11" column="1">
+        <item row="8" column="1">
          <widget class="QComboBox" name="selectTransportCombo">
           <item>
            <property name="text">
@@ -201,35 +235,35 @@
           </item>
          </widget>
         </item>
-        <item row="12" column="1">
+        <item row="9" column="1">
          <widget class="QCheckBox" name="visibilityCheckBox">
           <property name="text">
            <string>Show me all nodes and road types</string>
           </property>
          </widget>
         </item>
-        <item row="13" column="0">
+        <item row="10" column="0">
          <widget class="QLabel" name="label_7">
           <property name="text">
            <string>2.</string>
           </property>
          </widget>
         </item>
-        <item row="13" column="1">
+        <item row="10" column="1">
          <widget class="QLineEdit" name="stopNameEdit">
           <property name="text">
            <string>&lt;Enter name of node&gt;</string>
           </property>
          </widget>
         </item>
-        <item row="14" column="0">
+        <item row="11" column="0">
          <widget class="QLabel" name="label_8">
           <property name="text">
            <string>3.</string>
           </property>
          </widget>
         </item>
-        <item row="14" column="1">
+        <item row="11" column="1">
          <widget class="QPushButton" name="addNodesButton">
           <property name="text">
            <string>Add Node</string>
@@ -240,55 +274,85 @@
       </widget>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>visualisation</string>
+        <string>Visualisation</string>
        </attribute>
-      </widget>
-      <widget class="QWidget" name="visualisationTab">
-       <attribute name="title">
-        <string>reporting</string>
-       </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QTableWidget" name="statistics1Table"/>
+       <layout class="QFormLayout" name="formLayout_2">
+        <item row="1" column="1">
+         <widget class="QSlider" name="stationDistanceSlider">
+          <property name="maximum">
+           <number>2000</number>
+          </property>
+          <property name="sliderPosition">
+           <number>500</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="tickPosition">
+           <enum>QSlider::TicksAbove</enum>
+          </property>
+          <property name="tickInterval">
+           <number>100</number>
+          </property>
+         </widget>
         </item>
-        <item>
-         <widget class="QComboBox" name="scenario1Box"/>
-        </item>
-        <item>
-         <widget class="QTableWidget" name="statistics2Table"/>
-        </item>
-        <item>
-         <widget class="QComboBox" name="scenario2Box"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="statisticsButton">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_11">
           <property name="text">
-           <string>Statistics</string>
+           <string>Distance in meters:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="sliderValue">
+          <property name="text">
+           <string>500</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Change the distance to visualize it on the map</string>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QLabel" name="label_2">
-      <property name="text">
-       <string>Current Scenario:</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QToolButton" name="iconButton">
-      <property name="text">
-       <string>...</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>150</width>
-        <height>76</height>
-       </size>
-      </property>
+      <widget class="QWidget" name="visualisationTab">
+       <attribute name="title">
+        <string>Reporting</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QTabWidget" name="tabWidget">
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>Maximum Distance</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="0">
+             <widget class="QTableWidget" name="statistics1Table"/>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tab_3">
+           <attribute name="title">
+            <string>Average Distance</string>
+           </attribute>
+           <layout class="QGridLayout" name="gridLayout_2">
+            <item row="0" column="0">
+             <widget class="QTableView" name="statistics2Table"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
