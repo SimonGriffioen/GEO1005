@@ -284,7 +284,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def loadDataAmsterdamNoord(self):
         try:
-            data_path = os.path.join(os.path.dirname(__file__), 'sample_data','LayersPASCAL.qgs')
+            data_path = os.path.join(os.path.dirname(__file__), 'sample_data','Layers QGIS - pascal','LayersPASCAL.qgs')
         except:
             self.createScenario()
 
