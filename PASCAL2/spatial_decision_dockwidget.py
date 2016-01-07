@@ -33,6 +33,7 @@ import processing
 import os
 import os.path
 import random
+import webbrowser
 import csv
 
 from . import utility_functions as uf
@@ -108,7 +109,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # set current UI restrictions
 
         # add button icons
-        self.iconButton.setIcon(QtGui.QIcon(':icons/pascal.png'))
+        self.bigiconButton.setIcon(QtGui.QIcon(':icons/pascal.png'))
+        self.bigiconButton.clicked.connect(self.openinBrowser)
 
         # initialisation
         self.setNodeAndNetwork()
@@ -600,3 +602,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def clearTable(self):
         self.statistics1Table.clear()
         self.statistics2Table.clear()
+
+    def openinBrowser(self):
+        webbrowser.open('https://github.com/SimonGriffioen/pascal/wiki', new=2)

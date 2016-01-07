@@ -27,7 +27,7 @@
     <item row="11" column="1">
      <widget class="QTabWidget" name="sampleWidgets">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="dataTab">
        <attribute name="title">
@@ -367,13 +367,13 @@
      <widget class="QComboBox" name="scenarioCombo"/>
     </item>
     <item row="2" column="1">
-     <widget class="QToolButton" name="iconButton">
+     <widget class="QToolButton" name="bigiconButton">
       <property name="text">
        <string>...</string>
       </property>
       <property name="iconSize">
        <size>
-        <width>150</width>
+        <width>300</width>
         <height>76</height>
        </size>
       </property>
@@ -382,6 +382,25 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>loadAmsterdamNoordButton</tabstop>
+  <tabstop>selectNetworkCombo</tabstop>
+  <tabstop>selectNodeCombo</tabstop>
+  <tabstop>createScenarioButton</tabstop>
+  <tabstop>stationDistanceButton</tabstop>
+  <tabstop>selectTransportCombo</tabstop>
+  <tabstop>visibilityCheckBox</tabstop>
+  <tabstop>stopNameEdit</tabstop>
+  <tabstop>addNodesButton</tabstop>
+  <tabstop>stationDistanceSlider</tabstop>
+  <tabstop>sliderValue</tabstop>
+  <tabstop>scenarioCombo</tabstop>
+  <tabstop>statistics2Table</tabstop>
+  <tabstop>bigiconButton</tabstop>
+  <tabstop>statistics1Table</tabstop>
+  <tabstop>sampleWidgets</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
