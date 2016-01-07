@@ -62,7 +62,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.canvas = self.iface.mapCanvas()
         self.clickTool = QgsMapToolEmitPoint(self.canvas)
         self.panTool = QgsMapToolPan(self.canvas)
-        self.touchTool = QgsMapToolTouch(self.canvas)
+        # self.touchTool = QgsMapToolTouch(self.canvas)
 
         # set up GUI operation signals
 
@@ -256,9 +256,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def loadDataAmsterdamNoord(self):
         try:
-            data_path = 'C:\PluginDevelopment\pascal\sample_data\Layers QGIS - pascal\LayersPASCAL.qgs'
+            data_path = os.path.join(os.path.dirname(__file__), 'sample_data','LayersPASCAL.qgs')
         except:
-            data_path = '/Users/mj/Documents/Studie/GEO1005/pascal/sample_data/Layers QGIS - pascal/LayersPASCAL.qgs'
+            self.createScenario()
 
         '''layer = QgsVectorLayer(data_path + '\Lines.shp', "Lines", "ogr")
         if not layer.isValid():

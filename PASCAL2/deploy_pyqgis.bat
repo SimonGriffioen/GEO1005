@@ -3,12 +3,16 @@
 ::--------------------------------------------------------
 ::-- Constant parameters. Edit to match your plugin
 ::--------------------------------------------------------
-set "PLUGINNAME=SpatialDecision"
+set "PLUGINNAME=PASCAL"
 set "QGISDIR=.qgis2"
 set "PY_FILES=__init__.py spatial_decision.py spatial_decision_dockwidget.py utility_functions.py"
 set "UI_FILES=spatial_decision_dockwidget_base.ui"
 set "EXTRAS=metadata.txt icon.png"
 set "EXTRADIR=icons"
+set "EXTRADIR"
+set "DATADIR=sample_data"
+set "DATADIR"
+set "DATASUBDIR=Data"
 set "COMPILED_RESOURCE_FILES=resources.py"
 set "HELP=help"
 
@@ -32,5 +36,6 @@ for %%a in (%EXTRAS%) do (copy "%%~a" "%UserProfile%\%QGISDIR%\python\plugins\%P
 xcopy "i18n" "%UserProfile%\%QGISDIR%\python\plugins\%PLUGINNAME%\i18n\" /S
 xcopy "%HELP%" "%UserProfile%\%QGISDIR%\python\plugins\%PLUGINNAME%\%HELP%\" /S
 xcopy "%EXTRADIR%" "%UserProfile%\%QGISDIR%\python\plugins\%PLUGINNAME%\%EXTRADIR%\" /S
+xcopy "%DATADIR%" "%UserProfile%\%QGISDIR%\python\plugins\%PLUGINNAME%\%DATADIR%\" /S"
 exit /b
 

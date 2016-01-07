@@ -40,7 +40,7 @@ SOURCES = \
 	__init__.py \
 	spatial_decision.py spatial_decision_dockwidget.py
 
-PLUGINNAME = SpatialDecision
+PLUGINNAME = PASCAL
 
 PY_FILES = \
 	__init__.py \
