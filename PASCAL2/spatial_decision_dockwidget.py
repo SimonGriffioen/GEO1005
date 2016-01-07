@@ -82,13 +82,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
 
         # analysis
-        self.scenarioCombo.currentIndexChanged.connect(self.greyout)
-        self.scenarioCombo.editTextChanged.connect(self.greyout)
-        self.scenarioCombo.activated.connect(self.greyout)
-
-        self.sliderValue.textChanged.connect(self.sliderValueChanged)
+        self.scenarioCombo.currentIndexChanged.connect(self.scenarioChanged)
+        self.sliderValue.textChanged.connect(self.sliderTextChanged)
         self.stationDistanceSlider.sliderMoved.connect(self.sliderMoved)
-        self.stationDistanceSlider.sliderReleased.connect(self.sliderReleased)
+        self.stationDistanceSlider.valueChanged.connect(self.sliderValueChanged)
+
         self.stationDistanceButton.clicked.connect(self.buildNetwork)
         self.selectTransportCombo.activated.connect(self.setTransportMode)
         self.visibilityCheckBox.stateChanged.connect(self.showAll)
@@ -149,7 +147,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.scenarios.append(scenarioName)
         self.scenarioCombo.clear()
         self.scenarioCombo.addItems(self.scenarios)
-        
         index = len(self.scenarios)-1
         self.scenarioCombo.setCurrentIndex(index)
 
@@ -163,7 +160,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             QgsMapLayerRegistry.instance().addMapLayer(vlayer, False)
 
             root = QgsProject.instance().layerTreeRoot()
-            root.insertLayer(1, vlayer)
+            current_scenario = self.scenarioCombo.currentText()
+            scenario_group = root.insertGroup(0, current_scenario)
+            scenario_group.insertLayer(0, vlayer)
 
             layer = uf.getLegendLayerByName(self.iface, filename)
             layer.loadNamedStyle("{}styleNodes.qml".format(pathStyle))
@@ -192,6 +191,28 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             if layer_names.__contains__(node_text):
                 index = self.selectNodeCombo.findText(node_text)
                 self.selectNodeCombo.setCurrentIndex(index);
+
+        # current scenario
+        scenarios = [self.scenarioCombo.itemText(i) for i in range(self.scenarioCombo.count())]
+        current_scenario = self.scenarioCombo.currentText()
+        self.scenarioCombo.clear()
+        index = 0
+        for scenario in scenarios:
+            root = QgsProject.instance().layerTreeRoot()
+            scenario_group = root.findGroup(scenario)
+            if scenario_group or scenario == 'base':
+                self.scenarioCombo.addItem(scenario)
+                if scenario == current_scenario:
+                    self.scenarioCombo.setCurrentIndex(index)
+                index = index + 1
+
+
+
+        '''current_scenario = self.scenarioCombo.currentText()
+        index = self.scenarioCombo.findText(current_scenario)
+        self.scenarioCombo.clear()
+        self.scenarioCombo.addItems(self.scenarios)
+        self.scenarioCombo.setCurrentIndex(index);'''
 
 
     def showAll(self):
@@ -311,7 +332,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 #    Analysis functions
 #######
-    def greyout(self):
+    def scenarioChanged(self):
+        #grey out node stuff if current scenario is base
         if self.scenarioCombo.currentText() == 'base':
             self.selectTransportCombo.setEnabled(False)
             self.addNodesButton.setEnabled(False)
@@ -323,7 +345,27 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.stopNameEdit.setEnabled(True)
             self.visibilityCheckBox.setEnabled(True)
 
-    def sliderValueChanged(self):
+        #set visibility of layers
+        root = QgsProject.instance().layerTreeRoot()
+        current_scenario = self.scenarioCombo.currentText()
+        AllItems = [self.scenarioCombo.itemText(i) for i in range(self.scenarioCombo.count())]
+
+        for item in AllItems:
+            scenario_group = root.findGroup(item)
+            if scenario_group:
+                if item == current_scenario:
+                    scenario_group.setVisible(2)
+                    scenario_layers = scenario_group.findLayers()
+                    for layer in scenario_layers:
+                        if layer.layerName() == current_scenario + '_gridStatistics':
+                            layer.setVisible(0)
+                else:
+                    scenario_group.setVisible(0)
+
+
+
+
+    def sliderTextChanged(self):
         value = self.sliderValue.text()
         try:
             value = int(value)
@@ -334,7 +376,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def sliderMoved(self, value):
         self.sliderValue.setText(str(value))
 
-    def sliderReleased(self):
+    def sliderValueChanged(self):
         scenarioName = self.scenarioCombo.currentText()
         filename = scenarioName + '_dist2station'
         raster_layer = uf.getLegendLayerByName(self.iface, filename)
@@ -416,8 +458,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             baseName = fileInfo.baseName()
             rasterLayer = QgsRasterLayer(fileName, baseName)
             QgsMapLayerRegistry.instance().addMapLayer(rasterLayer, False)
+
             root = QgsProject.instance().layerTreeRoot()
-            root.insertLayer(5, rasterLayer)
+            current_scenario = self.scenarioCombo.currentText()
+            scenario_group = root.findGroup(current_scenario)
+            scenario_group.insertLayer(1, rasterLayer)
 
             # close intermediary layer
             QgsMapLayerRegistry.instance().removeMapLayer(service_area_layer.id())
@@ -484,8 +529,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         fcn = QgsColorRampShader()
         fcn.setColorRampType(QgsColorRampShader.DISCRETE)
         lst = [ QgsColorRampShader.ColorRampItem(0, QtGui.QColor(255,255,255,0),'no data'), \
-                QgsColorRampShader.ColorRampItem(int(break_value), QtGui.QColor(255,200,200),'<'+break_value), \
-                QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(150,20,20),'>'+break_value) ]
+                QgsColorRampShader.ColorRampItem(int(break_value), QtGui.QColor(255,200,200,150),'<'+break_value), \
+                QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(150,20,20,150),'>'+break_value) ]
         fcn.setColorRampItemList(lst)
         shader = QgsRasterShader()
         shader.setRasterShaderFunction(fcn)
@@ -514,8 +559,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         processing.runalg("saga:gridstatisticsforpolygons",pathGrid, test, False, False, True, False, False, True, False, False, 0, pathStat)
         polyStat = QgsVectorLayer(pathStat, layer_name , 'ogr')
         QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
+
         root = QgsProject.instance().layerTreeRoot()
-        root.insertLayer(5, polyStat)
+        current_scenario = self.scenarioCombo.currentText()
+        scenario_group = root.findGroup(current_scenario)
+        scenario_group.insertLayer(2, polyStat)
+        legend = self.iface.legendInterface()
+        legend.setLayerVisible(polyStat, False)
+
         layer = QgsMapCanvasLayer(polyStat)
         layer.setVisible(False)
 
