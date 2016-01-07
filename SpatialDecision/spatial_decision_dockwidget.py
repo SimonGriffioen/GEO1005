@@ -146,7 +146,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
     def closeEvent(self, event):
-        print 'closeevent........'
         # disconnect interface signals
         try:
             self.iface.projectRead.disconnect(self.updateLayers)

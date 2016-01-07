@@ -25,11 +25,11 @@ from PyQt4 import QtGui, QtCore, uic
 from qgis.core import *
 from qgis.networkanalysis import *
 from qgis.gui import *
-import processing
+
 # Initialize Qt resources from file resources.py
 import resources
 
-
+import processing
 import os
 import os.path
 import random
@@ -71,6 +71,12 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         #self.dlg = vector_selectbypointDialog()
 
+        # GUI
+        self.iface.projectRead.connect(self.setNodeAndNetwork)
+        self.iface.newProjectCreated.connect(self.setNodeAndNetwork)
+        self.iface.legendInterface().itemRemoved.connect(self.setNodeAndNetwork)
+        self.iface.legendInterface().itemAdded.connect(self.setNodeAndNetwork)
+
         # data
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
 
@@ -91,14 +97,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.scenarioCombo.addItems(self.scenarios)
         self.scenarioAttributes = {}
 
-
-
         # visualisation
 
         # reporting
         self.statisticsButton.clicked.connect(self.rasterStatistics)
-
-
 
         # set current UI restrictions
 
@@ -109,6 +111,19 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.setNodeAndNetwork()
 
         #run simple tests
+
+    def closeEvent(self, event):
+        #disconnect interface signals
+        try:
+            self.iface.projectRead.disconnect(self.setNodeAndNetwork)
+            self.iface.newProjectCreated.disconnect(self.setNodeAndNetwork)
+            self.iface.legendInterface().itemRemoved.disconnect(self.setNodeAndNetwork)
+            self.iface.legendInterface().itemAdded.disconnect(self.setNodeAndNetwork)
+        except:
+            pass
+
+        self.closingPlugin.emit()
+        event.accept()
 
 
 
@@ -153,12 +168,25 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def setNodeAndNetwork(self):
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
+        network_text = self.selectNetworkCombo.currentText()
+        if network_text == '':
+            network_text = 'Road network'
+        node_text = self.selectNodeCombo.currentText()
+        if node_text == '':
+            node_text = 'Nodes'
         self.selectNetworkCombo.clear()
         self.selectNodeCombo.clear()
         if layers:
             layer_names = uf.getLayersListNames(layers)
             self.selectNetworkCombo.addItems(layer_names)
             self.selectNodeCombo.addItems(layer_names)
+            if layer_names.__contains__(network_text):
+                index = self.selectNetworkCombo.findText(network_text)
+                self.selectNetworkCombo.setCurrentIndex(index);
+            if layer_names.__contains__(node_text):
+                index = self.selectNodeCombo.findText(node_text)
+                self.selectNodeCombo.setCurrentIndex(index);
+
 
     def showAll(self):
         checked = self.visibilityCheckBox.isChecked()
@@ -461,13 +489,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         scenarioName = self.scenarioCombo.currentText()
         pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station.tif'
         pathPolygon = 'C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp'
+        test = uf.getLegendLayerByName(self.iface,'Neighborhoods')
         # new layer for statistics
         layer_name = scenarioName + '_gridStatistics'
         pathStat = self.scenarioPath + '/' + layer_name +'.shp'
         filename = pathStat.split("/")[-1]
 
         # run SAGA processing algorithm
-        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, pathPolygon, False, False, True, False, False, True, False, False, 0, pathStat)
+        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, test, False, False, True, False, False, True, False, False, 0, pathStat)
         polyStat = QgsVectorLayer(pathStat, layer_name , 'ogr')
         QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
         root = QgsProject.instance().layerTreeRoot()
