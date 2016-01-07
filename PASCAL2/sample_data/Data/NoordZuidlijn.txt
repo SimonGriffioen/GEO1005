@@ -1,3 +1,0 @@
-sid;stopname;townname;matchname;network;buurtname;gemeentenaam;x coordinate (long);y coordinate (lat)
- ;Noord;Amsterdam; ;metro;Buikslotermeer;Amsterdam;4,9328090;52,40234700
- ;Noorderpark;Amsterdam; ;metro;Ijplein en Vogelbuurt;Amsterdam;4,9198470;52,3895910
