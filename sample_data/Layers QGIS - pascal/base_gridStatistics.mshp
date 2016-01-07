@@ -15,10 +15,7 @@
     <OPTION type="integer" id="QUANTILE" name="Quantile">0</OPTION>
     <DATA_LIST type="grid_list" id="GRIDS" name="Grids">
       <DATA>
-        <MODULE>GDAL: Import Raster</MODULE>
-        <OPTION type="file" id="FILES" name="Files">"C:/Development/pascal/sample_data/Layers QGIS - pascal/base_dist2station.tif"</OPTION>
-        <OPTION type="boolean" id="TRANSFORM" name="Transformation">TRUE</OPTION>
-        <OPTION type="choice" id="INTERPOL" name="Interpolation">0</OPTION>
+        <FILE>C:\Users\Simon\AppData\Local\Temp\processing\69ae43382c404ff79b67ff4d954d1424\basedist2station.sgrd</FILE>
       </DATA>
     </DATA_LIST>
     <DATA type="shapes" id="POLYGONS" name="Polygons">
