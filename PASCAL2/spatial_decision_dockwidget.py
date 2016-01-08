@@ -467,13 +467,19 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # interpolation
             processing.runalg('gdalogr:gridinvdist',service_area_layer,'cost',2,0,400,400,0,0,0,0,5,path+'.tif')
 
+            # close intermediary layer
+            QgsMapLayerRegistry.instance().removeMapLayer(service_area_layer.id())
+
+            # delete old layer if present
+            old_layer = uf.getLegendLayerByName(self.iface, current_scenario + '_dist2station')
+            if old_layer:
+                pass
+                #QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
+
             fileName = path+'.tif'
             fileInfo = QtCore.QFileInfo(fileName)
             baseName = fileInfo.baseName()
             rasterLayer = QgsRasterLayer(fileName, baseName)
-
-            #if current_scenario + '_dist2station' == root.findL
-
             QgsMapLayerRegistry.instance().addMapLayer(rasterLayer, False)
 
             root = QgsProject.instance().layerTreeRoot()
@@ -481,8 +487,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             scenario_group = root.findGroup(current_scenario)
             scenario_group.insertLayer(1, rasterLayer)
 
-            # close intermediary layer
-            QgsMapLayerRegistry.instance().removeMapLayer(service_area_layer.id())
+
 
             # style raster layer
             self.styleStationDistance(rasterLayer)
@@ -574,9 +579,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         # run SAGA processing algorithm
         processing.runalg("saga:gridstatisticsforpolygons",pathGrid, test, False, False, True, False, False, True, False, False, 0, pathStat)
-        polyStat = QgsVectorLayer(pathStat, layer_name , 'ogr')
-        QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
 
+        # delete old layer if present
+        old_layer = uf.getLegendLayerByName(self.iface, layer_name)
+        if old_layer:
+            QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
+
+        polyStat = QgsVectorLayer(pathStat, layer_name, 'ogr')
+        QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
         root = QgsProject.instance().layerTreeRoot()
         current_scenario = self.scenarioCombo.currentText()
         scenario_group = root.findGroup(current_scenario)
