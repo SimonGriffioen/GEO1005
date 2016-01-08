@@ -94,15 +94,15 @@
          <widget class="QLabel" name="label_2">
           <property name="font">
            <font>
-            <family>MS Shell Dlg 2</family>
+            <family>Trebuchet MS</family>
             <pointsize>11</pointsize>
-            <weight>75</weight>
-            <italic>false</italic>
-            <bold>true</bold>
+            <weight>50</weight>
+            <italic>true</italic>
+            <bold>false</bold>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: bold 11pt &quot;MS Shell Dlg 2&quot;;
+           <string notr="true">font: italic 11pt &quot;Trebuchet MS&quot;;
 </string>
           </property>
           <property name="text">
@@ -113,13 +113,13 @@
         <item>
          <widget class="QComboBox" name="scenarioCombo">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+           <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
           </property>
          </widget>
         </item>
@@ -155,7 +155,7 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+       <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
       </property>
       <property name="currentIndex">
        <number>0</number>
@@ -169,7 +169,7 @@
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>271</width>
+          <width>312</width>
           <height>285</height>
          </rect>
         </property>
@@ -177,7 +177,7 @@
          <item>
           <widget class="QLabel" name="label_3">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -189,7 +189,7 @@
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+            <string notr="true">font: &quot;Trebuchet MS&quot;;</string>
            </property>
            <property name="text">
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This plugin includes the public transport &lt;/p&gt;&lt;p&gt;data of Amsterdam Noord:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -211,7 +211,7 @@
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+            <string notr="true">font: 75 bold italic&quot;Trebuchet MS&quot;;</string>
            </property>
            <property name="text">
             <string>Load sample data</string>
@@ -234,13 +234,13 @@
          <item>
           <widget class="QLabel" name="label_4">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="styleSheet">
-            <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+            <string notr="true">font: &quot;Trebuchet MS&quot;;</string>
            </property>
            <property name="text">
             <string>Select your road network for analysis</string>
@@ -268,7 +268,7 @@
             <bool>false</bool>
            </property>
            <property name="styleSheet">
-            <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+            <string notr="true">font: &quot;Trebuchet MS&quot;;</string>
            </property>
            <property name="editable">
             <bool>false</bool>
@@ -278,13 +278,13 @@
          <item>
           <widget class="QLabel" name="label_5">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
            <property name="styleSheet">
-            <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+            <string notr="true">font: &quot;Trebuchet MS&quot;;</string>
            </property>
            <property name="text">
             <string>Select your nodes layer (transport stations)</string>
@@ -306,7 +306,7 @@
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+            <string notr="true">font: &quot;Trebuchet MS&quot;;</string>
            </property>
           </widget>
          </item>
@@ -338,7 +338,7 @@
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+            <string notr="true">font: 75 bold italic &quot;Trebuchet MS&quot;;</string>
            </property>
            <property name="text">
             <string>Create new Scenario</string>
@@ -380,13 +380,13 @@
            <item>
             <widget class="QLabel" name="label_10">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="styleSheet">
-              <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+              <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
              </property>
              <property name="text">
               <string>Calculate the walking distance to all transport stations:</string>
@@ -410,7 +410,7 @@
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+                <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
                </property>
                <property name="text">
                 <string>Distance to node</string>
@@ -458,15 +458,15 @@
              </property>
              <property name="font">
               <font>
-               <family>MS Shell Dlg 2</family>
-               <pointsize>11</pointsize>
-               <weight>75</weight>
-               <italic>false</italic>
-               <bold>true</bold>
+               <family>Trebuchet MS</family>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <italic>true</italic>
+               <bold>false</bold>
               </font>
              </property>
              <property name="styleSheet">
-              <string notr="true">font: bold 11pt &quot;MS Shell Dlg 2&quot;;</string>
+              <string notr="true">font: italic 10pt &quot;Trebuchet MS&quot;;</string>
              </property>
              <property name="text">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;To add a new node:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -501,7 +501,8 @@
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+              <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;
+</string>
              </property>
              <item>
               <property name="text">
@@ -557,7 +558,7 @@
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+              <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
              </property>
              <property name="text">
               <string>&lt;Enter name of node&gt;</string>
@@ -586,7 +587,7 @@
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+              <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
              </property>
              <property name="text">
               <string>Add Node</string>
@@ -611,7 +612,7 @@
               <enum>Qt::LeftToRight</enum>
              </property>
              <property name="styleSheet">
-              <string notr="true">font: bold 10pt &quot;MS Shell Dlg 2&quot;;</string>
+              <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
              </property>
              <property name="text">
               <string>Show me all nodes and road types</string>
@@ -638,15 +639,15 @@
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>242</width>
-          <height>104</height>
+          <width>287</width>
+          <height>112</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
           <widget class="QLabel" name="label_12">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -772,6 +773,9 @@
             <height>0</height>
            </size>
           </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
           <property name="currentIndex">
            <number>0</number>
           </property>
@@ -787,6 +791,9 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
               </property>
              </widget>
             </item>
