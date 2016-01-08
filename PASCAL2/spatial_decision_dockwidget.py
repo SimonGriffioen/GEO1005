@@ -672,4 +672,4 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics2Table.clear()
 
     def openinBrowser(self):
-        webbrowser.open('https://github.com/SimonGriffioen/pascal/wiki', new=2)
+        webbrowser.open('http://github.com/SimonGriffioen/pascal/wiki/0.-Welcome', new=2)
