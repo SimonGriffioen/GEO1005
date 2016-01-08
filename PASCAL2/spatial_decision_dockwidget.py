@@ -565,7 +565,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # Get the layers that are needed (dist2station and neigborhoods)
         scenarioName = self.scenarioCombo.currentText()
         pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station.tif'
-        pathPolygon = 'C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp'
+        print 'path grid =', pathGrid
         test = uf.getLegendLayerByName(self.iface,'Neighborhoods')
         # new layer for statistics
         layer_name = scenarioName + '_gridStatistics'
