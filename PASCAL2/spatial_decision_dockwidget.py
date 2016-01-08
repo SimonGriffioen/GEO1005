@@ -326,6 +326,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # initialize layers
         self.baseAttributes()
 
+
     def baseAttributes(self):
         # get summary of the attribute
         layer = uf.getLegendLayerByName(self.iface, "base_gridStatistics")
@@ -333,12 +334,12 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # only use the first attribute in the list
         for feature in layer.getFeatures():
             summary.append(feature)#, feature.attribute(attribute)))
-
         self.scenarioAttributes["base"] = summary
         # send this to the table
         self.clearTable()
         self.updateTable1()
         self.updateTable2()
+
 
 
 
@@ -473,8 +474,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # delete old layer if present
             old_layer = uf.getLegendLayerByName(self.iface, current_scenario + '_dist2station')
             if old_layer:
-                pass
-                #QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
+                QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
 
             fileName = path+'.tif'
             fileInfo = QtCore.QFileInfo(fileName)
@@ -630,6 +630,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics1Table.setRowCount(len(self.scenarioAttributes[headerLabels[1]]))
 
         # write neighborhoods in table
+        if not self.scenarioAttributes.has_key('base'):
+            self.baseAttributes()
+
         for i, item in enumerate(self.scenarioAttributes['base']):
             self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
 
