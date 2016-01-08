@@ -464,6 +464,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             QgsVectorFileWriter.writeAsVectorFormat(area_layer,path+'.shp',str(area_layer.crs().postgisSrid()), None, "ESRI Shapefile")
             filename = path.split("/")[-1]
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
+            service_area_layer.setCrs(QgsCoordinateReferenceSystem(28992, QgsCoordinateReferenceSystem.EpsgCrsId))
 
             # interpolation
             processing.runalg('gdalogr:gridinvdist',service_area_layer,'cost',2,0,400,400,0,0,0,0,5,path+'.tif')
@@ -480,6 +481,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             fileInfo = QtCore.QFileInfo(fileName)
             baseName = fileInfo.baseName()
             rasterLayer = QgsRasterLayer(fileName, baseName)
+            rasterLayer.setCrs(QgsCoordinateReferenceSystem(28992, QgsCoordinateReferenceSystem.EpsgCrsId))
             QgsMapLayerRegistry.instance().addMapLayer(rasterLayer, False)
 
             root = QgsProject.instance().layerTreeRoot()
@@ -487,13 +489,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             scenario_group = root.findGroup(current_scenario)
             scenario_group.insertLayer(1, rasterLayer)
 
-
-
             # style raster layer
             self.styleStationDistance(rasterLayer)
 
             # Grid statistics
-            self.rasterStatistics()
+            self.rasterStatistics(rasterLayer)
 
 
     def handleMouseDown(self, point, button):
@@ -566,24 +566,25 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #    Reporting functions
 #######
 
-    def rasterStatistics(self):
+    def rasterStatistics(self,rasterLayer):
         # Get the layers that are needed (dist2station and neigborhoods)
         scenarioName = self.scenarioCombo.currentText()
         pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station.tif'
-        print 'path grid =', pathGrid
         test = uf.getLegendLayerByName(self.iface,'Neighborhoods')
         # new layer for statistics
         layer_name = scenarioName + '_gridStatistics'
         pathStat = self.scenarioPath + '/' + layer_name +'.shp'
-        filename = pathStat.split("/")[-1]
-
-        # run SAGA processing algorithm
-        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, test, False, False, True, False, False, True, False, False, 0, pathStat)
 
         # delete old layer if present
         old_layer = uf.getLegendLayerByName(self.iface, layer_name)
         if old_layer:
             QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
+
+        print 'path grid =', pathGrid
+        print 'path stat =', pathStat
+
+        # run SAGA processing algorithm
+        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, test, False, False, True, False, False, True, False, False, 0, pathStat)
 
         polyStat = QgsVectorLayer(pathStat, layer_name, 'ogr')
         QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
