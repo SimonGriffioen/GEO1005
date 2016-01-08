@@ -568,36 +568,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #    Reporting functions
 #######
 
-<<<<<<< HEAD
     def rasterStatistics(self,rasterLayer):
         # Get the layers that are needed (dist2station and neigborhoods)
         scenarioName = self.scenarioCombo.currentText()
         pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station.tif'
-        test = uf.getLegendLayerByName(self.iface,'Neighborhoods')
-        # new layer for statistics
-        layer_name = scenarioName + '_gridStatistics'
-        pathStat = self.scenarioPath + '/' + layer_name +'.shp'
-=======
-    def rasterStatistics(self):
-        # Get the layers that are needed (dist2station and neighborhoods)
-        scenarioName = self.scenarioCombo.currentText()
-        pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station.tif'
-        print 'path grid =', pathGrid
         neigh = uf.getLegendLayerByName(self.iface,'Neighborhoods')
         # new layer for statistics
         layer_name = scenarioName + '_gridStatistics'
         pathStat = self.scenarioPath + '/' + layer_name +'.shp'
-        filename = pathStat.split("/")[-1]
-
-        # run SAGA processing algorithm
-<<<<<<< HEAD
-        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, neigh, False, False, True, False, False, True, False, False, 0, pathStat)
-        polyStat = QgsVectorLayer(pathStat, layer_name , 'ogr')
-        QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
-=======
-        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, test, False, False, True, False, False, True, False, False, 0, pathStat)
->>>>>>> origin/master
->>>>>>> origin/master
 
         # delete old layer if present
         old_layer = uf.getLegendLayerByName(self.iface, layer_name)
@@ -608,7 +586,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         print 'path stat =', pathStat
 
         # run SAGA processing algorithm
-        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, test, False, False, True, False, False, True, False, False, 0, pathStat)
+        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, neigh, False, False, True, False, False, True, False, False, 0, pathStat)
 
         polyStat = QgsVectorLayer(pathStat, layer_name, 'ogr')
         QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
@@ -712,7 +690,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics2Table.clear()
 
     def openinBrowser(self):
-<<<<<<< HEAD
         webbrowser.open('https://github.com/SimonGriffioen/pascal/wiki', new=2)
 
     def selectFeatureTable(self, item):
@@ -737,9 +714,3 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.canvas.zoomToSelected(layer)
         # deselect feature
         self.neighborhood = (item.row(),True)
-
-
-
-=======
-        webbrowser.open('http://github.com/SimonGriffioen/pascal/wiki/0.-Welcome', new=2)
->>>>>>> origin/master
