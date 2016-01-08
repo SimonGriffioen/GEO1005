@@ -6,7 +6,7 @@
     <layer-tree-layer expanded="0" checked="Qt::Checked" id="Nodes20151206153523637" name="Nodes">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="0" checked="Qt::Checked" id="Lines20151209180402246" name="Lines">
+    <layer-tree-layer expanded="1" checked="Qt::Checked" id="Lines20151209180402246" name="Lines">
       <customproperties>
         <property key="expandedLegendNodes"/>
       </customproperties>
@@ -46,10 +46,10 @@
   <mapcanvas>
     <units>meters</units>
     <extent>
-      <xmin>121081.32988423752249219</xmin>
-      <ymin>486370.25121892080642283</ymin>
-      <xmax>126075.39238423752249219</xmax>
-      <ymax>493017.80121891782619059</ymax>
+      <xmin>121898.19954664645774756</xmin>
+      <ymin>488345.51166600023861974</ymin>
+      <xmax>124395.23079664645774756</xmax>
+      <ymax>491669.28666599874850363</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>1</projections>
@@ -125,8 +125,8 @@
         <legendlayerfile isInOverview="0" layerid="Nodes20151206153523637" visible="1"/>
       </filegroup>
     </legendlayer>
-    <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="Lines" showFeatureCount="0">
-      <filegroup open="false" hidden="false">
+    <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="Lines" showFeatureCount="0">
+      <filegroup open="true" hidden="false">
         <legendlayerfile isInOverview="0" layerid="Lines20151209180402246" visible="1"/>
       </filegroup>
     </legendlayer>
@@ -6463,7 +6463,7 @@
             <rule filter="PUBLICCODE = 611" key="{0bceafe3-8fc5-422f-ab73-c5cba28d7340}" symbol="19" label="611"/>
             <rule filter="PUBLICCODE = 'N92'" key="{3f4d409d-bc6d-4bb2-9493-12e93862793f}" symbol="20" label="N92"/>
           </rule>
-          <rule key="{96b200e4-1008-49b3-a2b8-cb7886911e00}" label="Ferry">
+          <rule checkstate="0" key="{96b200e4-1008-49b3-a2b8-cb7886911e00}" label="Ferry">
             <rule filter="PUBLICCODE = 900" key="{e69982ba-e45d-4243-8d1a-79f3fd48c6c7}" symbol="21" label="900"/>
             <rule filter="PUBLICCODE = 901" key="{e9f508cb-ef92-495e-b73a-611f3b09afa4}" symbol="22" label="901"/>
             <rule filter="PUBLICCODE = 902" key="{d45639ac-5d51-42a0-a4ec-492b1fec9eff}" symbol="23" label="902"/>
@@ -6473,7 +6473,7 @@
             <rule filter="PUBLICCODE = 907" key="{336bf16f-6ec2-4003-9c34-030b2136c0dc}" symbol="27" label="907"/>
             <rule filter="PUBLICCODE = 915" key="{e945e5d3-9d20-40d2-80ec-659b03683b76}" symbol="28" label="915"/>
           </rule>
-          <rule key="{d08c67ac-b4b3-43fa-bfb3-7cba4ebbf4e3}" label="Metro">
+          <rule checkstate="0" key="{d08c67ac-b4b3-43fa-bfb3-7cba4ebbf4e3}" label="Metro">
             <rule filter="&quot;PUBLICCODE&quot; = '52'" key="{008b6861-c039-4b5b-a7c8-28557400f279}" symbol="29" label="&quot;PUBLICCODE&quot; = '52'"/>
           </rule>
         </rules>

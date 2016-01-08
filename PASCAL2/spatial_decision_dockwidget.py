@@ -86,7 +86,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.sliderValue.textChanged.connect(self.sliderTextChanged)
         self.stationDistanceSlider.sliderMoved.connect(self.sliderMoved)
         self.stationDistanceSlider.valueChanged.connect(self.sliderValueChanged)
-
         self.stationDistanceButton.clicked.connect(self.buildNetwork)
         self.selectTransportCombo.activated.connect(self.setTransportMode)
         self.visibilityCheckBox.stateChanged.connect(self.showAll)
@@ -95,9 +94,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.graph = QgsGraph()
         self.tied_points = []
 
+
         self.scenarioPath = QgsProject.instance().homePath()
-        self.scenarios = ['base']
-        self.scenarioCombo.addItems(self.scenarios)
+        self.scenarioCombo.clear()
+        self.scenarioCombo.addItem('base')
         self.scenarioAttributes = {}
 
         # visualisation
@@ -133,6 +133,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 #   Data functions
 #######
+    def getScenarios(self):
+        scenarios = [self.scenarioCombo.itemText(i) for i in range(self.scenarioCombo.count())]
+        return scenarios
+
     def createScenario(self):
         # select the node layer
         vl = self.getNodeLayer()
@@ -144,10 +148,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         real_path =  '/'.join(list_path)
         self.scenarioPath = real_path
         scenarioName = path.split("/")[-1]
-        self.scenarios.append(scenarioName)
-        self.scenarioCombo.clear()
-        self.scenarioCombo.addItems(self.scenarios)
-        index = len(self.scenarios)-1
+        self.scenarioCombo.addItem(scenarioName)
+        index = self.scenarioCombo.count() - 1
         self.scenarioCombo.setCurrentIndex(index)
 
         filename = scenarioName + '_nodes'
@@ -171,7 +173,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
     def setNodeAndNetwork(self):
-        print 'hallo hier ben ik'
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
         network_text = self.selectNetworkCombo.currentText()
         if network_text == '':
@@ -193,7 +194,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 self.selectNodeCombo.setCurrentIndex(index);
 
         # current scenario
-        scenarios = [self.scenarioCombo.itemText(i) for i in range(self.scenarioCombo.count())]
+        scenarios = self.getScenarios()
         current_scenario = self.scenarioCombo.currentText()
         self.scenarioCombo.clear()
         index = 0
@@ -205,15 +206,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 if scenario == current_scenario:
                     self.scenarioCombo.setCurrentIndex(index)
                 index = index + 1
-
-
-
-        '''current_scenario = self.scenarioCombo.currentText()
-        index = self.scenarioCombo.findText(current_scenario)
-        self.scenarioCombo.clear()
-        self.scenarioCombo.addItems(self.scenarios)
-        self.scenarioCombo.setCurrentIndex(index);'''
-
 
     def showAll(self):
         checked = self.visibilityCheckBox.isChecked()
@@ -305,7 +297,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         if layer == None:
             layer_name = 'Nodes'
             layer = uf.getLegendLayerByName(self.iface,layer_name)
-        
         return layer
 
 
@@ -595,7 +586,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # Table 1 shows the maximum distance to a node for every neighborhood (index15)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
         headerLabels = ["Neigborhoods"]
-        for scen in self.scenarios:
+        for scen in self.getScenarios():
             if scen in self.scenarioAttributes:
                 headerLabels.append(scen)
         self.statistics1Table.setColumnCount(len(headerLabels))
@@ -630,7 +621,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # Table 2 shows the mean distance to a node for every neighborhood (index16)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
         headerLabels = ["Neigborhoods"]
-        for scen in self.scenarios:
+        for scen in self.getScenarios():
             if scen in self.scenarioAttributes:
                 headerLabels.append(scen)
         self.statistics2Table.setColumnCount(len(headerLabels))
