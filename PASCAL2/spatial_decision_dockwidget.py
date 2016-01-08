@@ -104,6 +104,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         # reporting
 
+
         # set current UI restrictions
 
         # add button icons
@@ -316,6 +317,25 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             print "Layer failed to load!"'''
 
         self.iface.addProject(data_path)
+
+        # initialize layers
+        self.baseAttributes()
+
+    def baseAttributes(self):
+        # get summary of the attribute
+        layer = uf.getLegendLayerByName(self.iface, "base_gridStatistics")
+        summary = []
+        # only use the first attribute in the list
+        for feature in layer.getFeatures():
+            summary.append(feature)#, feature.attribute(attribute)))
+
+        self.scenarioAttributes["base"] = summary
+        # send this to the table
+        self.clearTable()
+        self.updateTable1()
+        self.updateTable2()
+
+
 
     def run_mouse(self):
         self.canvas.setMapTool(self.clickTool)
