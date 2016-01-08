@@ -328,6 +328,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # initialize layers
         self.baseAttributes()
 
+
     def baseAttributes(self):
         # get summary of the attribute
         layer = uf.getLegendLayerByName(self.iface, "base_gridStatistics")
@@ -335,12 +336,12 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # only use the first attribute in the list
         for feature in layer.getFeatures():
             summary.append(feature)#, feature.attribute(attribute)))
-
         self.scenarioAttributes["base"] = summary
         # send this to the table
         self.clearTable()
         self.updateTable1()
         self.updateTable2()
+
 
 
 
@@ -469,13 +470,18 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # interpolation
             processing.runalg('gdalogr:gridinvdist',service_area_layer,'cost',2,0,400,400,0,0,0,0,5,path+'.tif')
 
+            # close intermediary layer
+            QgsMapLayerRegistry.instance().removeMapLayer(service_area_layer.id())
+
+            # delete old layer if present
+            old_layer = uf.getLegendLayerByName(self.iface, current_scenario + '_dist2station')
+            if old_layer:
+                QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
+
             fileName = path+'.tif'
             fileInfo = QtCore.QFileInfo(fileName)
             baseName = fileInfo.baseName()
             rasterLayer = QgsRasterLayer(fileName, baseName)
-
-            #if current_scenario + '_dist2station' == root.findL
-
             QgsMapLayerRegistry.instance().addMapLayer(rasterLayer, False)
 
             root = QgsProject.instance().layerTreeRoot()
@@ -483,8 +489,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             scenario_group = root.findGroup(current_scenario)
             scenario_group.insertLayer(1, rasterLayer)
 
-            # close intermediary layer
-            QgsMapLayerRegistry.instance().removeMapLayer(service_area_layer.id())
+
 
             # style raster layer
             self.styleStationDistance(rasterLayer)
@@ -575,10 +580,21 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         filename = pathStat.split("/")[-1]
 
         # run SAGA processing algorithm
+<<<<<<< HEAD
         processing.runalg("saga:gridstatisticsforpolygons",pathGrid, neigh, False, False, True, False, False, True, False, False, 0, pathStat)
         polyStat = QgsVectorLayer(pathStat, layer_name , 'ogr')
         QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
+=======
+        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, test, False, False, True, False, False, True, False, False, 0, pathStat)
+>>>>>>> origin/master
 
+        # delete old layer if present
+        old_layer = uf.getLegendLayerByName(self.iface, layer_name)
+        if old_layer:
+            QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
+
+        polyStat = QgsVectorLayer(pathStat, layer_name, 'ogr')
+        QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
         root = QgsProject.instance().layerTreeRoot()
         current_scenario = self.scenarioCombo.currentText()
         scenario_group = root.findGroup(current_scenario)
@@ -622,6 +638,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics1Table.setRowCount(len(self.scenarioAttributes[headerLabels[1]]))
 
         # write neighborhoods in table
+        if not self.scenarioAttributes.has_key('base'):
+            self.baseAttributes()
+
         for i, item in enumerate(self.scenarioAttributes['base']):
             self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
 
@@ -676,6 +695,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics2Table.clear()
 
     def openinBrowser(self):
+<<<<<<< HEAD
         webbrowser.open('https://github.com/SimonGriffioen/pascal/wiki', new=2)
 
     def selectFeatureTable(self, item):
@@ -703,3 +723,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
 
+=======
+        webbrowser.open('http://github.com/SimonGriffioen/pascal/wiki/0.-Welcome', new=2)
+>>>>>>> origin/master
