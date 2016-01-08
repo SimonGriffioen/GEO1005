@@ -15,14 +15,14 @@
     <OPTION type="integer" id="QUANTILE" name="Quantile">0</OPTION>
     <DATA_LIST type="grid_list" id="GRIDS" name="Grids">
       <DATA>
-        <FILE>C:\Users\Simon\AppData\Local\Temp\processing\69ae43382c404ff79b67ff4d954d1424\basedist2station.sgrd</FILE>
+        <FILE>C:\Users\Martijn\AppData\Local\Temp\processing\788212d4598d41acad8dc34e9b78014a\basedist2station.sgrd</FILE>
       </DATA>
     </DATA_LIST>
     <DATA type="shapes" id="POLYGONS" name="Polygons">
-      <FILE>C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</FILE>C:/Development/pascal/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</DATA>
+      <FILE>C:/Users/Martijn/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</FILE>C:/Users/Martijn/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</DATA>
   </HISTORY>
   <SOURCE>
-    <FILE>C:/Development/pascal/sample_data/Layers QGIS - pascal/base_gridStatistics.shp</FILE>
+    <FILE>C:/PluginDevelopment/pascal/sample_data/Layers QGIS - pascal/base_gridStatistics.shp</FILE>
     <DATABASE></DATABASE>
     <PROJECTION>
       <OGC_WKT>PROJCS["Amersfoort_RD_New",GEOGCS["GCS_Amersfoort",DATUM["Amersfoort",SPHEROID["Bessel_1841",6377397.155,299.1528128,AUTHORITY["EPSG","7004"]],AUTHORITY["EPSG","6289"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433]],PROJECTION["Oblique_Stereographic"],PARAMETER["latitude_of_origin",52.15616055555555],PARAMETER["central_meridian",5.38763888888889],PARAMETER["scale_factor",0.9999079],PARAMETER["false_easting",155000],PARAMETER["false_northing",463000],UNIT["metre",1,AUTHORITY["EPSG","9001"]]]</OGC_WKT>

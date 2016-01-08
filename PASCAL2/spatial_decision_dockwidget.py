@@ -354,8 +354,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                     scenario_group.setVisible(0)
 
 
-
-
     def sliderTextChanged(self):
         value = self.sliderValue.text()
         try:
