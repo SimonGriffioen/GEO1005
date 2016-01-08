@@ -140,7 +140,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def createScenario(self):
         # select the node layer
-        vl = self.getNodeLayer()
+        vl = self.getBaseNodeLayer()
         #cl = self.iface.addVectorLayer( vl.source(), vl.name() + "_scenario", vl.providerType() )
 
         # create a path and filename for the new file
@@ -211,7 +211,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def showAll(self):
         checked = self.visibilityCheckBox.isChecked()
         if checked is True:
-            vl = self.getNodeLayer()
+            vl = self.getCurrentNodeLayer()
             pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
             vl.loadNamedStyle("{}styleNodes.qml".format(pathStyle))
             vl.triggerRepaint()
@@ -231,7 +231,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         else:
             mode = self.selectTransportCombo.currentText()
             print mode
-            vl = self.getNodeLayer()
+            vl = self.getCurrentNodeLayer()
 
             #root = QgsProject.instance().layerTreeRoot()
             pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
@@ -291,7 +291,12 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         layer = uf.getLegendLayerByName(self.iface,layer_name)
         return layer
 
-    def getNodeLayer(self):
+    def getBaseNodeLayer(self):
+        layer_name = self.selectNodeCombo.currentText()
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+        return layer
+
+    def getCurrentNodeLayer(self):
         layer_name = self.scenarioCombo.currentText() + '_nodes'
         layer = uf.getLegendLayerByName(self.iface,layer_name)
 
@@ -386,8 +391,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.sliderValue.setText(str(value))
 
     def sliderValueChanged(self):
-        scenarioName = self.scenarioCombo.currentText()
-        filename = scenarioName + '_dist2station'
+        current_scenario = self.scenarioCombo.currentText()
+        filename = current_scenario + '_dist2station'
         raster_layer = uf.getLegendLayerByName(self.iface, filename)
         if raster_layer:
             self.styleStationDistance(raster_layer)
@@ -417,7 +422,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # get the points to be used as origin and destination
             # in this case gets the centroid of the selected features
 
-            nodeLayer = self.getNodeLayer()
+            nodeLayer = self.getCurrentNodeLayer()
             nodes = nodeLayer.getFeatures()
             source_points = []
             for node in nodes:
@@ -453,8 +458,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 values.append([point[1]])
             uf.insertTempFeatures(area_layer, geoms, values)
 
-            scenarioName = self.scenarioCombo.currentText()
-            path = self.scenarioPath + '/' + scenarioName + '_dist2station'
+            current_scenario = self.scenarioCombo.currentText()
+            path = self.scenarioPath + '/' + current_scenario + '_dist2station'
             QgsVectorFileWriter.writeAsVectorFormat(area_layer,path+'.shp',str(area_layer.crs().postgisSrid()), None, "ESRI Shapefile")
             filename = path.split("/")[-1]
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
@@ -466,6 +471,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             fileInfo = QtCore.QFileInfo(fileName)
             baseName = fileInfo.baseName()
             rasterLayer = QgsRasterLayer(fileName, baseName)
+
+            #if current_scenario + '_dist2station' == root.findL
+
             QgsMapLayerRegistry.instance().addMapLayer(rasterLayer, False)
 
             root = QgsProject.instance().layerTreeRoot()
@@ -489,7 +497,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         x_coor = point.x()
         y_coor = point.y()
         print x_coor, y_coor
-        vl = self.getNodeLayer()
+        vl = self.getCurrentNodeLayer()
         pr = vl.dataProvider()
         vl.startEditing()
 
