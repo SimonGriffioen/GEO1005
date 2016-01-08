@@ -103,7 +103,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # visualisation
 
         # reporting
-
+        self.statistics1Table.itemClicked.connect(self.selectFeatureTable)
+        self.statistics2Table.itemClicked.connect(self.selectFeatureTable)
+        self.neighborhood = ('',False)
 
         # set current UI restrictions
 
@@ -566,6 +568,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #    Reporting functions
 #######
 
+<<<<<<< HEAD
     def rasterStatistics(self,rasterLayer):
         # Get the layers that are needed (dist2station and neigborhoods)
         scenarioName = self.scenarioCombo.currentText()
@@ -574,6 +577,27 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # new layer for statistics
         layer_name = scenarioName + '_gridStatistics'
         pathStat = self.scenarioPath + '/' + layer_name +'.shp'
+=======
+    def rasterStatistics(self):
+        # Get the layers that are needed (dist2station and neighborhoods)
+        scenarioName = self.scenarioCombo.currentText()
+        pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station.tif'
+        print 'path grid =', pathGrid
+        neigh = uf.getLegendLayerByName(self.iface,'Neighborhoods')
+        # new layer for statistics
+        layer_name = scenarioName + '_gridStatistics'
+        pathStat = self.scenarioPath + '/' + layer_name +'.shp'
+        filename = pathStat.split("/")[-1]
+
+        # run SAGA processing algorithm
+<<<<<<< HEAD
+        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, neigh, False, False, True, False, False, True, False, False, 0, pathStat)
+        polyStat = QgsVectorLayer(pathStat, layer_name , 'ogr')
+        QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
+=======
+        processing.runalg("saga:gridstatisticsforpolygons",pathGrid, test, False, False, True, False, False, True, False, False, 0, pathStat)
+>>>>>>> origin/master
+>>>>>>> origin/master
 
         # delete old layer if present
         old_layer = uf.getLegendLayerByName(self.iface, layer_name)
@@ -681,9 +705,41 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics2Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics2Table.resizeRowsToContents()
 
+        #self.selectFeatureTable()
+
     def clearTable(self):
         self.statistics1Table.clear()
         self.statistics2Table.clear()
 
     def openinBrowser(self):
+<<<<<<< HEAD
+        webbrowser.open('https://github.com/SimonGriffioen/pascal/wiki', new=2)
+
+    def selectFeatureTable(self, item):
+        if item.row() == self.neighborhood[0] and self.neighborhood[1] is True:
+            for a in self.iface.attributesToolBar().actions():
+                if a.objectName() == 'mActionDeselectAll':
+                    a.trigger()
+                    break
+            self.neighborhood = (item.row(),False)
+            return
+        neighborhood = item.text()
+        print item.row()
+        print item.column()
+        layer = uf.getLegendLayerByName(self.iface, "Neighborhoods")
+        fids = [item.row()]
+        request = QgsFeatureRequest().setFilterFids(fids)
+        it = layer.getFeatures( request )
+        ids = [i.id() for i in it]
+        layer.setSelectedFeatures(ids)
+
+        # zoom to feature
+        self.canvas.zoomToSelected(layer)
+        # deselect feature
+        self.neighborhood = (item.row(),True)
+
+
+
+=======
         webbrowser.open('http://github.com/SimonGriffioen/pascal/wiki/0.-Welcome', new=2)
+>>>>>>> origin/master
