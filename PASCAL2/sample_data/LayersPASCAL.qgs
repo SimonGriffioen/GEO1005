@@ -183,7 +183,7 @@
   <projectlayers layercount="10">
     <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151203163513010</id>
-      <datasource>/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -1669,10 +1669,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -1724,7 +1724,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151206162349833</id>
-      <datasource>/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -2673,10 +2673,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -2728,7 +2728,7 @@
     </maplayer>
     <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151206163138653</id>
-      <datasource>/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -3599,10 +3599,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -3654,7 +3654,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151206163814375</id>
-      <datasource>/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -4525,10 +4525,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -4580,7 +4580,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151206165416471</id>
-      <datasource>/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -5451,10 +5451,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -5506,7 +5506,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>Lines20151209180402246</id>
-      <datasource>/Data QGIS - pascal/Lines.shp</datasource>
+      <datasource>./Data QGIS - pascal/Lines.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -8276,10 +8276,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="2" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -8322,7 +8322,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="0" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>Nodes20151206153523637</id>
-      <datasource>/Data QGIS - pascal/Nodes.shp</datasource>
+      <datasource>./Data QGIS - pascal/Nodes.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -9019,10 +9019,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -9038,7 +9038,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>RoadsAmsNorthOSM20151204000418954</id>
-      <datasource>/Data QGIS - pascal/RoadsAmsNorthOSM.shp</datasource>
+      <datasource>./Data QGIS - pascal/RoadsAmsNorthOSM.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -12074,10 +12074,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="2" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -12096,7 +12096,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>_t_ij20151209174150698</id>
-      <datasource>/Data QGIS - pascal/'t ij.shp</datasource>
+      <datasource>./Data QGIS - pascal/'t ij.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -12498,10 +12498,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -12565,7 +12565,7 @@
     </maplayer>
     <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>buildings_noord20151203160145527</id>
-      <datasource>/Data QGIS - pascal/buildings_noord.shp</datasource>
+      <datasource>./Data QGIS - pascal/buildings_noord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -12919,10 +12919,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>/Layers QGIS - pascal</editform>
+      <editform>./Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>/Layers QGIS - pascal</annotationform>
+      <annotationform>./Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
