@@ -240,6 +240,16 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
     def setTransportMode(self):
+        print 'index'
+        print self.selectTransportCombo.currentIndex()
+
+        if self.selectTransportCombo.currentText() == 'Select mode of transport':
+            print 'hallo8'
+            self.addNodesButton.setEnabled(False)
+        else:
+            print 'hallo9'
+            self.addNodesButton.setEnabled(True)
+
         if self.visibilityCheckBox.isChecked() is True:
             self.showAll()
         else:
@@ -372,7 +382,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.visibilityCheckBox.setEnabled(False)
         else:
             self.selectTransportCombo.setEnabled(True)
-            self.addNodesButton.setEnabled(True)
             self.stopNameEdit.setEnabled(True)
             self.visibilityCheckBox.setEnabled(True)
 
