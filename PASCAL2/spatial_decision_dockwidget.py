@@ -105,6 +105,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # reporting
         self.statistics1Table.itemClicked.connect(self.selectFeatureTable)
         self.statistics2Table.itemClicked.connect(self.selectFeatureTable)
+        self.saveStatisticsButton.clicked.connect(self.saveTable)
         self.neighborhood = ('',False)
 
         # set current UI restrictions
@@ -714,3 +715,27 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.canvas.zoomToSelected(layer)
         # deselect feature
         self.neighborhood = (item.row(),True)
+
+    def saveTable(self):
+        path = self.scenarioPath + '/' + scenarioName + '_statistics.csv' # QtGui.QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV(*.csv)')
+        if path:
+            with open(unicode(path), 'wb') as stream:
+                # open csv file for writing
+                writer = csv.writer(stream)
+                # write header
+                header = []
+                for column in range(self.statistics1Table.columnCount()):
+                    item = self.statisticsTable.horizontalHeaderItem(column)
+                    header.append(unicode(item.text()).encode('utf8'))
+                writer.writerow(header)
+                # write data
+                for row in range(self.statistics1Table.rowCount()):
+                    rowdata = []
+                    for column in range(self.statistics1Table.columnCount()):
+                        item = self.statistics1Table.item(row, column)
+                        if item is not None:
+                            rowdata.append(
+                                unicode(item.text()).encode('utf8'))
+                        else:
+                            rowdata.append('')
+                    writer.writerow(rowdata)
