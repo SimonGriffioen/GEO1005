@@ -99,6 +99,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.scenarioCombo.clear()
         self.scenarioCombo.addItem('base')
         self.scenarioAttributes = {}
+        self.subScenario = 0
 
         # visualisation
 
@@ -197,7 +198,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 index = self.selectNodeCombo.findText(node_text)
                 self.selectNodeCombo.setCurrentIndex(index);
 
-        # current scenario
+        # remove scenario if deleted
         scenarios = self.getScenarios()
         current_scenario = self.scenarioCombo.currentText()
         self.scenarioCombo.clear()
@@ -210,6 +211,12 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 if scenario == current_scenario:
                     self.scenarioCombo.setCurrentIndex(index)
                 index = index + 1
+            else:
+                self.scenarioAttributes.pop(scenario, None)
+                # send this to the table
+                self.clearTable()
+                self.updateTable1()
+                self.updateTable2()
 
     def showAll(self):
         checked = self.visibilityCheckBox.isChecked()
@@ -440,6 +447,16 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def stationDistance(self):
         options = len(self.tied_points)
         if options > 0:
+
+            # delete old layer if present
+            current_scenario = self.scenarioCombo.currentText()
+            old_layer = uf.getLegendLayerByName(self.iface, current_scenario + '_dist2station')
+            if old_layer:
+                QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
+            old_layer = uf.getLegendLayerByName(self.iface, current_scenario + '_gridStatistics')
+            if old_layer:
+                QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
+
             # origin is given as an index in the tied_points list
             origin = random.randint(1,options-1)
             cutoff_distance = 100000
@@ -469,21 +486,17 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
             service_area_layer.setCrs(QgsCoordinateReferenceSystem(28992, QgsCoordinateReferenceSystem.EpsgCrsId))
 
+            if not self.subScenario == 0:
+                path = path + str(self.subScenario)
+
+
+
             # interpolation
             processing.runalg('gdalogr:gridinvdist',service_area_layer,'cost',2,0,400,400,0,0,0,0,5,path+'.tif')
 
             # close intermediary layer
             QgsMapLayerRegistry.instance().removeMapLayer(service_area_layer.id())
-
-            # delete old layer if present
-            old_layer = uf.getLegendLayerByName(self.iface, current_scenario + '_dist2station')
-            if old_layer:
-                QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
-
-            fileName = path+'.tif'
-            fileInfo = QtCore.QFileInfo(fileName)
-            baseName = fileInfo.baseName()
-            rasterLayer = QgsRasterLayer(fileName, baseName)
+            rasterLayer = QgsRasterLayer(path+'.tif',filename)
             rasterLayer.setCrs(QgsCoordinateReferenceSystem(28992, QgsCoordinateReferenceSystem.EpsgCrsId))
             QgsMapLayerRegistry.instance().addMapLayer(rasterLayer, False)
 
@@ -570,24 +583,28 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 
     def rasterStatistics(self,rasterLayer):
-        # Get the layers that are needed (dist2station and neigborhoods)
+        # Get the layers that are needed (dist2station and neighborhoods)
         scenarioName = self.scenarioCombo.currentText()
-        pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station.tif'
+        pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station'
         neigh = uf.getLegendLayerByName(self.iface,'Neighborhoods')
         # new layer for statistics
         layer_name = scenarioName + '_gridStatistics'
-        pathStat = self.scenarioPath + '/' + layer_name +'.shp'
+        pathStat = self.scenarioPath + '/' + layer_name
 
-        # delete old layer if present
-        old_layer = uf.getLegendLayerByName(self.iface, layer_name)
-        if old_layer:
-            QgsMapLayerRegistry.instance().removeMapLayer(old_layer.id())
+        if not self.subScenario == 0:
+            pathGrid = pathGrid + str(self.subScenario)
+            pathStat = pathStat + str(self.subScenario)
+        self.subScenario = self.subScenario + 1
 
-        print 'path grid =', pathGrid
-        print 'path stat =', pathStat
+        pathGrid = pathGrid + '.tif'
+        pathStat = pathStat + '.shp'
+
+        print pathStat
 
         # run SAGA processing algorithm
         processing.runalg("saga:gridstatisticsforpolygons",pathGrid, neigh, False, False, True, False, False, True, False, False, 0, pathStat)
+
+
 
         polyStat = QgsVectorLayer(pathStat, layer_name, 'ogr')
         QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
