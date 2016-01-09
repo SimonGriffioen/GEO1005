@@ -734,7 +734,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.neighborhood = (item.row(),True)
 
     def saveTable(self):
-        path = self.scenarioPath + '/' + scenarioName + '_statistics.csv' # QtGui.QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV(*.csv)')
+        scenarioName = self.scenarioCombo.currentText()
+        path = QtGui.QFileDialog.getSaveFileName(self, 'Save File', '', 'CSV(*.csv)')  #self.scenarioPath + '/' + scenarioName + '_statistics.csv'
         if path:
             with open(unicode(path), 'wb') as stream:
                 # open csv file for writing
