@@ -205,7 +205,7 @@
   <projectlayers layercount="12">
     <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151203163513010</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -650,7 +650,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151206162349833</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -1654,7 +1654,7 @@
     </maplayer>
     <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151206163138653</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -2580,7 +2580,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151206163814375</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -3506,7 +3506,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>BuurtenStadsdeelNoord20151206165416471</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
+      <datasource>./Data QGIS - pascal/BuurtenStadsdeelNoord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -4432,7 +4432,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>Lines20151209180402246</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/Lines.shp</datasource>
+      <datasource>./Data QGIS - pascal/Lines.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -7248,7 +7248,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="0" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>Nodes20151206153523637</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/Nodes.shp</datasource>
+      <datasource>./Data QGIS - pascal/Nodes.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -7964,7 +7964,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>RoadsAmsNorthOSM20151204000418954</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/RoadsAmsNorthOSM.shp</datasource>
+      <datasource>./Data QGIS - pascal/RoadsAmsNorthOSM.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -11022,7 +11022,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>_t_ij20151209174150698</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/'t ij.shp</datasource>
+      <datasource>./Data QGIS - pascal/'t ij.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -11491,7 +11491,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
       <id>base_dist2station20160108105909831</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal/base_dist2station.tif</datasource>
+      <datasource>./Data QGIS - pascal/base_dist2station.tif</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -11538,7 +11538,7 @@
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>base_gridStatistics20160108105953044</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/base_gridStatistics.shp</datasource>
+      <datasource>./Data QGIS - pascal/base_gridStatistics.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
@@ -11846,7 +11846,7 @@
     </maplayer>
     <maplayer minimumScale="-4.65661e-10" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>buildings_noord20151203160145527</id>
-      <datasource>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Data QGIS - pascal/buildings_noord.shp</datasource>
+      <datasource>./Data QGIS - pascal/buildings_noord.shp</datasource>
       <title></title>
       <abstract></abstract>
       <keywordList>
