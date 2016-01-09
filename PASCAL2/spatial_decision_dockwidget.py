@@ -99,7 +99,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.scenarioCombo.clear()
         self.scenarioCombo.addItem('base')
         self.scenarioAttributes = {}
-        self.subScenario = 0
+        self.subScenario = {}
 
         # visualisation
 
@@ -121,6 +121,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         #run simple tests
 
     def closeEvent(self, event):
+        self.scenarioAttributes = {}
+        self.subScenario = {}
+
         #disconnect interface signals
         try:
             self.iface.projectRead.disconnect(self.setNodeAndNetwork)
@@ -170,6 +173,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             current_scenario = self.scenarioCombo.currentText()
             scenario_group = root.insertGroup(0, current_scenario)
             scenario_group.insertLayer(0, vlayer)
+            root.findLayer(vlayer.id()).setExpanded(False)
 
             layer = uf.getLegendLayerByName(self.iface, filename)
             layer.loadNamedStyle("{}styleNodes.qml".format(pathStyle))
@@ -486,8 +490,13 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
             service_area_layer.setCrs(QgsCoordinateReferenceSystem(28992, QgsCoordinateReferenceSystem.EpsgCrsId))
 
-            if not self.subScenario == 0:
-                path = path + str(self.subScenario)
+            #subscenarios
+            for scen in self.getScenarios():
+                if not self.subScenario.has_key(scen):
+                    self.subScenario[scen] = 0
+
+            if not self.subScenario[current_scenario] == 0:
+                path = path + str(self.subScenario[current_scenario])
 
 
 
@@ -584,17 +593,17 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def rasterStatistics(self,rasterLayer):
         # Get the layers that are needed (dist2station and neighborhoods)
-        scenarioName = self.scenarioCombo.currentText()
-        pathGrid = self.scenarioPath + '/' + scenarioName + '_dist2station'
+        current_scenario = self.scenarioCombo.currentText()
+        pathGrid = self.scenarioPath + '/' + current_scenario + '_dist2station'
         neigh = uf.getLegendLayerByName(self.iface,'Neighborhoods')
         # new layer for statistics
-        layer_name = scenarioName + '_gridStatistics'
+        layer_name = current_scenario + '_gridStatistics'
         pathStat = self.scenarioPath + '/' + layer_name
 
-        if not self.subScenario == 0:
-            pathGrid = pathGrid + str(self.subScenario)
-            pathStat = pathStat + str(self.subScenario)
-        self.subScenario = self.subScenario + 1
+        if not self.subScenario[current_scenario] == 0:
+            pathGrid = pathGrid + str(self.subScenario[current_scenario])
+            pathStat = pathStat + str(self.subScenario[current_scenario])
+        self.subScenario[current_scenario] = self.subScenario[current_scenario] + 1
 
         pathGrid = pathGrid + '.tif'
         pathStat = pathStat + '.shp'
@@ -609,7 +618,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         polyStat = QgsVectorLayer(pathStat, layer_name, 'ogr')
         QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
         root = QgsProject.instance().layerTreeRoot()
-        current_scenario = self.scenarioCombo.currentText()
         scenario_group = root.findGroup(current_scenario)
         scenario_group.insertLayer(2, polyStat)
         legend = self.iface.legendInterface()
@@ -619,7 +627,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         layer.setVisible(False)
 
         # get statistics in table
-        self.extractAttributeSummary(layer_name, scenarioName)
+        self.extractAttributeSummary(layer_name, current_scenario)
 
 
 
