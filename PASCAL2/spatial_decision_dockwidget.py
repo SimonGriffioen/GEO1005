@@ -116,6 +116,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.bigiconButton.clicked.connect(self.openinBrowser)
 
         # initialisation
+        self.sliderInit()
         self.setNodeAndNetwork()
 
         #run simple tests
@@ -240,14 +241,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
 
     def setTransportMode(self):
-        print 'index'
-        print self.selectTransportCombo.currentIndex()
-
         if self.selectTransportCombo.currentText() == 'Select mode of transport':
-            print 'hallo8'
             self.addNodesButton.setEnabled(False)
         else:
-            print 'hallo9'
             self.addNodesButton.setEnabled(True)
 
         if self.visibilityCheckBox.isChecked() is True:
@@ -259,6 +255,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
             #root = QgsProject.instance().layerTreeRoot()
             pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
+            print pathStyle
             if mode == 'bus':
                 # load only bus nodes
                 vl.loadNamedStyle("{}styleBus.qml".format(pathStyle))
@@ -349,6 +346,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         # initialize layers
         self.baseAttributes()
+        
+        self.sliderInit()
 
 
     def baseAttributes(self):
@@ -402,11 +401,15 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 else:
                     scenario_group.setVisible(0)
 
+    def sliderInit(self):
+        value = self.sliderValue.text()
+        self.stationDistanceSlider.setValue(2000)
+        self.stationDistanceSlider.setValue(int(value))
+
 
     def sliderTextChanged(self):
         value = self.sliderValue.text()
         try:
-            value = int(value)
             self.stationDistanceSlider.setValue(int(value))
         except:
             print 'fill in a number'

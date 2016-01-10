@@ -10,10 +10,10 @@
   </edittypes>
   <renderer-v2 symbollevels="0" type="RuleRenderer">
     <rules key="{6ae33984-7c82-4a27-af4a-ab8725062c15}">
-      <rule filter=" &quot;network&quot; = 'ferry' " key="{419f6d77-bdc2-4959-b690-8c4f1ad630d3}" symbol="0" label="Ferry"/>
-      <rule filter=" &quot;network&quot; = 'bus' " key="{6267131f-505a-49f4-97bf-b59c87b55e3c}" symbol="1" label="Bus"/>
-      <rule filter=" &quot;network&quot;  = 'tram' " key="{ddd5bac9-b8c5-45f2-8b51-ad5f4065587d}" symbol="2" label="Tram"/>
-      <rule filter=" &quot;network&quot; = 'metro' " key="{273edff5-f71d-4b40-b4e5-071288b287d3}" symbol="3" label="Metro"/>
+      <rule checkstate="0" filter=" &quot;network&quot; = 'ferry' " key="{419f6d77-bdc2-4959-b690-8c4f1ad630d3}" symbol="0" label="Ferry"/>
+      <rule checkstate="0" filter=" &quot;network&quot; = 'bus' " key="{6267131f-505a-49f4-97bf-b59c87b55e3c}" symbol="1" label="Bus"/>
+      <rule checkstate="0" filter=" &quot;network&quot;  = 'tram' " key="{ddd5bac9-b8c5-45f2-8b51-ad5f4065587d}" symbol="2" label="Tram"/>
+      <rule checkstate="0" filter=" &quot;network&quot; = 'metro' " key="{273edff5-f71d-4b40-b4e5-071288b287d3}" symbol="3" label="Metro"/>
       <rule filter=" &quot;network&quot; = 'rail' " key="{b05f66a3-f420-4103-92fe-dfcf5259671b}" symbol="4" label="Rail"/>
     </rules>
     <symbols>
