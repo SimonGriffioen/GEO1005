@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>324</width>
+    <width>342</width>
     <height>721</height>
    </rect>
   </property>
@@ -161,7 +161,7 @@
        <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="dataTab">
        <attribute name="title">
@@ -373,7 +373,7 @@
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>271</width>
+          <width>312</width>
           <height>291</height>
          </rect>
         </property>
@@ -787,11 +787,11 @@
            <string notr="true"/>
           </property>
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
-            <string>Maximum Distance</string>
+            <string>Maximum Distance(m)</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_3">
             <item row="0" column="0">
@@ -817,7 +817,7 @@
             </sizepolicy>
            </property>
            <attribute name="title">
-            <string>Average Distance</string>
+            <string>Average Distance(m)</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="0">
