@@ -565,7 +565,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.stationDistanceSlider.setValue(2000)
         self.stationDistanceSlider.setValue(int(value))
 
-
     def sliderTextChanged(self):
         value = self.sliderValue.text()
         try:
