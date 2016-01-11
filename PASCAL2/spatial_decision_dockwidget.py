@@ -73,35 +73,33 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         #self.dlg = vector_selectbypointDialog()
 
         # GUI
-        self.iface.projectRead.connect(self.setNodeAndNetwork)
-        self.iface.newProjectCreated.connect(self.setNodeAndNetwork)
-        self.iface.legendInterface().itemRemoved.connect(self.setNodeAndNetwork)
-        self.iface.legendInterface().itemAdded.connect(self.setNodeAndNetwork)
+        self.iface.projectRead.connect(self.updateNodeNetworkScenario)
+        self.iface.newProjectCreated.connect(self.updateNodeNetworkScenario)
+        self.iface.legendInterface().itemRemoved.connect(self.updateNodeNetworkScenario)
+        self.iface.legendInterface().itemAdded.connect(self.updateNodeNetworkScenario)
 
         # data
         self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
-
-        # analysis
-        self.scenarioCombo.currentIndexChanged.connect(self.scenarioChanged)
-        self.sliderValue.textChanged.connect(self.sliderTextChanged)
-        self.stationDistanceSlider.sliderMoved.connect(self.sliderMoved)
-        self.stationDistanceSlider.valueChanged.connect(self.sliderValueChanged)
-        self.stationDistanceButton.clicked.connect(self.buildNetwork)
-        self.selectTransportCombo.activated.connect(self.setTransportMode)
-        self.visibilityCheckBox.stateChanged.connect(self.showAll)
-        self.addNodesButton.clicked.connect(self.addNode)
         self.createScenarioButton.clicked.connect(self.createScenario)
-        self.graph = QgsGraph()
-        self.tied_points = []
-
-
+        self.scenarioCombo.currentIndexChanged.connect(self.scenarioChanged)
         self.scenarioPath = QgsProject.instance().homePath()
         self.scenarioCombo.clear()
         self.scenarioCombo.addItem('base')
         self.scenarioAttributes = {}
         self.subScenario = {}
 
+        # analysis
+        self.stationDistanceButton.clicked.connect(self.buildNetwork)
+        self.selectTransportCombo.activated.connect(self.setTransportMode)
+        self.visibilityCheckBox.stateChanged.connect(self.showAll)
+        self.addNodesButton.clicked.connect(self.addNode)
+        self.graph = QgsGraph()
+        self.tied_points = []
+
         # visualisation
+        self.sliderValue.textChanged.connect(self.sliderTextChanged)
+        self.stationDistanceSlider.sliderMoved.connect(self.sliderMoved)
+        self.stationDistanceSlider.valueChanged.connect(self.sliderValueChanged)
 
         # reporting
         self.statistics1Table.itemClicked.connect(self.selectFeatureTable)
@@ -117,7 +115,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         # initialisation
         self.sliderInit()
-        self.setNodeAndNetwork()
+        self.updateNodeNetworkScenario()
 
         #run simple tests
 
@@ -127,10 +125,10 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         #disconnect interface signals
         try:
-            self.iface.projectRead.disconnect(self.setNodeAndNetwork)
-            self.iface.newProjectCreated.disconnect(self.setNodeAndNetwork)
-            self.iface.legendInterface().itemRemoved.disconnect(self.setNodeAndNetwork)
-            self.iface.legendInterface().itemAdded.disconnect(self.setNodeAndNetwork)
+            self.iface.projectRead.disconnect(self.updateNodeNetworkScenario)
+            self.iface.newProjectCreated.disconnect(self.updateNodeNetworkScenario)
+            self.iface.legendInterface().itemRemoved.disconnect(self.updateNodeNetworkScenario)
+            self.iface.legendInterface().itemAdded.disconnect(self.updateNodeNetworkScenario)
         except:
             pass
 
@@ -186,7 +184,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.iface.legendInterface().refreshLayerSymbology(layer)
 
 
-    def setNodeAndNetwork(self):
+    def updateNodeNetworkScenario(self):
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
         network_text = self.selectNetworkCombo.currentText()
         if network_text == '':
@@ -226,6 +224,69 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 self.clearTable()
                 self.updateTable1()
                 self.updateTable2()
+
+
+    def getNetworkLayer(self):
+        layer_name = self.selectNetworkCombo.currentText()
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+        return layer
+
+    def getBaseNodeLayer(self):
+        layer_name = self.selectNodeCombo.currentText()
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+        return layer
+
+    def getCurrentNodeLayer(self):
+        layer_name = self.scenarioCombo.currentText() + '_nodes'
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+
+        if layer == None:
+            layer_name = 'Nodes'
+            layer = uf.getLegendLayerByName(self.iface,layer_name)
+        return layer
+
+
+    def loadDataAmsterdamNoord(self):
+        try:
+            data_path = os.path.join(os.path.dirname(__file__), 'sample_data','LayersPASCAL.qgs')
+        except:
+            self.createScenario()
+
+        '''layer = QgsVectorLayer(data_path + '\Lines.shp', "Lines", "ogr")
+        if not layer.isValid():
+            print "Layer failed to load!"
+        uf.loadTempLayer(layer)'''
+
+        '''layer = self.iface.addVectorLayer(data_path + '\\Lines.shp', "Lines", "ogr")
+        if not layer:
+            print "Layer failed to load!"'''
+
+        self.iface.addProject(data_path)
+
+        # initialize
+        self.baseAttributes()
+        self.sliderInit()
+
+
+    def baseAttributes(self):
+        # get summary of the attribute
+        layer = uf.getLegendLayerByName(self.iface, "base_gridStatistics")
+        summary = []
+        # only use the first attribute in the list
+        for feature in layer.getFeatures():
+            summary.append(feature)#, feature.attribute(attribute)))
+        self.scenarioAttributes["base"] = summary
+        # send this to the table
+        self.clearTable()
+        self.updateTable1()
+        self.updateTable2()
+
+    def run_mouse(self):
+        self.canvas.setMapTool(self.clickTool)
+
+#######
+#    Analysis functions
+#######
 
     def showAll(self):
         checked = self.visibilityCheckBox.isChecked()
@@ -308,70 +369,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 vl.loadNamedStyle("{}styleRoads.qml".format(pathStyle))
                 vl.triggerRepaint()
                 self.iface.legendInterface().refreshLayerSymbology(vl)
+    
 
-
-
-    def getNetworkLayer(self):
-        layer_name = self.selectNetworkCombo.currentText()
-        layer = uf.getLegendLayerByName(self.iface,layer_name)
-        return layer
-
-    def getBaseNodeLayer(self):
-        layer_name = self.selectNodeCombo.currentText()
-        layer = uf.getLegendLayerByName(self.iface,layer_name)
-        return layer
-
-    def getCurrentNodeLayer(self):
-        layer_name = self.scenarioCombo.currentText() + '_nodes'
-        layer = uf.getLegendLayerByName(self.iface,layer_name)
-
-        if layer == None:
-            layer_name = 'Nodes'
-            layer = uf.getLegendLayerByName(self.iface,layer_name)
-        return layer
-
-
-    def loadDataAmsterdamNoord(self):
-        try:
-            data_path = os.path.join(os.path.dirname(__file__), 'sample_data','LayersPASCAL.qgs')
-        except:
-            self.createScenario()
-
-        '''layer = QgsVectorLayer(data_path + '\Lines.shp', "Lines", "ogr")
-        if not layer.isValid():
-            print "Layer failed to load!"
-        uf.loadTempLayer(layer)'''
-
-        '''layer = self.iface.addVectorLayer(data_path + '\\Lines.shp', "Lines", "ogr")
-        if not layer:
-            print "Layer failed to load!"'''
-
-        self.iface.addProject(data_path)
-
-        # initialize
-        self.baseAttributes()
-        self.sliderInit()
-
-
-    def baseAttributes(self):
-        # get summary of the attribute
-        layer = uf.getLegendLayerByName(self.iface, "base_gridStatistics")
-        summary = []
-        # only use the first attribute in the list
-        for feature in layer.getFeatures():
-            summary.append(feature)#, feature.attribute(attribute)))
-        self.scenarioAttributes["base"] = summary
-        # send this to the table
-        self.clearTable()
-        self.updateTable1()
-        self.updateTable2()
-
-    def run_mouse(self):
-        self.canvas.setMapTool(self.clickTool)
-
-#######
-#    Analysis functions
-#######
     def scenarioChanged(self):
         #grey out node stuff if current scenario is base
         if self.scenarioCombo.currentText() == 'base':
@@ -401,28 +400,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 else:
                     scenario_group.setVisible(0)
 
-    def sliderInit(self):
-        value = self.sliderValue.text()
-        self.stationDistanceSlider.setValue(2000)
-        self.stationDistanceSlider.setValue(int(value))
 
-
-    def sliderTextChanged(self):
-        value = self.sliderValue.text()
-        try:
-            self.stationDistanceSlider.setValue(int(value))
-        except:
-            print 'fill in a number'
-
-    def sliderMoved(self, value):
-        self.sliderValue.setText(str(value))
-
-    def sliderValueChanged(self):
-        current_scenario = self.scenarioCombo.currentText()
-        filename = current_scenario + '_dist2station'
-        raster_layer = uf.getLegendLayerByName(self.iface, filename)
-        if raster_layer:
-            self.styleStationDistance(raster_layer)
 
     def getNetwork(self):
         roads_layer = self.getSelectedLayer()
@@ -582,6 +560,29 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #    Visualisation functions
 #######
 
+    def sliderInit(self):
+        value = self.sliderValue.text()
+        self.stationDistanceSlider.setValue(2000)
+        self.stationDistanceSlider.setValue(int(value))
+
+
+    def sliderTextChanged(self):
+        value = self.sliderValue.text()
+        try:
+            self.stationDistanceSlider.setValue(int(value))
+        except:
+            print 'fill in a number'
+
+    def sliderMoved(self, value):
+        self.sliderValue.setText(str(value))
+
+    def sliderValueChanged(self):
+        current_scenario = self.scenarioCombo.currentText()
+        filename = current_scenario + '_dist2station'
+        raster_layer = uf.getLegendLayerByName(self.iface, filename)
+        if raster_layer:
+            self.styleStationDistance(raster_layer)
+
     def styleStationDistance(self, layer):
         break_value = self.sliderValue.text()
 
@@ -696,6 +697,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics1Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
         self.statistics1Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics1Table.resizeRowsToContents()
+        self.statistics1Table.resizeColumnsToContents()
 
     def updateTable2(self):
         # Table 2 shows the mean distance to a node for every neighborhood (index16)
@@ -720,6 +722,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics2Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
         self.statistics2Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics2Table.resizeRowsToContents()
+        self.statistics2Table.resizeColumnsToContents()
 
         #self.selectFeatureTable()
 
@@ -763,8 +766,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 # write header
                 header = []
                 for column in range(self.statistics1Table.columnCount()):
-                    item = self.statisticsTable.horizontalHeaderItem(column)
-                    header.append(unicode(item.text()).encode('utf8'))
+                    if column == 0:
+                        item = self.statistics1Table.horizontalHeaderItem(column)
+                        header.append(unicode(item.text()).encode('utf8'))
+                    else:
+                        item = self.statistics1Table.horizontalHeaderItem(column)
+                        header.append(unicode(item.text()).encode('utf8') + '_max')
+                        item = self.statistics2Table.horizontalHeaderItem(column)
+                        header.append(unicode(item.text()).encode('utf8') + '_avg')
                 writer.writerow(header)
                 # write data
                 for row in range(self.statistics1Table.rowCount()):
@@ -772,8 +781,13 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                     for column in range(self.statistics1Table.columnCount()):
                         item = self.statistics1Table.item(row, column)
                         if item is not None:
-                            rowdata.append(
-                                unicode(item.text()).encode('utf8'))
+                            rowdata.append(unicode(item.text()).encode('utf8'))
                         else:
                             rowdata.append('')
+                        if not column == 0:
+                            item = self.statistics2Table.item(row, column)
+                            if item is not None:
+                                rowdata.append(unicode(item.text()).encode('utf8'))
+                            else:
+                                rowdata.append('')
                     writer.writerow(rowdata)
