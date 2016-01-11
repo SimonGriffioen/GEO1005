@@ -561,6 +561,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         # set back to default settings
         self.selectTransportCombo.setCurrentIndex(0)
+        self.stopNameEdit.setText('<enter name of node>')
         self.setTransportMode()
         self.canvas.setMapTool(self.panTool)
 
