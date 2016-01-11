@@ -142,6 +142,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 #   Data functions
 #######
+
     def getScenarios(self):
         scenarios = [self.scenarioCombo.itemText(i) for i in range(self.scenarioCombo.count())]
         return scenarios
@@ -155,23 +156,26 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         path = QtGui.QFileDialog(self).getSaveFileName()
         list_path = path.split("/")[:-1]
         real_path =  '/'.join(list_path)
+
+        if not os.path.exists(path):
+            os.makedirs(path)
+
         self.scenarioPath = real_path
-        scenarioName = path.split("/")[-1]
-        self.scenarioCombo.addItem(scenarioName)
+        current_scenario = path.split("/")[-1]
+        self.scenarioCombo.addItem(current_scenario)
         index = self.scenarioCombo.count() - 1
         self.scenarioCombo.setCurrentIndex(index)
 
-        filename = scenarioName + '_nodes'
+        filename = current_scenario + '_nodes'
 
         pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
         # save the layer as shapefile
         if path:
-            vlayer = uf.copyLayerToShapeFile(vl,real_path,filename)
+            vlayer = uf.copyLayerToShapeFile(vl,path,filename)
             # add scenario to the project
             QgsMapLayerRegistry.instance().addMapLayer(vlayer, False)
 
             root = QgsProject.instance().layerTreeRoot()
-            current_scenario = self.scenarioCombo.currentText()
             scenario_group = root.insertGroup(0, current_scenario)
             scenario_group.insertLayer(0, vlayer)
             root.findLayer(vlayer.id()).setExpanded(False)
@@ -344,9 +348,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         self.iface.addProject(data_path)
 
-        # initialize layers
+        # initialize
         self.baseAttributes()
-        
         self.sliderInit()
 
 
@@ -362,9 +365,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.clearTable()
         self.updateTable1()
         self.updateTable2()
-
-
-
 
     def run_mouse(self):
         self.canvas.setMapTool(self.clickTool)
@@ -496,7 +496,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             uf.insertTempFeatures(area_layer, geoms, values)
 
             current_scenario = self.scenarioCombo.currentText()
-            path = self.scenarioPath + '/' + current_scenario + '_dist2station'
+            path = self.scenarioPath + '/' + current_scenario + '/' + current_scenario + '_dist2station'
             QgsVectorFileWriter.writeAsVectorFormat(area_layer,path+'.shp',str(area_layer.crs().postgisSrid()), None, "ESRI Shapefile")
             filename = path.split("/")[-1]
             service_area_layer = self.iface.addVectorLayer(path+'.shp', filename, "ogr")
@@ -606,11 +606,11 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def rasterStatistics(self,rasterLayer):
         # Get the layers that are needed (dist2station and neighborhoods)
         current_scenario = self.scenarioCombo.currentText()
-        pathGrid = self.scenarioPath + '/' + current_scenario + '_dist2station'
+        pathGrid = self.scenarioPath + '/' + current_scenario + '/' + current_scenario + '_dist2station'
         neigh = uf.getLegendLayerByName(self.iface,'Neighborhoods')
         # new layer for statistics
         layer_name = current_scenario + '_gridStatistics'
-        pathStat = self.scenarioPath + '/' + layer_name
+        pathStat = self.scenarioPath + '/' + current_scenario + '/' + layer_name
 
         if not self.subScenario[current_scenario] == 0:
             pathGrid = pathGrid + str(self.subScenario[current_scenario])
