@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>434</width>
+    <width>324</width>
     <height>721</height>
    </rect>
   </property>
@@ -24,6 +24,9 @@
   </property>
   <property name="acceptDrops">
    <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background=rgb(255, 255, 255)</string>
   </property>
   <property name="windowTitle">
    <string>PASCAL</string>
@@ -158,7 +161,7 @@
        <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="dataTab">
        <attribute name="title">
@@ -370,7 +373,7 @@
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>374</width>
+          <width>271</width>
           <height>291</height>
          </rect>
         </property>
@@ -639,7 +642,7 @@
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>314</width>
+          <width>271</width>
           <height>116</height>
          </rect>
         </property>
