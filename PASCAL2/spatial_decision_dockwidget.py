@@ -102,6 +102,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.subScenario = {}
 
         # visualisation
+        self.dataLayerCombo.activated.connect(self.setDataLayer)
+        self.dataLayer = ("layer", False)
 
         # reporting
         self.statistics1Table.itemClicked.connect(self.selectFeatureTable)
@@ -576,8 +578,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         fcn = QgsColorRampShader()
         fcn.setColorRampType(QgsColorRampShader.DISCRETE)
         lst = [ QgsColorRampShader.ColorRampItem(0, QtGui.QColor(255,255,255,0),'no data'), \
-                QgsColorRampShader.ColorRampItem(int(break_value), QtGui.QColor(217,255,240,150),'<'+break_value), \
-                QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(2,200,162,150),'>'+break_value) ]
+                QgsColorRampShader.ColorRampItem(int(break_value), QtGui.QColor(217,255,240,100),'<'+break_value), \
+                QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(2,200,162,100),'>'+break_value) ]
         fcn.setColorRampItemList(lst)
         shader = QgsRasterShader()
         shader.setRasterShaderFunction(fcn)
@@ -586,6 +588,26 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         layer.setRenderer(renderer)
 
         self.refreshCanvas(layer)
+
+    def setDataLayer(self):
+        layer_name = self.dataLayerCombo.currentText()
+        if layer_name == "None":
+            if self.dataLayer[1] is False:
+                pass
+            else:
+                self.setLayerVisibility(self.dataLayer[0],False)
+        else:
+            if self.dataLayer[1] is True:
+                self.setLayerVisibility(layer_name, True)
+        # set global active layer
+        self.dataLayer = (layer_name, True)
+
+    def setLayerVisibility(self, layer_name, bool):
+        layer = uf.getLegendLayerByName(self.iface,layer_name)
+        legend = self.iface.legendInterface()
+        legend.setLayerVisible(layer, bool)
+
+
 
 #######
 #    Reporting functions
@@ -688,7 +710,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def updateTable2(self):
         # Table 2 shows the mean distance to a node for every neighborhood (index16)
         # takes a list of label / value pairs, can be tuples or lists. not dictionaries to control order
-        headerLabels = ["Neigborhoods"]
+        headerLabels = ["Neighborhoods"]
         for scen in self.getScenarios():
             if scen in self.scenarioAttributes:
                 headerLabels.append(scen)
