@@ -576,8 +576,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         fcn = QgsColorRampShader()
         fcn.setColorRampType(QgsColorRampShader.DISCRETE)
         lst = [ QgsColorRampShader.ColorRampItem(0, QtGui.QColor(255,255,255,0),'no data'), \
-                QgsColorRampShader.ColorRampItem(int(break_value), QtGui.QColor(255,200,200,150),'<'+break_value), \
-                QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(150,20,20,150),'>'+break_value) ]
+                QgsColorRampShader.ColorRampItem(int(break_value), QtGui.QColor(217,255,240,150),'<'+break_value), \
+                QgsColorRampShader.ColorRampItem(100000, QtGui.QColor(2,200,162,150),'>'+break_value) ]
         fcn.setColorRampItemList(lst)
         shader = QgsRasterShader()
         shader.setRasterShaderFunction(fcn)
@@ -751,7 +751,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 # write header
                 header = []
                 for column in range(self.statistics1Table.columnCount()):
-                    item = self.statisticsTable.horizontalHeaderItem(column)
+                    item = self.statistics1Table.horizontalHeaderItem(column)
                     header.append(unicode(item.text()).encode('utf8'))
                 writer.writerow(header)
                 # write data
