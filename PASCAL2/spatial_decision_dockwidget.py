@@ -589,10 +589,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def setDataLayer(self):
         layer_name = self.dataLayerCombo.currentText()
-<<<<<<< HEAD
-=======
-        index = self.dataLayerCombo.currentIndex()
->>>>>>> origin/master
         try:
             if layer_name == self.dataLayer[0]:
                 pass
@@ -612,11 +608,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 print self.dataLayer
         except:
             print 'fail'
-<<<<<<< HEAD
-=======
 
     def distanceVisible(self):
-        print 'hallo'
         current_scenario = self.scenarioCombo.currentText()
         layer_name = current_scenario + '_dist2station'
         checked = self.distanceVisiblecheckBox.isChecked()
@@ -624,7 +617,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.setLayerVisibility(layer_name, True)
         elif checked is False:
             self.setLayerVisibility(layer_name, False)
->>>>>>> origin/master
 
     def setLayerVisibility(self, layer_name, bool):
         layer = uf.getLegendLayerByName(self.iface,layer_name)
