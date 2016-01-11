@@ -103,6 +103,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.dataLayerCombo.activated.connect(self.setDataLayer)
         self.dataLayer = ("layer", False)
         self.distanceVisiblecheckBox.stateChanged.connect(self.distanceVisible)
+        self.screenshotButton.clicked.connect(self.saveMap)
 
         # reporting
         self.statistics1Table.itemClicked.connect(self.selectFeatureTable)
@@ -673,6 +674,12 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         layer.setRenderer(renderer)
 
         self.refreshCanvas(layer)
+
+    # saving the current screen
+    def saveMap(self):
+        path = QtGui.QFileDialog.getSaveFileName(self, 'Save File', '', 'PNG(*.png)')
+        if path:
+            self.canvas.saveAsImage(path,None,"PNG")
 
 #######
 #    Reporting functions
