@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>468</width>
+    <width>318</width>
     <height>721</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>372</width>
+    <width>300</width>
     <height>503</height>
    </size>
   </property>
@@ -153,7 +153,7 @@
       </property>
       <property name="minimumSize">
        <size>
-        <width>300</width>
+        <width>260</width>
         <height>0</height>
        </size>
       </property>
@@ -172,7 +172,7 @@
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>312</width>
+          <width>201</width>
           <height>285</height>
          </rect>
         </property>
@@ -373,7 +373,7 @@
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>361</width>
+          <width>254</width>
           <height>291</height>
          </rect>
         </property>
@@ -499,7 +499,7 @@
              </property>
              <property name="minimumSize">
               <size>
-               <width>235</width>
+               <width>0</width>
                <height>0</height>
               </size>
              </property>
@@ -556,7 +556,7 @@
              </property>
              <property name="minimumSize">
               <size>
-               <width>235</width>
+               <width>200</width>
                <height>0</height>
               </size>
              </property>
@@ -578,7 +578,7 @@
            <item row="6" column="1">
             <widget class="QPushButton" name="addNodesButton">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -637,201 +637,215 @@
        <attribute name="title">
         <string>Visualisation</string>
        </attribute>
-       <widget class="QWidget" name="layoutWidget">
+       <widget class="QWidget" name="">
         <property name="geometry">
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>337</width>
-          <height>116</height>
+          <width>241</width>
+          <height>325</height>
          </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_8">
+        <layout class="QVBoxLayout" name="verticalLayout_11">
          <item>
-          <widget class="QLabel" name="label_12">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visualize station distance of your current scenario&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSlider" name="stationDistanceSlider">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>239</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximum">
-            <number>2000</number>
-           </property>
-           <property name="sliderPosition">
-            <number>500</number>
-           </property>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="tickPosition">
-            <enum>QSlider::TicksAbove</enum>
-           </property>
-           <property name="tickInterval">
-            <number>100</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <layout class="QVBoxLayout" name="verticalLayout_9">
            <item>
-            <spacer name="horizontalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_6">
+            <layout class="QVBoxLayout" name="verticalLayout_8">
              <item>
-              <widget class="QLabel" name="label_11">
+              <widget class="QLabel" name="label_12">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Distance in meters:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visualize station distance of your current scenario&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
-             <item alignment="Qt::AlignLeft">
-              <widget class="QLineEdit" name="sliderValue">
+             <item>
+              <widget class="QSlider" name="stationDistanceSlider">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
                </property>
                <property name="minimumSize">
                 <size>
-                 <width>0</width>
-                 <height>22</height>
+                 <width>239</width>
+                 <height>0</height>
                 </size>
                </property>
-               <property name="text">
-                <string>500</string>
+               <property name="maximum">
+                <number>2000</number>
                </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
+               <property name="sliderPosition">
+                <number>500</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="tickPosition">
+                <enum>QSlider::TicksAbove</enum>
+               </property>
+               <property name="tickInterval">
+                <number>100</number>
                </property>
               </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <spacer name="horizontalSpacer_5">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <layout class="QVBoxLayout" name="verticalLayout_6">
+                 <item>
+                  <widget class="QLabel" name="label_11">
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Distance in meters:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item alignment="Qt::AlignLeft">
+                  <widget class="QLineEdit" name="sliderValue">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>22</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>500</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
            <item>
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+            <widget class="QCheckBox" name="distanceVisiblecheckBox">
+             <property name="text">
+              <string>Show distance layer of current sceario</string>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
+             <property name="checked">
+              <bool>true</bool>
              </property>
-            </spacer>
+            </widget>
            </item>
           </layout>
          </item>
+         <item>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Select a demographic data layer:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="dataLayerCombo">
+             <item>
+              <property name="text">
+               <string>None</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Population</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Population Density</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Cars per household</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Elderly 65+</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="screenshotButton">
+           <property name="text">
+            <string>Make Screenshot Map</string>
+           </property>
+          </widget>
+         </item>
         </layout>
-       </widget>
-       <widget class="QCheckBox" name="distanceVisiblecheckBox">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>140</y>
-          <width>321</width>
-          <height>17</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Show distance layer of current sceario</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="dataLayerCombo">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>180</y>
-          <width>261</width>
-          <height>22</height>
-         </rect>
-        </property>
-        <item>
-         <property name="text">
-          <string>None</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Population</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Population Density</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Cars per household</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Elderly 65+</string>
-         </property>
-        </item>
-       </widget>
-       <widget class="QLabel" name="label_13">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>160</y>
-          <width>261</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Select a demographic data layer:</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="screenshotButton">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>220</y>
-          <width>261</width>
-          <height>28</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Make Screenshot Map</string>
-        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="visualisationTab">
@@ -849,7 +863,7 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>260</width>
+            <width>269</width>
             <height>0</height>
            </size>
           </property>
