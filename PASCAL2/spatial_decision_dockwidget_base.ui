@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>363</width>
+    <width>468</width>
     <height>721</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>363</width>
+    <width>372</width>
     <height>503</height>
    </size>
   </property>
@@ -195,7 +195,7 @@
             <string notr="true">font: &quot;Trebuchet MS&quot;;</string>
            </property>
            <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This plugin includes the public transport &lt;/p&gt;&lt;p&gt;data of Amsterdam Noord:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This plugin includes the public transport &lt;br/&gt;data of Amsterdam Noord:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -373,7 +373,7 @@
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>312</width>
+          <width>361</width>
           <height>291</height>
          </rect>
         </property>
@@ -392,7 +392,7 @@
               <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
              </property>
              <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calculate the walking distance to all transport stations&lt;/p&gt;&lt;p&gt;Estimated processing time is 30 seconds:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calculate walking distance from all transport stations&lt;br/&gt;for your current scenario. Est. processing time 30s.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -416,7 +416,7 @@
                 <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
                </property>
                <property name="text">
-                <string>Distance to node</string>
+                <string>Create distance layer</string>
                </property>
               </widget>
              </item>
@@ -642,7 +642,7 @@
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>271</width>
+          <width>337</width>
           <height>116</height>
          </rect>
         </property>
@@ -656,7 +656,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Change the distance to visualize it on the map</string>
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visualize station distance of your current scenario&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -761,12 +761,12 @@
          <rect>
           <x>20</x>
           <y>140</y>
-          <width>161</width>
+          <width>321</width>
           <height>17</height>
          </rect>
         </property>
         <property name="text">
-         <string>Show distance layer</string>
+         <string>Show distance layer of current sceario</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -812,7 +812,7 @@
          <rect>
           <x>20</x>
           <y>160</y>
-          <width>211</width>
+          <width>261</width>
           <height>16</height>
          </rect>
         </property>
@@ -851,7 +851,7 @@
            <string notr="true"/>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">

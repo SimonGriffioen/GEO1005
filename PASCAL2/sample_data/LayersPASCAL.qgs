@@ -8,19 +8,19 @@
       <layer-tree-layer expanded="0" checked="Qt::Checked" id="Nodes20151206153523637" name="Nodes">
         <customproperties/>
       </layer-tree-layer>
-      <layer-tree-layer expanded="1" checked="Qt::Checked" id="base_dist2station20160108105909831" name="base_dist2station">
+      <layer-tree-layer expanded="0" checked="Qt::Checked" id="base_dist2station20160108105909831" name="base_dist2station">
         <customproperties/>
       </layer-tree-layer>
       <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="base_gridStatistics20160108105953044" name="base_gridStatistics">
         <customproperties/>
       </layer-tree-layer>
     </layer-tree-group>
-    <layer-tree-layer expanded="1" checked="Qt::Unchecked" id="Lines20151209180402246" name="Lines">
+    <layer-tree-layer expanded="0" checked="Qt::Unchecked" id="Lines20151209180402246" name="Lines">
       <customproperties>
         <property key="expandedLegendNodes"/>
       </customproperties>
     </layer-tree-layer>
-    <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="Data Layers - Analysis">
+    <layer-tree-group expanded="0" checked="Qt::PartiallyChecked" name="Data Layers - Analysis">
       <customproperties/>
       <layer-tree-layer expanded="0" checked="Qt::Checked" id="BuurtenStadsdeelNoord20151203163513010" name="Neighborhoods">
         <customproperties/>
@@ -38,7 +38,7 @@
         <customproperties/>
       </layer-tree-layer>
     </layer-tree-group>
-    <layer-tree-group expanded="1" checked="Qt::Checked" name="Base Layers">
+    <layer-tree-group expanded="0" checked="Qt::Checked" name="Base Layers">
       <customproperties/>
       <layer-tree-layer expanded="0" checked="Qt::Checked" id="RoadsAmsNorthOSM20151204000418954" name="Road network">
         <customproperties/>
@@ -55,10 +55,10 @@
   <mapcanvas>
     <units>meters</units>
     <extent>
-      <xmin>121125.65214700999786146</xmin>
-      <ymin>483609.53664319199742749</ymin>
-      <xmax>131113.77714700999786146</xmax>
-      <ymax>496904.63664318603696302</ymax>
+      <xmin>121141.82623460117611103</xmin>
+      <ymin>483763.1904753086855635</ymin>
+      <xmax>131129.95123460117611103</xmax>
+      <ymax>497058.29047530272509903</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>1</projections>
@@ -141,8 +141,8 @@
           <legendlayerfile isInOverview="0" layerid="Nodes20151206153523637" visible="1"/>
         </filegroup>
       </legendlayer>
-      <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="base_dist2station" showFeatureCount="0">
-        <filegroup open="true" hidden="false">
+      <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="base_dist2station" showFeatureCount="0">
+        <filegroup open="false" hidden="false">
           <legendlayerfile isInOverview="0" layerid="base_dist2station20160108105909831" visible="1"/>
         </filegroup>
       </legendlayer>
@@ -152,12 +152,12 @@
         </filegroup>
       </legendlayer>
     </legendgroup>
-    <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="Lines" showFeatureCount="0">
-      <filegroup open="true" hidden="false">
+    <legendlayer drawingOrder="-1" open="false" checked="Qt::Unchecked" name="Lines" showFeatureCount="0">
+      <filegroup open="false" hidden="false">
         <legendlayerfile isInOverview="0" layerid="Lines20151209180402246" visible="0"/>
       </filegroup>
     </legendlayer>
-    <legendgroup open="true" checked="Qt::PartiallyChecked" name="Data Layers - Analysis">
+    <legendgroup open="false" checked="Qt::PartiallyChecked" name="Data Layers - Analysis">
       <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="Neighborhoods" showFeatureCount="0">
         <filegroup open="false" hidden="false">
           <legendlayerfile isInOverview="0" layerid="BuurtenStadsdeelNoord20151203163513010" visible="1"/>
@@ -184,7 +184,7 @@
         </filegroup>
       </legendlayer>
     </legendgroup>
-    <legendgroup open="true" checked="Qt::Checked" name="Base Layers">
+    <legendgroup open="false" checked="Qt::Checked" name="Base Layers">
       <legendlayer drawingOrder="-1" open="false" checked="Qt::Checked" name="Road network" showFeatureCount="0">
         <filegroup open="false" hidden="false">
           <legendlayerfile isInOverview="0" layerid="RoadsAmsNorthOSM20151204000418954" visible="1"/>
@@ -595,10 +595,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -1599,10 +1599,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -2525,10 +2525,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -3451,10 +3451,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -4377,10 +4377,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -4459,9 +4459,6 @@
         <map-layer-style name=""/>
       </map-layer-style-manager>
       <edittypes>
-        <edittype widgetv2type="TextEdit" name="LINE_OPERA">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
         <edittype widgetv2type="TextEdit" name="TRANSPORTM">
           <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
         </edittype>
@@ -4469,27 +4466,6 @@
           <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
         </edittype>
         <edittype widgetv2type="TextEdit" name="NAME">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="MONDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="TUESDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="WEDNESDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="THURSDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="FRIDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="SATURDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="SUNDAY">
           <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
         </edittype>
       </edittypes>
@@ -7202,18 +7178,15 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="2" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
       <attributeactions/>
       <edittypes>
-        <edittype widgetv2type="TextEdit" name="LINE_OPERA">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
         <edittype widgetv2type="TextEdit" name="TRANSPORTM">
           <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
         </edittype>
@@ -7221,27 +7194,6 @@
           <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
         </edittype>
         <edittype widgetv2type="TextEdit" name="NAME">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="MONDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="TUESDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="WEDNESDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="THURSDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="FRIDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="SATURDAY">
-          <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="SUNDAY">
           <widgetv2config IsMultiline="0" fieldEditable="1" UseHtml="0" labelOnTop="0"/>
         </edittype>
       </edittypes>
@@ -7464,16 +7416,16 @@
               <prop k="horizontal_anchor_point" v="1"/>
               <prop k="name" v="circle"/>
               <prop k="offset" v="0,0"/>
-              <prop k="offset_map_unit_scale" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0.0001"/>
               <prop k="offset_unit" v="MapUnit"/>
               <prop k="outline_color" v="0,0,0,255"/>
               <prop k="outline_style" v="solid"/>
               <prop k="outline_width" v="25"/>
-              <prop k="outline_width_map_unit_scale" v="0,0"/>
+              <prop k="outline_width_map_unit_scale" v="0,0.0001"/>
               <prop k="outline_width_unit" v="MapUnit"/>
               <prop k="scale_method" v="diameter"/>
               <prop k="size" v="60"/>
-              <prop k="size_map_unit_scale" v="0,0"/>
+              <prop k="size_map_unit_scale" v="0,0.0001"/>
               <prop k="size_unit" v="MapUnit"/>
               <prop k="vertical_anchor_point" v="1"/>
               <effect enabled="0" type="effectStack">
@@ -7547,16 +7499,16 @@
               <prop k="horizontal_anchor_point" v="1"/>
               <prop k="name" v="circle"/>
               <prop k="offset" v="0,0"/>
-              <prop k="offset_map_unit_scale" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0.0001"/>
               <prop k="offset_unit" v="MapUnit"/>
               <prop k="outline_color" v="0,0,0,255"/>
               <prop k="outline_style" v="solid"/>
               <prop k="outline_width" v="25"/>
-              <prop k="outline_width_map_unit_scale" v="0,0"/>
+              <prop k="outline_width_map_unit_scale" v="0,0.0001"/>
               <prop k="outline_width_unit" v="MapUnit"/>
               <prop k="scale_method" v="diameter"/>
               <prop k="size" v="60"/>
-              <prop k="size_map_unit_scale" v="0,0"/>
+              <prop k="size_map_unit_scale" v="0,0.0001"/>
               <prop k="size_unit" v="MapUnit"/>
               <prop k="vertical_anchor_point" v="1"/>
               <effect enabled="0" type="effectStack">
@@ -7630,16 +7582,16 @@
               <prop k="horizontal_anchor_point" v="1"/>
               <prop k="name" v="circle"/>
               <prop k="offset" v="0,0"/>
-              <prop k="offset_map_unit_scale" v="0,0"/>
+              <prop k="offset_map_unit_scale" v="0,0.0001"/>
               <prop k="offset_unit" v="MapUnit"/>
               <prop k="outline_color" v="0,0,0,255"/>
               <prop k="outline_style" v="solid"/>
               <prop k="outline_width" v="40"/>
-              <prop k="outline_width_map_unit_scale" v="0,0"/>
+              <prop k="outline_width_map_unit_scale" v="0,0.0001"/>
               <prop k="outline_width_unit" v="MapUnit"/>
               <prop k="scale_method" v="diameter"/>
               <prop k="size" v="120"/>
-              <prop k="size_map_unit_scale" v="0,0"/>
+              <prop k="size_map_unit_scale" v="0,0.0001"/>
               <prop k="size_unit" v="MapUnit"/>
               <prop k="vertical_anchor_point" v="1"/>
               <effect enabled="0" type="effectStack">
@@ -7939,16 +7891,16 @@
         <selectedonly on=""/>
       </labelattributes>
       <SingleCategoryDiagramRenderer diagramType="Pie">
-        <DiagramCategory penColor="#000000" labelPlacementMethod="XHeight" penWidth="0" diagramOrientation="Up" minimumSize="0" barWidth="5" penAlpha="255" maxScaleDenominator="1e+08" backgroundColor="#ffffff" transparency="0" width="15" scaleDependency="Area" backgroundAlpha="255" angleOffset="1440" scaleBasedVisibility="0" enabled="0" height="15" sizeType="MM" minScaleDenominator="0">
+        <DiagramCategory penColor="#000000" labelPlacementMethod="XHeight" penWidth="0" diagramOrientation="Up" minimumSize="0" barWidth="5" penAlpha="255" maxScaleDenominator="1e+08" backgroundColor="#ffffff" transparency="0" width="15" scaleDependency="Area" backgroundAlpha="255" angleOffset="1440" scaleBasedVisibility="0" enabled="0" height="15" sizeType="MM" minScaleDenominator="-4.65661e-10">
           <fontProperties description="MS Shell Dlg 2,7.5,-1,5,50,0,0,0,0,0" style=""/>
           <attribute field="" color="#000000" label=""/>
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -11000,10 +10952,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="2" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -11424,10 +11376,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -11525,8 +11477,8 @@
           <rastershader>
             <colorrampshader colorRampType="DISCRETE" clip="0">
               <item alpha="0" value="0" label="no data" color="#ffffff"/>
-              <item alpha="150" value="521" label="&lt;521" color="#ffc8c8"/>
-              <item alpha="150" value="100000" label=">521" color="#961414"/>
+              <item alpha="100" value="500" label="&lt;500" color="#d9fff0"/>
+              <item alpha="100" value="100000" label=">500" color="#02c8a2"/>
             </colorrampshader>
           </rastershader>
         </rasterrenderer>
@@ -11785,10 +11737,10 @@
         <multilineenabled fieldname="" on=""/>
         <selectedonly on=""/>
       </labelattributes>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -12200,10 +12152,10 @@
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
       <DiagramLayerSettings yPosColumn="-1" linePlacementFlags="10" placement="0" dist="0" xPosColumn="-1" priority="0" obstacle="0" showAll="1"/>
-      <editform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
+      <editform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</editform>
       <editforminit/>
       <featformsuppress>0</featformsuppress>
-      <annotationform>../../../../Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
+      <annotationform>../../../../Users/Simon/.qgis2/Users/Simon/.qgis2/python/plugins/PASCAL/sample_data/Layers QGIS - pascal</annotationform>
       <editorlayout>generatedlayout</editorlayout>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
