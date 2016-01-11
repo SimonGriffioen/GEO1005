@@ -6,7 +6,11 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
     <width>363</width>
+=======
+    <width>434</width>
+>>>>>>> origin/master
     <height>721</height>
    </rect>
   </property>
@@ -18,15 +22,16 @@
   </property>
   <property name="minimumSize">
    <size>
+<<<<<<< HEAD
     <width>363</width>
+=======
+    <width>372</width>
+>>>>>>> origin/master
     <height>503</height>
    </size>
   </property>
   <property name="acceptDrops">
    <bool>false</bool>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">background=rgb(255, 255, 255)</string>
   </property>
   <property name="windowTitle">
    <string>PASCAL</string>
@@ -373,7 +378,7 @@
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>312</width>
+          <width>433</width>
           <height>291</height>
          </rect>
         </property>
@@ -642,8 +647,8 @@
          <rect>
           <x>11</x>
           <y>11</y>
-          <width>271</width>
-          <height>116</height>
+          <width>314</width>
+          <height>120</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -715,7 +720,7 @@
                </property>
               </widget>
              </item>
-             <item alignment="Qt::AlignLeft">
+             <item>
               <widget class="QLineEdit" name="sliderValue">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -756,6 +761,7 @@
          </item>
         </layout>
        </widget>
+<<<<<<< HEAD
        <widget class="QCheckBox" name="distanceVisiblecheckBox">
         <property name="geometry">
          <rect>
@@ -778,6 +784,14 @@
           <x>20</x>
           <y>180</y>
           <width>261</width>
+=======
+       <widget class="QComboBox" name="dataLayerCombo">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>180</y>
+          <width>321</width>
+>>>>>>> origin/master
           <height>22</height>
          </rect>
         </property>
@@ -810,16 +824,42 @@
        <widget class="QLabel" name="label_13">
         <property name="geometry">
          <rect>
+<<<<<<< HEAD
           <x>20</x>
           <y>160</y>
           <width>211</width>
           <height>16</height>
+=======
+          <x>10</x>
+          <y>160</y>
+          <width>321</width>
+          <height>21</height>
+>>>>>>> origin/master
          </rect>
         </property>
         <property name="text">
          <string>Select a demographic data layer:</string>
         </property>
        </widget>
+<<<<<<< HEAD
+=======
+       <widget class="QCheckBox" name="distanceVisiblecheckBox">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>181</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Show distance layer</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+>>>>>>> origin/master
       </widget>
       <widget class="QWidget" name="visualisationTab">
        <attribute name="title">
@@ -851,11 +891,11 @@
            <string notr="true"/>
           </property>
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="tab_2">
            <attribute name="title">
-            <string>Maximum Distance(m)</string>
+            <string>Maximum Distance (m)</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_3">
             <item row="0" column="0">
@@ -881,7 +921,7 @@
             </sizepolicy>
            </property>
            <attribute name="title">
-            <string>Average Distance(m)</string>
+            <string>Average Distance (m)</string>
            </attribute>
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="0">
