@@ -79,7 +79,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.iface.legendInterface().itemAdded.connect(self.updateNodeNetworkScenario)
 
         # data
-        self.loadAmsterdamNoordButton.clicked.connect(self.loadDataAmsterdamNoord)
+        self.loadAmsterdamNoordButton.clicked.connect(self.warningLoadData)
         self.createScenarioButton.clicked.connect(self.createScenario)
         self.scenarioCombo.currentIndexChanged.connect(self.scenarioChanged)
         self.scenarioPath = QgsProject.instance().homePath()
@@ -385,6 +385,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.selectTransportCombo.setEnabled(True)
             self.stopNameEdit.setEnabled(True)
             self.visibilityCheckBox.setEnabled(True)
+            if not self.selectTransportCombo.currentText() == 'Select mode of transport':
+                self.addNodesButton.setEnabled(True)
 
         #set visibility of layers
         root = QgsProject.instance().layerTreeRoot()
@@ -422,6 +424,14 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         else:
             return
 
+    def warningLoadData(self):
+        msgBox = QtGui.QMessageBox()
+        msgBox.setText("This will delete all current layers, continue?")
+        msgBox.setStandardButtons(QtGui.QMessageBox.Yes)
+        msgBox.addButton(QtGui.QMessageBox.No)
+        msgBox.setDefaultButton(QtGui.QMessageBox.No)
+        if msgBox.exec_() == QtGui.QMessageBox.Yes:
+            self.loadDataAmsterdamNoord()
 
     def warningStationDistance(self):
         # check if layer already exists
@@ -621,8 +631,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def setLayerVisibility(self, layer_name, bool):
         layer = uf.getLegendLayerByName(self.iface,layer_name)
-        legend = self.iface.legendInterface()
-        legend.setLayerVisible(layer, bool)
+        if layer:
+            legend = self.iface.legendInterface()
+            legend.setLayerVisible(layer, bool)
 
     def sliderInit(self):
         value = self.sliderValue.text()
