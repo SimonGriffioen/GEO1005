@@ -89,7 +89,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.subScenario = {}
 
         # analysis
-        self.stationDistanceButton.clicked.connect(self.buildNetwork)
+        self.stationDistanceButton.clicked.connect(self.warningStationDistance)
         self.selectTransportCombo.activated.connect(self.setTransportMode)
         self.visibilityCheckBox.stateChanged.connect(self.showAll)
         self.addNodesButton.clicked.connect(self.addNode)
@@ -100,8 +100,9 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.sliderValue.textChanged.connect(self.sliderTextChanged)
         self.stationDistanceSlider.sliderMoved.connect(self.sliderMoved)
         self.stationDistanceSlider.valueChanged.connect(self.sliderValueChanged)
-        #self.dataLayerCombo.activated.connect(self.setDataLayer)
-        #self.dataLayer = ("layer", False)
+        self.dataLayerCombo.activated.connect(self.setDataLayer)
+        self.dataLayer = ("layer", False)
+        self.distanceVisiblecheckBox.stateChanged.connect(self.distanceVisible)
 
         # reporting
         self.statistics1Table.itemClicked.connect(self.selectFeatureTable)
@@ -422,6 +423,22 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             return
 
 
+    def warningStationDistance(self):
+        # check if layer already exists
+        current_scenario = self.scenarioCombo.currentText()
+        layer = uf.getLegendLayerByName(self.iface, current_scenario + '_dist2station')
+        if layer:
+            msgBox = QtGui.QMessageBox()
+            msgBox.setText("Distance to station is already calculated for this scenario, overwrite current layer?")
+            msgBox.setStandardButtons(QtGui.QMessageBox.Yes)
+            msgBox.addButton(QtGui.QMessageBox.No)
+            msgBox.setDefaultButton(QtGui.QMessageBox.No)
+            if msgBox.exec_() == QtGui.QMessageBox.Yes:
+                self.buildNetwork()
+        else:
+            self.buildNetwork()
+
+
     def buildNetwork(self):
         self.network_layer = self.getNetworkLayer()
 
@@ -561,18 +578,36 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 #######
 #    Visualisation functions
 #######
+    def distanceVisible(self):
+        current_scenario = self.scenarioCombo.currentText()
+        layer_name = current_scenario + '_dist2station'
+        checked = self.distanceVisiblecheckBox.isChecked()
+        if checked is True:
+            self.setLayerVisibility(layer_name, True)
+        elif checked is False:
+            self.setLayerVisibility(layer_name, False)
+
     def setDataLayer(self):
         layer_name = self.dataLayerCombo.currentText()
-        if layer_name == "None":
-            if self.dataLayer[1] is False:
+        try:
+            if layer_name == self.dataLayer[0]:
                 pass
+            elif layer_name == "None":
+                if self.dataLayer[1] is False:
+                    pass
+                else:
+                    self.setLayerVisibility(self.dataLayer[0],False)
+                    self.dataLayer = (layer_name, False)
             else:
-                self.setLayerVisibility(self.dataLayer[0],False)
-        else:
-            if self.dataLayer[1] is True:
+                if self.dataLayer[1] is True:
+                    self.setLayerVisibility(self.dataLayer[0], False)
+
                 self.setLayerVisibility(layer_name, True)
-        # set global active layer
-        self.dataLayer = (layer_name, True)
+                # set global active layer
+                self.dataLayer = (layer_name, True)
+                print self.dataLayer
+        except:
+            print 'fail'
 
     def setLayerVisibility(self, layer_name, bool):
         layer = uf.getLegendLayerByName(self.iface,layer_name)

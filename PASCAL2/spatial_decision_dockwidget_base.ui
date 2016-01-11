@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>342</width>
+    <width>363</width>
     <height>721</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>324</width>
+    <width>363</width>
     <height>503</height>
    </size>
   </property>
@@ -161,7 +161,7 @@
        <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="dataTab">
        <attribute name="title">
@@ -392,7 +392,7 @@
               <string notr="true">font: 9pt &quot;Trebuchet MS&quot;;</string>
              </property>
              <property name="text">
-              <string>Calculate the walking distance to all transport stations:</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Calculate the walking distance to all transport stations&lt;/p&gt;&lt;p&gt;Estimated processing time is 30 seconds:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -755,6 +755,70 @@
           </layout>
          </item>
         </layout>
+       </widget>
+       <widget class="QCheckBox" name="distanceVisiblecheckBox">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>140</y>
+          <width>161</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Show distance layer</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="dataLayerCombo">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>180</y>
+          <width>261</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <item>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Population</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Population Density</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Cars per household</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Elderly 65+</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="label_13">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>160</y>
+          <width>211</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Select a demographic data layer:</string>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="visualisationTab">
