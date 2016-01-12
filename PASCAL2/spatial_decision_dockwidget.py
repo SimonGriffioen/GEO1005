@@ -156,23 +156,24 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         # create a path and filename for the new file
         path = QtGui.QFileDialog(self).getSaveFileName()
-        list_path = path.split("/")[:-1]
-        real_path =  '/'.join(list_path)
 
-        if not os.path.exists(path):
-            os.makedirs(path)
-
-        self.scenarioPath = real_path
-        current_scenario = path.split("/")[-1]
-        self.scenarioCombo.addItem(current_scenario)
-        index = self.scenarioCombo.count() - 1
-        self.scenarioCombo.setCurrentIndex(index)
-
-        filename = current_scenario + '_nodes'
-
-        pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
-        # save the layer as shapefile
         if path:
+            list_path = path.split("/")[:-1]
+            real_path =  '/'.join(list_path)
+
+            if not os.path.exists(path):
+                os.makedirs(path)
+
+            self.scenarioPath = real_path
+            current_scenario = path.split("/")[-1]
+            self.scenarioCombo.addItem(current_scenario)
+            index = self.scenarioCombo.count() - 1
+            self.scenarioCombo.setCurrentIndex(index)
+
+            filename = current_scenario + '_nodes'
+
+            pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
+            # save the layer as shapefile
             vlayer = uf.copyLayerToShapeFile(vl,path,filename)
             # add scenario to the project
             QgsMapLayerRegistry.instance().addMapLayer(vlayer, False)
