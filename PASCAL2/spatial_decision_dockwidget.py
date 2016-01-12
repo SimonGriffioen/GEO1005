@@ -152,26 +152,22 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
     def createScenario(self):
         # select the node layer
         vl = self.getBaseNodeLayer()
-        #cl = self.iface.addVectorLayer( vl.source(), vl.name() + "_scenario", vl.providerType() )
-
         # create a path and filename for the new file
         path = QtGui.QFileDialog(self).getSaveFileName()
-
         if path:
             list_path = path.split("/")[:-1]
             real_path =  '/'.join(list_path)
-
+            # make a directory for scenario
             if not os.path.exists(path):
                 os.makedirs(path)
-
+            # save the scenario path
             self.scenarioPath = real_path
             current_scenario = path.split("/")[-1]
+            # add scenario to current scenario combo and select it
             self.scenarioCombo.addItem(current_scenario)
             index = self.scenarioCombo.count() - 1
             self.scenarioCombo.setCurrentIndex(index)
-
             filename = current_scenario + '_nodes'
-
             pathStyle = "%s/Styles/" % QgsProject.instance().homePath()
             # save the layer as shapefile
             vlayer = uf.copyLayerToShapeFile(vl,path,filename)
@@ -187,7 +183,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             layer.loadNamedStyle("{}styleNodes.qml".format(pathStyle))
             layer.triggerRepaint()
             self.iface.legendInterface().refreshLayerSymbology(layer)
-
 
     def updateNodeNetworkScenario(self):
         layers = uf.getLegendLayers(self.iface, 'all', 'all')
@@ -230,7 +225,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 self.updateTable1()
                 self.updateTable2()
 
-
     def getNetworkLayer(self):
         layer_name = self.selectNetworkCombo.currentText()
         layer = uf.getLegendLayerByName(self.iface,layer_name)
@@ -250,28 +244,16 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             layer = uf.getLegendLayerByName(self.iface,layer_name)
         return layer
 
-
     def loadDataAmsterdamNoord(self):
         try:
             data_path = os.path.join(os.path.dirname(__file__), 'sample_data','LayersPASCAL.qgs')
         except:
             self.createScenario()
-
-        '''layer = QgsVectorLayer(data_path + '\Lines.shp', "Lines", "ogr")
-        if not layer.isValid():
-            print "Layer failed to load!"
-        uf.loadTempLayer(layer)'''
-
-        '''layer = self.iface.addVectorLayer(data_path + '\\Lines.shp', "Lines", "ogr")
-        if not layer:
-            print "Layer failed to load!"'''
-
         self.iface.addProject(data_path)
 
         # initialize
         self.baseAttributes()
         self.sliderInit()
-
 
     def baseAttributes(self):
         # get summary of the attribute
@@ -308,7 +290,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             self.iface.legendInterface().refreshLayerSymbology(vl)
         elif checked is False:
             self.setTransportMode()
-
 
     def setTransportMode(self):
         if self.selectTransportCombo.currentText() == 'Select mode of transport':
@@ -374,7 +355,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                 vl.loadNamedStyle("{}styleRoads.qml".format(pathStyle))
                 vl.triggerRepaint()
                 self.iface.legendInterface().refreshLayerSymbology(vl)
-    
 
     def scenarioChanged(self):
         #grey out node stuff if current scenario is base
@@ -406,8 +386,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
                             layer.setVisible(0)
                 else:
                     scenario_group.setVisible(0)
-
-
 
     def getNetwork(self):
         roads_layer = self.getSelectedLayer()
@@ -453,7 +431,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def buildNetwork(self):
         self.network_layer = self.getNetworkLayer()
-
         if self.network_layer:
             # get the points to be used as origin and destination
             # in this case gets the centroid of the selected features
@@ -519,8 +496,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             if not self.subScenario[current_scenario] == 0:
                 path = path + str(self.subScenario[current_scenario])
 
-
-
             # interpolation
             processing.runalg('gdalogr:gridinvdist',service_area_layer,'cost',2,0,400,400,0,0,0,0,5,path+'.tif')
 
@@ -541,9 +516,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             # Grid statistics
             self.rasterStatistics(rasterLayer)
 
-
     def handleMouseDown(self, point, button):
-
         #print str(point.x()) + " , " +str(point.y()) )
         x_coor = point.x()
         y_coor = point.y()
@@ -570,7 +543,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         vl.updateExtents()
         QgsMapLayerRegistry.instance().addMapLayer(vl)
 
-
         # set back to default settings
         self.selectTransportCombo.setCurrentIndex(0)
         self.stopNameEdit.setText('<enter name of node>')
@@ -579,7 +551,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
     def addNode(self):
         node_added = self.run_mouse()
-
 
     # after adding features to layers needs a refresh (sometimes)
     def refreshCanvas(self, layer):
@@ -703,13 +674,8 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         pathGrid = pathGrid + '.tif'
         pathStat = pathStat + '.shp'
 
-        print pathStat
-
         # run SAGA processing algorithm
         processing.runalg("saga:gridstatisticsforpolygons",pathGrid, neigh, False, False, True, False, False, True, False, False, 0, pathStat)
-
-
-
         polyStat = QgsVectorLayer(pathStat, layer_name, 'ogr')
         QgsMapLayerRegistry.instance().addMapLayer(polyStat, False)
         root = QgsProject.instance().layerTreeRoot()
@@ -724,8 +690,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         # get statistics in table
         self.extractAttributeSummary(layer_name, current_scenario)
 
-
-
     def extractAttributeSummary(self, layer_name, scenario):
         # get summary of the attribute
         layer = uf.getLegendLayerByName(self.iface,layer_name)
@@ -739,7 +703,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.clearTable()
         self.updateTable1()
         self.updateTable2()
-
 
     # table window functions
     def updateTable1(self):
@@ -766,16 +729,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
             for i, item in enumerate(value):
                 self.statistics1Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(int(item[14]))))
 
-
-
-
-        """
-        for n,list in enumerate(values):
-            for i, item in enumerate(list):
-                # i is the table row, items mus tbe added as QTableWidgetItems
-                self.statistics1Table.setItem(i,0,QtGui.QTableWidgetItem(str(item[0])))
-                self.statistics1Table.setItem(i,n+1,QtGui.QTableWidgetItem(str(item[15])))
-        """
         self.statistics1Table.horizontalHeader().setResizeMode(0, QtGui.QHeaderView.ResizeToContents)
         self.statistics1Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics1Table.resizeRowsToContents()
@@ -805,8 +758,6 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
         self.statistics2Table.horizontalHeader().setResizeMode(1, QtGui.QHeaderView.Stretch)
         self.statistics2Table.resizeRowsToContents()
         self.statistics2Table.resizeColumnsToContents()
-
-        #self.selectFeatureTable()
 
     def clearTable(self):
         self.statistics1Table.clear()
