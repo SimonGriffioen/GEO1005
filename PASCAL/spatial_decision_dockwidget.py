@@ -69,9 +69,7 @@ class SpatialDecisionDockWidget(QtGui.QDockWidget, FORM_CLASS):
 
         # canvas
         self.clickTool.canvasClicked.connect(self.handleMouseDown)
-
-        #self.dlg = vector_selectbypointDialog()
-        print 'ik vertrouw het wel'
+        
         # GUI
         self.iface.projectRead.connect(self.updateNodeNetworkScenario)
         self.iface.newProjectCreated.connect(self.updateNodeNetworkScenario)
